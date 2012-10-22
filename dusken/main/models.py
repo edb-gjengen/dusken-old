@@ -133,7 +133,7 @@ class Positions(models.Model):
     class Meta:
         db_table = u'positions'
 
-class Members(models.Model):
+class Member(models.Model):
     membersid = models.IntegerField(primary_key=True)
     email = models.CharField(max_length=150, unique=True)
     username = models.CharField(max_length=40, unique=True)
