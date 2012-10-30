@@ -1,5 +1,16 @@
-# Also note: You'll have to insert the output of 'django-admin.py sqlcustom [appname]'
-# into your database.
+# FIXME
+# - Reduce the database more?
+#   - ExpiresformanytomanymembershipDuration
+#   - Institution
+#   - Member has place of study?
+#   - Subgroups
+#   - Positions
+# - Only one type of adress?
+# - ExtendedMemberdetail?
+# - Legacy_id as extended member detail?
+
+# TODO
+# - autofields created, updated
 
 from django.db import models
 
@@ -38,7 +49,7 @@ class NorwegianAddress(models.Model):
     class Meta:
         db_table = u'norwegian_address'
 
-class ExtendedMemberDetails(models.Model):
+class ExtendedMemberDetail(models.Model):
     member_id = models.ForeignKey(Member, primary_key=True, db_column='member_id')
     class Meta:
         db_table = u'extended_member_details'
