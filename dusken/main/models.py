@@ -5,7 +5,7 @@
 #   - Member has place of study?
 #   - Subgroups
 #   - Positions
-# - Only one type of adress?
+# - Only one type of adress? YES
 # - ExtendedMemberdetail?
 # - Legacy_id as extended member detail?
 
@@ -84,6 +84,7 @@ class Group(models.Model):
     class Meta:
         db_table = u'group'
 
+# TODO Remove his and related.
 class GroupMembership(models.Model):
     group_membership_id = models.IntegerField(primary_key=True)
     start_date = models.DateField()
@@ -163,9 +164,3 @@ class MemberhasplaceOfStudy(models.Model):
     place_of_study_id = models.ForeignKey(PlaceOfStudy, db_column='place_of_study_id')
     class Meta:
         db_table = u'membershasplace_of_study'
-
-class SchemaMigrations(models.Model):
-    version = models.CharField(max_length=255, unique=True)
-    class Meta:
-        db_table = u'schema_migrations'
-
