@@ -84,26 +84,6 @@ class Group(models.Model):
     class Meta:
         db_table = u'group'
 
-# TODO Remove his and related.
-class GroupMembership(models.Model):
-    group_membership_id = models.IntegerField(primary_key=True)
-    start_date = models.DateField()
-    member_id = models.ForeignKey(Member, db_column='member_id')
-    group_id = models.ForeignKey(Group, db_column='group_id')
-    membership_duration_id = models.ForeignKey(MembershipDuration, db_column='membership_duration_id')
-    class Meta:
-        db_table = u'group_membership'
-
-
-class PaymentForGroupMembership(models.Model):
-    group_membership_id = models.ForeignKey(GroupMembership, primary_key=True, db_column='group_membership_id')
-    start_date = models.DateField(null=True, blank=True)
-    amount = models.DecimalField(null=True, max_digits=19, decimal_places=4, blank=True)
-    reference = models.CharField(max_length=100, blank=True)
-    note = models.CharField(max_length=500, blank=True)
-    class Meta:
-        db_table = u'payment_for_group_membership'
-
 class Expires(models.Model):
     expires_id = models.IntegerField(primary_key=True)
     monthofyear = models.IntegerField()
@@ -142,15 +122,6 @@ class Position(models.Model):
     is_static = models.NullBooleanField(null=True, blank=True)
     class Meta:
         db_table = u'position'
-
-class PositionInfo(models.Model):
-    position_info_id = models.IntegerField(primary_key=True)
-    position_id = models.ForeignKey(Position, db_column='position_id')
-    group_membership_id = models.ForeignKey(GroupMembership, null=True, db_column='group_membership_id', blank=True)
-    email = models.CharField(max_length=150, blank=True)
-    phonenumber = models.IntegerField(null=True, blank=True)
-    class Meta:
-        db_table = u'position_info'
 
 class PlaceOfStudy(models.Model):
     place_of_study_id = models.IntegerField(primary_key=True)
