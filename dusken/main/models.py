@@ -22,11 +22,11 @@ class Country(models.Model):
 
 class Address(models.Model):
     address_id = models.IntegerField(primary_key=True)
-    postalcode = models.CharField(max_length=10)
     addressline1 = models.CharField(max_length=255)
-    placename = models.CharField(max_length=100)
     addressline2 = models.CharField(max_length=255)
+    placename = models.CharField(max_length=100)
     country_id = models.ForeignKey(Country, db_column='country_id')
+    postalcode = models.CharField(max_length=10)
     class Meta:
         db_table = u'address'
 
@@ -41,13 +41,6 @@ class Member(models.Model):
     address_id = models.ForeignKey(Address, null=True, db_column='address_id', blank=True)
     class Meta:
         db_table = u'member'
-
-class NorwegianAddress(models.Model):
-    norwegian_address_id = models.IntegerField(primary_key=True)
-    postal_code = models.CharField(max_length=10)
-    place_name = models.CharField(max_length=100)
-    class Meta:
-        db_table = u'norwegian_address'
 
 class ExtendedMemberDetail(models.Model):
     member_id = models.ForeignKey(Member, primary_key=True, db_column='member_id')
