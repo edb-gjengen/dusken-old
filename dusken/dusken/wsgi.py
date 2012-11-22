@@ -13,7 +13,17 @@ middleware here, or combine a Django application with an application of another
 framework.
 
 """
-import os
+import os,sys
+
+from os.path import dirname, join
+
+def map_path(target_name=''):
+    '''Enables path names to be decided at runtime.'''
+    return join(dirname(__file__), target_name).replace('\\', '/')
+
+path = map_path("..")
+if path not in sys.path:
+    sys.path.append(path)
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dusken.settings")
 

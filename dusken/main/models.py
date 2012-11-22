@@ -17,7 +17,7 @@ class NorwegianAddress(models.Model):
         db_table = u'norwegian_address'
 
 class ExtendedMemberDetails(models.Model):
-    membersid = models.ForeignKey(Members, primary_key=True, db_column='membersid')
+    membersid = models.ForeignKey(Member, primary_key=True, db_column='membersid')
     class Meta:
         db_table = u'extended_member_details'
 
@@ -32,7 +32,7 @@ class PaymentForMembership(models.Model):
 class Membership(models.Model):
     membershipid = models.IntegerField(primary_key=True)
     startdate = models.DateField()
-    membersid = models.ForeignKey(Members, db_column='membersid')
+    membersid = models.ForeignKey(Member, db_column='membersid')
     membership_durationid = models.ForeignKey(MembershipDuration, db_column='membership_durationid')
     payment_for_membershipid = models.ForeignKey(PaymentForMembership, unique=True, null=True, db_column='payment_for_membershipid', blank=True)
     class Meta:
@@ -110,7 +110,7 @@ class Subgroups(models.Model):
 class GroupMembership(models.Model):
     group_membershipid = models.IntegerField(primary_key=True)
     startdate = models.DateField()
-    membersid = models.ForeignKey(Members, db_column='membersid')
+    membersid = models.ForeignKey(Member, db_column='membersid')
     groupsid = models.ForeignKey(Groups, db_column='groupsid')
     membership_durationid = models.ForeignKey(MembershipDuration, db_column='membership_durationid')
     class Meta:
@@ -146,7 +146,7 @@ class Member(models.Model):
         db_table = u'members'
 
 class MembershasplaceOfStudy(models.Model):
-    membersid = models.ForeignKey(Members, db_column='membersid')
+    membersid = models.ForeignKey(Member, db_column='membersid')
     place_of_studyid = models.ForeignKey(PlaceOfStudy, db_column='place_of_studyid')
     class Meta:
         db_table = u'membershasplace_of_study'
