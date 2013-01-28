@@ -15,7 +15,8 @@ class MemberTest(ResourceTestCase):
 
 		# URI to get the existing member. We'll probably 
 		# need it at one point or another.
-		self.member_url = '/api/v1/member/{0}/'.format(self.member.pk)
+		self.all_members_url = '/api/v1/member/'
+		self.member_url = self.all_members_url + '{}/'.format(self.member.pk)
 
 	def test_get_member(self):
 		"""
@@ -30,4 +31,17 @@ class MemberTest(ResourceTestCase):
 		self.assertKeys(member, [ u'member_id', u'email', u'username', u'phonenumber', u'givenname', u'dateofbirth', u'surname', u'resource_uri' ])
 		self.assertEqual(member['username'], 'robertko')
 		self.assertEqual(member['email'], 'robert.kolner@studentersamfundet.no')
+
+	def test_get_all_members(self):
+		"""
+		Tests that we can get multiple users from the api.
+		"""
+		resp = self.api_client.get(self.all_members_url, format='json')
+		self.assertValidJSONResponse(resp)
+
+		# Check if the returned data is correct:
+		all_members = self.deserialize(resp)['objects']
+		self.assertEqual(len(all_members), 2)
+		
+		# TODO: Check for correctness of data.
 
