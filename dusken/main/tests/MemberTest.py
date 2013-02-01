@@ -4,11 +4,29 @@ from support.test import ResourceTestCase
 from main.models import Member
 
 class MemberTest(ResourceTestCase):
-	fixtures = [ 'members.json' ]
+	fixtures = [ 'testdata.json' ]
 
 	def assertValidMemberData(self, member):
 		self.assertEquals(type(member), dict)	
-		self.assertKeys(member, [ u'member_id', u'email', u'username', u'phonenumber', u'givenname', u'dateofbirth', u'surname', u'resource_uri' ])
+		self.assertKeys(member, [ 
+			u'id', 
+			u'email', 
+			u'username', 
+			u'password',
+			u'phone_number', 
+			u'first_name', 
+			u'last_name',
+			u'date_of_birth',
+			u'legacy_id',
+			u'created',
+			u'updated',
+			u'resource_uri' 
+		])
+		self.assertNotEquals(None,member['id'])
+		self.assertNotEquals(None,member['email'])
+		self.assertNotEquals(None,member['created'])
+		self.assertNotEquals(None,member['updated'])
+		self.assertNotEquals(None,member['resource_uri'])
 
 	def setUp(self):
 		super(MemberTest, self).setUp()
