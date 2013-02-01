@@ -9,3 +9,8 @@ Installation
 * . venv/bin/activate
 * pip install -r requirements.txt
 
+Database Diagram Generation
+===========================
+* sudo apt-get install graphviz libgraphviz-dev 
+* pip install pygraphviz django-extensions
+* python manage.py graph_models -o diagramfile.png main
