@@ -1,23 +1,28 @@
-# TODO
-# - autofields created, updated
-
 from django.db import models
 
 class Country(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
 class Address(models.Model):
     street_address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
     country = models.ForeignKey(Country)
     postal_code = models.CharField(max_length=10)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
 class Institution(models.Model):
     name = models.CharField(max_length=255)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
 class PlaceOfStudy(models.Model):
     from_date = models.DateField()
     institution = models.ForeignKey(Institution)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
 class Member(models.Model):
     email = models.CharField(max_length=150, unique=True)
@@ -30,18 +35,26 @@ class Member(models.Model):
     legacy_id = models.IntegerField(unique=True, null=True, blank=True)
     address = models.ForeignKey(Address, null=True, blank=True)
     place_of_study = models.ManyToManyField(PlaceOfStudy, null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
 class FacebookAuth(models.Model):
     token = models.CharField(max_length=255, unique=True, null=True, blank=True)
     token_expires = models.DateTimeField(null=True, blank=True)
     member = models.OneToOneField(Member, null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     
 class GoogleAuth(models.Model):
     token = models.CharField(max_length=255, unique=True, null=True, blank=True)
     token_expires = models.DateTimeField(null=True, blank=True)
     member = models.OneToOneField(Member, null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
 class ExtendedMemberDetail(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     pass
 
 class PaymentForMembership(models.Model):
@@ -49,6 +62,8 @@ class PaymentForMembership(models.Model):
     sms_payment_id = models.IntegerField(unique=True, null=True, blank=True)
     webshop_payment_id = models.IntegerField(unique=True, null=True, blank=True)
     voucher_id = models.IntegerField(unique=True, null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
 '''
    TODO: should validate end_day_of_month and end_month (use datetime exceptions)
@@ -58,6 +73,8 @@ class MembershipType(models.Model):
     duration_months = models.IntegerField(default=12)
     end_day_of_month = models.IntegerField(default=31)
     end_month = models.IntegerField(default=7)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     def end_date(self):
         import datetime
@@ -80,6 +97,8 @@ class Membership(models.Model):
     mtype = models.ForeignKey(MembershipType, db_column='type')
     payment = models.ForeignKey(PaymentForMembership, unique=True, null=True, blank=True)
     member = models.ForeignKey(Member)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     def expires(self):
         return self.mtype.end_date()
@@ -87,8 +106,12 @@ class Membership(models.Model):
 class Group(models.Model):
     name = models.CharField(max_length=50, unique=True)
     posix_name = models.CharField(max_length=255, unique=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
 class GroupMembership(models.Model):
     start_date = models.DateField()
     member = models.ForeignKey(Member)
     group = models.ForeignKey(Group)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
