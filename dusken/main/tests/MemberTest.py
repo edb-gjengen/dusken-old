@@ -77,7 +77,7 @@ class MemberTest(ResourceTestCase):
 
 		# Check if the returned data is correct:
 		all_members = self.deserialize(resp)['objects']
-		self.assertEqual(len(all_members), 2)
+		self.assertTrue(len(all_members) > 0) # assumes we have *some* data
 		
 		for index in range(len(all_members)):
 			self.assertValidMemberData(all_members[index])
@@ -87,7 +87,7 @@ class MemberTest(ResourceTestCase):
 		Tests that we can get a filtered list from the api.
 		"""
 		data = { 
-			"username" : "robertko"
+			"username" : "robertko" # change if necessary
 		}
 
 		resp = self.api_client.get(self.all_members_url, format='json', data=data)
@@ -99,4 +99,16 @@ class MemberTest(ResourceTestCase):
 
 		member = all_members[0]
 		self.assertValidMemberData(member)
+
+	def test_post_new_member(self):
+		"""
+		Tests that we can correctly put in new users.
+		"""
+		pass # TODO!
+
+	def test_post_change_member(self):
+		"""
+		Tests that we can correctly change data of existing members.
+		"""
+		pass # TODO!
 
