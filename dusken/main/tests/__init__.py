@@ -1,1 +1,1 @@
-from MemberTest import *
+from member import *
