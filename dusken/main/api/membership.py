@@ -24,5 +24,6 @@ class MembershipResource(ModelResource):
         }
 
     def dehydrate(self, bundle):
-        bundle.data['expires'] = bundle.obj.expires()
+        bundle.data['expires'] = str(bundle.obj.expires().date())
+        bundle.data['member'] = bundle.obj.member.id
         return bundle
