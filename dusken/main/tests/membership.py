@@ -20,10 +20,10 @@ class MembershipTest(ResourceTestCase):
             u'resource_uri' 
             ])
         self.assertNotEquals(None,membership['id'])
-        self.assertNotEquals(None,membership['start_type'])
+        self.assertNotEquals(None,membership['start_date'])
         self.assertNotEquals(None,membership['expires'])
         self.assertNotEquals(None,membership['mtype'])
-        self.assertNotEquals(None,membership['membership'])
+        self.assertNotEquals(None,membership['member'])
         self.assertNotEquals(None,membership['created'])
         self.assertNotEquals(None,membership['updated'])
         self.assertNotEquals(None,membership['resource_uri'])
