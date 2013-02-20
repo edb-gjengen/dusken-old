@@ -24,24 +24,24 @@ class GroupTest(ResourceTestCase):
 		self.assertNotEquals(None,member['resource_uri'])
 
 	def setUp(self):
-		super(Group, self).setUp()
+		super(GroupTest, self).setUp()
 
 		# URI to get all groups
-		self.all_groups_url = '/api/v1/group/'
+		self.groups_url = '/api/v1/group/'
 
 	def test_request_types(self):
 		"""
 		Tests that the endpoint responds to correct types of requests.
 		"""
-		resp = self.api_client.get(self.all_groups_url, format='json')
+		resp = self.api_client.get(self.groups_url, format='json')
 		self.assertNotEquals(resp.status_code, 405)
 
-		resp = self.api_client.post(self.all_groups_url)
+		resp = self.api_client.post(self.groups_url)
 		self.assertNotEquals(resp.status_code, 405)
 
-		resp = self.api_client.put(self.all_groups_url)
+		resp = self.api_client.put(self.groups_url)
 		self.assertHttpMethodNotAllowed(resp)
 
-		resp = self.api_client.delete(self.all_groups_url)
+		resp = self.api_client.delete(self.groups_url)
 		self.assertHttpMethodNotAllowed(resp)
 
