@@ -15,6 +15,7 @@ class MemberResource(ModelResource):
         list_allowed_methods = [ 'get', 'post' ]
         detail_allowed_methods = [ 'get', 'post' ]
         authorization = Authorization() # TODO: for dev (VERY INSECURE)
+        excludes = [ 'password' ]
         filtering = {
             'username' : ALL,
             'epost' : ALL,

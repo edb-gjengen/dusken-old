@@ -12,7 +12,6 @@ class MemberTest(ResourceTestCase):
             u'id', 
             u'email', 
             u'username', 
-            u'password',
             u'phone_number', 
             u'first_name', 
             u'last_name',
@@ -100,15 +99,15 @@ class MemberTest(ResourceTestCase):
         member = all_members[0]
         self.assertValidMemberData(member)
 
-	def test_post_new_member(self):
-		"""
-		Tests that we can correctly put in new users.
-		"""
-		pass # TODO!
+    def test_post_new_member(self):
+        """
+        Tests that we can correctly put in new users.
+        """
+        pass # TODO!
 
-	def test_post_change_member(self):
-		"""
-		Tests that we can correctly change data of existing members.
-		"""
-		pass # TODO!
+    def test_post_change_member(self):
+        """
+        Tests that we can correctly change data of existing members.
+        """
+        pass # TODO!
 
