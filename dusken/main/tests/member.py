@@ -6,6 +6,7 @@ from main.models import Member
 
 class MemberTest(ResourceTestCase):
     fixtures = [ 'testdata.json' ]
+    standard_username = 'robert'
 
     def assertValidMemberData(self, member):
         self.assertEquals(type(member), dict)
@@ -33,7 +34,7 @@ class MemberTest(ResourceTestCase):
 
         # Get the preloaded member, which will be used for 
         # comparison with fetched object.
-        self.member = User.objects.get(username='robert')
+        self.member = User.objects.get(username=self.standard_username)
         self.member_profile = self.member.get_profile()
 
         # URI to get the existing member. We'll probably 
@@ -131,9 +132,46 @@ class MemberTest(ResourceTestCase):
         user_profile = user.get_profile()
         self.assertEquals(user_profile.phone_number, data['phone_number'])
 
-    def test_post_change_member(self):
+    def test_patch_change_member(self):
         """
         Tests that we can correctly change data of existing members.
         """
-        pass # TODO!
+        data = {
+            'password' : 'unodostres',
+            'email' : 'kak-edb@studentersamfundet.no',
+            'phone_number' : 90541242
+        }
+
+        resp = self.api_client.patch(self.member_url, 
+            format='json', 
+            data=data)
+        self.assertHttpAccepted(resp)
+
+        # Check if user was actually updated:
+        user = User.objects.get(username=self.standard_username)
+        self.assertNotEquals(user.password, data['password']) # just to ensure that it's encrypted
+        self.assertEquals(user.email, data['email'])
+        self.assertEquals(user.get_profile().phone_number, data['phone_number'])
+
+    def test_patch_invalid_change_member(self):
+        """
+        Tests that we can't change fields that shouldn't be possible to be changed.
+        """
+        oldusername = self.member.username
+        newusername = oldusername + 'lolzorz'
+
+        data = { 'username' : newusername }
+        resp = self.api_client.patch(self.member_url, format='json', data=data)
+        self.assertHttpForbidden(resp)
+        
+        try:
+            User.objects.get(username=oldusername)
+        except User.DoesNotExist:
+            self.fail("Username was changed. It is not supposed to.")
+
+        try:
+            User.objects.get(username=newusername)
+            self.fail("You will never see this message. If you do, call +7 331 24 337 for further instructions.")
+        except User.DoesNotExist:
+            pass # ...the test.
 
