@@ -1,5 +1,6 @@
 import logging
 
+from django.contrib.auth.models import User
 from support.test import ResourceTestCase
 from main.models import Member
 
@@ -32,7 +33,7 @@ class MemberTest(ResourceTestCase):
 
         # Get the preloaded member, which will be used for 
         # comparison with fetched object.
-        self.member = Member.objects.get(username='robertko')
+        self.member = User.objects.get(username='robert').get_profile()
 
         # URI to get the existing member. We'll probably 
         # need it at one point or another.
@@ -86,7 +87,7 @@ class MemberTest(ResourceTestCase):
         Tests that we can get a filtered list from the api.
         """
         data = { 
-            "username" : "robertko"
+            "username" : "robert"
         }
 
         resp = self.api_client.get(self.all_members_url, format='json', data=data)
