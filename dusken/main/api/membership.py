@@ -11,6 +11,7 @@ class MembershipResource(ModelResource):
     (1) /api/v1/membership/
     """
     member = fields.ForeignKey(MemberResource, 'member')
+    expires = fields.DateTimeField(attribute='expires', readonly=True)
 
     class Meta:
         queryset = Membership.objects.all()
@@ -24,8 +25,7 @@ class MembershipResource(ModelResource):
         }
 
     def dehydrate(self, bundle):
-        bundle.data['expires'] = str(bundle.obj.expires().date())
         bundle.data['member'] = bundle.obj.member.id
         bundle.data['mtype'] = bundle.obj.mtype.id
-        bundle.data['payment'] = bundle.obj.payment.id
+        bundle.data['payment'] = None if not bundle.obj.payment else bundle.obj.payment.id
         return bundle

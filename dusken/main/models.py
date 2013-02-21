@@ -29,6 +29,11 @@ class Member(models.Model):
     # Auth:
     user = models.OneToOneField(User)
 
+    def username(self): return self.user.username
+    def email(self): return self.user.email
+    def first_name(self): return self.user.first_name
+    def last_name(self): return self.user.last_name
+
     # Profile fields:
     phone_number = models.IntegerField(unique=True, null=True, blank=True)
     date_of_birth = models.DateField(blank=True, null=True)
