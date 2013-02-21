@@ -1,6 +1,8 @@
 from tastypie import fields
-from tastypie.resources import ModelResource, ALL
 from tastypie.authorization import Authorization
+from tastypie.exceptions import ImmediateHttpResponse
+from tastypie.http import HttpForbidden
+from tastypie.resources import ModelResource, ALL
 from main.models import *
 
 
@@ -18,8 +20,8 @@ class MemberResource(ModelResource):
     class Meta:
         queryset = Member.objects.all()
         resource_name = 'member'
-        list_allowed_methods = [ 'get', 'post' ]
-        detail_allowed_methods = [ 'get', 'post' ]
+        list_allowed_methods = [ 'get', 'post', 'patch' ]
+        detail_allowed_methods = [ 'get', 'post', 'patch' ]
         authorization = Authorization() # TODO: for dev (VERY INSECURE)
         excludes = [ 'password' ]
         filtering = {
@@ -31,6 +33,8 @@ class MemberResource(ModelResource):
         }
 
     def build_filters(self, filters=None):
+        # This is actually vanilla implementation and currently redundant, but I didn't
+        # delete it in case we're going to use it for something.
         if filters is None:
             filters = {}
 
@@ -38,6 +42,9 @@ class MemberResource(ModelResource):
         return orm_filters
 
     def apply_filters(self, request, applicable_filters):
+        # Extra filters are used for filtering by attributes in User class. Find out if there
+        # are any, and if so, apply them.
+
         extra_filters = {}
         if 'username__exact' in applicable_filters:
             extra_filters['username'] = applicable_filters.pop('username__exact')
@@ -49,27 +56,51 @@ class MemberResource(ModelResource):
             extra_filters['email'] = applicable_filters.pop('email__exact')
 
 
-        filters = super(MemberResource, self).apply_filters(request, applicable_filters)
+        filtered = super(MemberResource, self).apply_filters(request, applicable_filters)
 
         for key,value in extra_filters.items():
-            filters = filter(lambda m: getattr(m.user, key) == value, filters)
+            filtered = filter(lambda m: getattr(m.user, key) == value, filtered)
 
-        return filters
+        return filtered
 
     def hydrate(self, bundle):
-        if bundle.obj.user_id == None:
-            possible_fields = [ 'username', 'password', 'email', 'first_name', 'last_name' ]
-            user_params = {}
+        """
+        Catches POST and PATCH requests and intercepts data that are supposed to go into 
+        User class and not in Member.
+        """
 
-            for field in possible_fields:
-                data = bundle.data.get(field)
-                if data is not None:
-                    user_params[field] = data
+        # Fields that are in the User class and not in Member:
+        possible_fields = [ 'username', 'password', 'email', 'first_name', 'last_name' ]
 
+        # From above possibilities, contains fields that are actually in the request:
+        user_params = {}
+
+        for field in possible_fields:
+            if field in bundle.data:
+                data = bundle.data.pop(field)
+                user_params[field] = data
+
+        # Check if we also need to create User when creating Member:
+        if bundle.obj.user_id == None: # true if new user
             user = User(**user_params)
             user.save()
             bundle.data['user_id'] = user.id
             bundle.obj.user_id = user.id
+        else:
+            # This happens only if we're editing existing user.
+            for key, value in user_params.items():
+                if key == 'password':
+                    # Password has to be hashed before it can be set:
+                    bundle.obj.user.set_password(value)
+                elif key == 'username':
+                    if value != bundle.obj.user.username:
+                        # We can't change username.
+                        raise ImmediateHttpResponse(HttpForbidden("You can't change your username."))
+                else:
+                    # For all other fields, just change the damn field:
+                    setattr(bundle.obj.user, key, value)
+            # hydrate is normally NOT used for updating Model objects, so we have to save it manually:
+            bundle.obj.user.save()
         return bundle
 
     def dehydrate(self, bundle):
