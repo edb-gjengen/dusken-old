@@ -56,5 +56,21 @@ class MemberResource(ModelResource):
 
         return filters
 
+    def hydrate(self, bundle):
+        if bundle.obj.user_id == None:
+            possible_fields = [ 'username', 'password', 'email', 'first_name', 'last_name' ]
+            user_params = {}
+
+            for field in possible_fields:
+                data = bundle.data.get(field)
+                if data is not None:
+                    user_params[field] = data
+
+            user = User(**user_params)
+            user.save()
+            bundle.data['user_id'] = user.id
+            bundle.obj.user_id = user.id
+        return bundle
+
     def dehydrate(self, bundle):
         return bundle
