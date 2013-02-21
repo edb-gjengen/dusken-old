@@ -108,7 +108,28 @@ class MemberTest(ResourceTestCase):
         """
         Tests that we can correctly put in new users.
         """
-        pass # TODO!
+        data = {
+            'username' : 'testmemberUno',
+            'password' : 'unodostres',
+            'email' : 'kak-edb@studentersamfundet.no',
+            'phone_number' : 90567260
+        }
+
+        resp = self.api_client.post(self.all_members_url, 
+            format='json', 
+            data=data)
+        self.assertHttpCreated(resp)
+
+        # Check if user was actually put into database:
+        try:
+            user = User.objects.get(username=data['username'])
+        except User.DoesNotExist:
+            self.fail("Inserted user does not exist.")
+        self.assertNotEquals(None, user)
+        self.assertEquals(user.email, data['email'])
+
+        user_profile = user.get_profile()
+        self.assertEquals(user_profile.phone_number, data['phone_number'])
 
     def test_post_change_member(self):
         """
