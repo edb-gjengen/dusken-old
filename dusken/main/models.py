@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 class Country(models.Model):
@@ -25,12 +26,11 @@ class PlaceOfStudy(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
 class Member(models.Model):
-    email = models.CharField(max_length=150, unique=True)
-    password = models.CharField(max_length=255)
-    username = models.CharField(max_length=40, unique=True, null=True, blank=True)
+    # Auth:
+    user = models.OneToOneField(User)
+
+    # Profile fields:
     phone_number = models.IntegerField(unique=True, null=True, blank=True)
-    first_name = models.CharField(max_length=200, blank=True, null=True)
-    last_name= models.CharField(max_length=200, blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     legacy_id = models.IntegerField(unique=True, null=True, blank=True)
     address = models.ForeignKey(Address, null=True, blank=True)
