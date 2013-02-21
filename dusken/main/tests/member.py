@@ -33,7 +33,8 @@ class MemberTest(ResourceTestCase):
 
         # Get the preloaded member, which will be used for 
         # comparison with fetched object.
-        self.member = User.objects.get(username='robert').get_profile()
+        self.member = User.objects.get(username='robert')
+        self.member_profile = self.member.get_profile()
 
         # URI to get the existing member. We'll probably 
         # need it at one point or another.
@@ -87,18 +88,21 @@ class MemberTest(ResourceTestCase):
         Tests that we can get a filtered list from the api.
         """
         data = { 
-            "username" : "robert"
+            "username" : self.member.username,
+            "email" : self.member.email,
+            "phone_number" : self.member_profile.phone_number
         }
 
-        resp = self.api_client.get(self.all_members_url, format='json', data=data)
-        self.assertValidJSONResponse(resp)
+        for key, value in data.items():
+            resp = self.api_client.get(self.all_members_url, format='json', data={ key : value })
+            self.assertValidJSONResponse(resp)
 
-        # Check if the returned data is correct:
-        all_members = self.deserialize(resp)['objects']
-        self.assertEqual(len(all_members), 1)
+            # Check if the returned data is correct:
+            all_members = self.deserialize(resp)['objects']
+            self.assertEqual(len(all_members), 1, "Wrong amount of returned members for ({},{}): {} ".format(key,value,len(all_members)))
 
-        member = all_members[0]
-        self.assertValidMemberData(member)
+            member = all_members[0]
+            self.assertValidMemberData(member)
 
     def test_post_new_member(self):
         """
