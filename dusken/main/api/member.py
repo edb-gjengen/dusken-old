@@ -84,14 +84,17 @@ class MemberResource(ModelResource):
         if bundle.obj.user_id == None: # true if new user
             user = User(**user_params)
             user.save()
+            self.member_created(**user_params)
             bundle.data['user_id'] = user.id
             bundle.obj.user_id = user.id
         else:
             # This happens only if we're editing existing user.
+            new_password = None # Needed later if we're changing password.
             for key, value in user_params.items():
                 if key == 'password':
                     # Password has to be hashed before it can be set:
                     bundle.obj.user.set_password(value)
+                    new_password = value
                 elif key == 'username':
                     if value != bundle.obj.user.username:
                         # We can't change username.
@@ -101,7 +104,21 @@ class MemberResource(ModelResource):
                     setattr(bundle.obj.user, key, value)
             # hydrate is normally NOT used for updating Model objects, so we have to save it manually:
             bundle.obj.user.save()
+            if new_password is not None: 
+                self.member_password_changed(bundle.obj.user.username, new_password)
         return bundle
 
     def dehydrate(self, bundle):
         return bundle
+
+    def member_created(self, **kwargs):
+        """
+        TODO: This function is called every time new user is created.
+        """
+        pass
+
+    def member_password_changed(self, username, new_password):
+        """
+        TODO: This function is called every time user changes his password.
+        """
+        pass
