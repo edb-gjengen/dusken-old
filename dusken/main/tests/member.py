@@ -46,18 +46,19 @@ class MemberTest(ResourceTestCase):
         """
         Tests that the endpoint responds to correct types of requests.
         """
-        resp = self.api_client.get(self.all_members_url, format='json')
-        self.assertNotEquals(resp.status_code, 405)
+        # /api/v1/member/
+        self.assertHttpOK(self.api_client.get(self.all_members_url))
+        self.assertHttpCreated(self.api_client.post(self.all_members_url))
+        self.assertHttpMethodNotAllowed(self.api_client.patch(self.all_members_url, data={}))
+        self.assertHttpMethodNotAllowed(self.api_client.put(self.all_members_url))
+        self.assertHttpMethodNotAllowed(self.api_client.delete(self.all_members_url))
 
-        resp = self.api_client.post(self.all_members_url)
-        self.assertNotEquals(resp.status_code, 405)
-
-        resp = self.api_client.put(self.all_members_url)
-        self.assertHttpMethodNotAllowed(resp)
-
-        resp = self.api_client.delete(self.all_members_url)
-        self.assertHttpMethodNotAllowed(resp)
-
+        # /api/v1/member/<pk>/
+        self.assertHttpOK(self.api_client.get(self.member_url))
+        self.assertHttpMethodNotAllowed(self.api_client.post(self.member_url))
+        self.assertHttpAccepted(self.api_client.patch(self.member_url, data={}))
+        self.assertHttpMethodNotAllowed(self.api_client.put(self.member_url))
+        self.assertHttpMethodNotAllowed(self.api_client.delete(self.member_url))
 
     def test_get_member(self):
         """
