@@ -20,8 +20,8 @@ class MemberResource(ModelResource):
     class Meta:
         queryset = Member.objects.all()
         resource_name = 'member'
-        list_allowed_methods = [ 'get', 'post', 'patch' ]
-        detail_allowed_methods = [ 'get', 'post', 'patch' ]
+        list_allowed_methods = [ 'get', 'post' ]
+        detail_allowed_methods = [ 'get', 'patch' ]
         authorization = Authorization() # TODO: for dev (VERY INSECURE)
         excludes = [ 'password' ]
         filtering = {
