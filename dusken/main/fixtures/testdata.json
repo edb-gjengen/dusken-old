@@ -1,1 +1,1189 @@
-[{"pk": 9, "model": "contenttypes.contenttype", "fields": {"model": "address", "name": "address", "app_label": "main"}}, {"pk": 21, "model": "contenttypes.contenttype", "fields": {"model": "apiaccess", "name": "api access", "app_label": "tastypie"}}, {"pk": 22, "model": "contenttypes.contenttype", "fields": {"model": "apikey", "name": "api key", "app_label": "tastypie"}}, {"pk": 4, "model": "contenttypes.contenttype", "fields": {"model": "contenttype", "name": "content type", "app_label": "contenttypes"}}, {"pk": 8, "model": "contenttypes.contenttype", "fields": {"model": "country", "name": "country", "app_label": "main"}}, {"pk": 15, "model": "contenttypes.contenttype", "fields": {"model": "extendedmemberdetail", "name": "extended member detail", "app_label": "main"}}, {"pk": 13, "model": "contenttypes.contenttype", "fields": {"model": "facebookauth", "name": "facebook auth", "app_label": "main"}}, {"pk": 14, "model": "contenttypes.contenttype", "fields": {"model": "googleauth", "name": "google auth", "app_label": "main"}}, {"pk": 19, "model": "contenttypes.contenttype", "fields": {"model": "group", "name": "group", "app_label": "main"}}, {"pk": 2, "model": "contenttypes.contenttype", "fields": {"model": "group", "name": "group", "app_label": "auth"}}, {"pk": 20, "model": "contenttypes.contenttype", "fields": {"model": "groupmembership", "name": "group membership", "app_label": "main"}}, {"pk": 10, "model": "contenttypes.contenttype", "fields": {"model": "institution", "name": "institution", "app_label": "main"}}, {"pk": 7, "model": "contenttypes.contenttype", "fields": {"model": "logentry", "name": "log entry", "app_label": "admin"}}, {"pk": 12, "model": "contenttypes.contenttype", "fields": {"model": "member", "name": "member", "app_label": "main"}}, {"pk": 18, "model": "contenttypes.contenttype", "fields": {"model": "membership", "name": "membership", "app_label": "main"}}, {"pk": 17, "model": "contenttypes.contenttype", "fields": {"model": "membershiptype", "name": "membership type", "app_label": "main"}}, {"pk": 16, "model": "contenttypes.contenttype", "fields": {"model": "paymentformembership", "name": "payment for membership", "app_label": "main"}}, {"pk": 1, "model": "contenttypes.contenttype", "fields": {"model": "permission", "name": "permission", "app_label": "auth"}}, {"pk": 11, "model": "contenttypes.contenttype", "fields": {"model": "placeofstudy", "name": "place of study", "app_label": "main"}}, {"pk": 5, "model": "contenttypes.contenttype", "fields": {"model": "session", "name": "session", "app_label": "sessions"}}, {"pk": 6, "model": "contenttypes.contenttype", "fields": {"model": "site", "name": "site", "app_label": "sites"}}, {"pk": 3, "model": "contenttypes.contenttype", "fields": {"model": "user", "name": "user", "app_label": "auth"}}, {"pk": "e45f21e171700c05d2988c2138719e27", "model": "sessions.session", "fields": {"expire_date": "2013-03-07T11:54:38Z", "session_data": "MTFmMWM0Y2M2MjUxMzM1MjUyNWM1YjMxNjdjNjljNWRiN2Q2YzQ1NTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQSKAQF1Lg==\n"}}, {"pk": 1, "model": "sites.site", "fields": {"domain": "example.com", "name": "example.com"}}, {"pk": 1, "model": "main.country", "fields": {"updated": "2013-02-21T12:34:56Z", "name": "Norge", "created": "2013-02-21T12:34:56Z"}}, {"pk": 2, "model": "main.address", "fields": {"city": "Oslo", "updated": "2013-02-21T12:35:25Z", "created": "2013-02-21T12:35:25Z", "country": 1, "postal_code": "0266", "street_address": "Odins gate 12A H0401"}}, {"pk": 1, "model": "main.institution", "fields": {"updated": "2013-02-21T12:34:23Z", "name": "Universitetet i Oslo", "created": "2013-02-21T12:34:23Z"}}, {"pk": 1, "model": "main.placeofstudy", "fields": {"from_date": "2008-08-01", "updated": "2013-02-21T12:37:11Z", "institution": 1, "created": "2013-02-21T12:37:11Z"}}, {"pk": 1, "model": "main.membershiptype", "fields": {"duration_months": 12, "updated": "2013-02-21T12:36:18Z", "name": "Medlem av DNS", "created": "2013-02-21T12:36:18Z", "end_month": 7, "end_day_of_month": 31}}, {"pk": 1, "model": "main.membership", "fields": {"member": 1, "updated": "2013-02-21T12:36:45Z", "created": "2013-02-21T12:36:45Z", "payment": null, "mtype": 1, "start_date": "2013-01-01"}}, {"pk": 1, "model": "main.group", "fields": {"updated": "2013-02-21T12:34:43Z", "created": "2013-02-21T12:34:43Z", "name": "KAK: EDB", "posix_name": "edb"}}, {"pk": 1, "model": "main.groupmembership", "fields": {"member": 1, "updated": "2013-02-21T12:35:52Z", "group": 1, "start_date": "2011-09-01", "created": "2013-02-21T12:35:52Z"}}, {"pk": 19, "model": "auth.permission", "fields": {"codename": "add_logentry", "name": "Can add log entry", "content_type": 7}}, {"pk": 20, "model": "auth.permission", "fields": {"codename": "change_logentry", "name": "Can change log entry", "content_type": 7}}, {"pk": 21, "model": "auth.permission", "fields": {"codename": "delete_logentry", "name": "Can delete log entry", "content_type": 7}}, {"pk": 4, "model": "auth.permission", "fields": {"codename": "add_group", "name": "Can add group", "content_type": 2}}, {"pk": 5, "model": "auth.permission", "fields": {"codename": "change_group", "name": "Can change group", "content_type": 2}}, {"pk": 6, "model": "auth.permission", "fields": {"codename": "delete_group", "name": "Can delete group", "content_type": 2}}, {"pk": 1, "model": "auth.permission", "fields": {"codename": "add_permission", "name": "Can add permission", "content_type": 1}}, {"pk": 2, "model": "auth.permission", "fields": {"codename": "change_permission", "name": "Can change permission", "content_type": 1}}, {"pk": 3, "model": "auth.permission", "fields": {"codename": "delete_permission", "name": "Can delete permission", "content_type": 1}}, {"pk": 7, "model": "auth.permission", "fields": {"codename": "add_user", "name": "Can add user", "content_type": 3}}, {"pk": 8, "model": "auth.permission", "fields": {"codename": "change_user", "name": "Can change user", "content_type": 3}}, {"pk": 9, "model": "auth.permission", "fields": {"codename": "delete_user", "name": "Can delete user", "content_type": 3}}, {"pk": 10, "model": "auth.permission", "fields": {"codename": "add_contenttype", "name": "Can add content type", "content_type": 4}}, {"pk": 11, "model": "auth.permission", "fields": {"codename": "change_contenttype", "name": "Can change content type", "content_type": 4}}, {"pk": 12, "model": "auth.permission", "fields": {"codename": "delete_contenttype", "name": "Can delete content type", "content_type": 4}}, {"pk": 25, "model": "auth.permission", "fields": {"codename": "add_address", "name": "Can add address", "content_type": 9}}, {"pk": 26, "model": "auth.permission", "fields": {"codename": "change_address", "name": "Can change address", "content_type": 9}}, {"pk": 27, "model": "auth.permission", "fields": {"codename": "delete_address", "name": "Can delete address", "content_type": 9}}, {"pk": 22, "model": "auth.permission", "fields": {"codename": "add_country", "name": "Can add country", "content_type": 8}}, {"pk": 23, "model": "auth.permission", "fields": {"codename": "change_country", "name": "Can change country", "content_type": 8}}, {"pk": 24, "model": "auth.permission", "fields": {"codename": "delete_country", "name": "Can delete country", "content_type": 8}}, {"pk": 43, "model": "auth.permission", "fields": {"codename": "add_extendedmemberdetail", "name": "Can add extended member detail", "content_type": 15}}, {"pk": 44, "model": "auth.permission", "fields": {"codename": "change_extendedmemberdetail", "name": "Can change extended member detail", "content_type": 15}}, {"pk": 45, "model": "auth.permission", "fields": {"codename": "delete_extendedmemberdetail", "name": "Can delete extended member detail", "content_type": 15}}, {"pk": 37, "model": "auth.permission", "fields": {"codename": "add_facebookauth", "name": "Can add facebook auth", "content_type": 13}}, {"pk": 38, "model": "auth.permission", "fields": {"codename": "change_facebookauth", "name": "Can change facebook auth", "content_type": 13}}, {"pk": 39, "model": "auth.permission", "fields": {"codename": "delete_facebookauth", "name": "Can delete facebook auth", "content_type": 13}}, {"pk": 40, "model": "auth.permission", "fields": {"codename": "add_googleauth", "name": "Can add google auth", "content_type": 14}}, {"pk": 41, "model": "auth.permission", "fields": {"codename": "change_googleauth", "name": "Can change google auth", "content_type": 14}}, {"pk": 42, "model": "auth.permission", "fields": {"codename": "delete_googleauth", "name": "Can delete google auth", "content_type": 14}}, {"pk": 55, "model": "auth.permission", "fields": {"codename": "add_group", "name": "Can add group", "content_type": 19}}, {"pk": 56, "model": "auth.permission", "fields": {"codename": "change_group", "name": "Can change group", "content_type": 19}}, {"pk": 57, "model": "auth.permission", "fields": {"codename": "delete_group", "name": "Can delete group", "content_type": 19}}, {"pk": 58, "model": "auth.permission", "fields": {"codename": "add_groupmembership", "name": "Can add group membership", "content_type": 20}}, {"pk": 59, "model": "auth.permission", "fields": {"codename": "change_groupmembership", "name": "Can change group membership", "content_type": 20}}, {"pk": 60, "model": "auth.permission", "fields": {"codename": "delete_groupmembership", "name": "Can delete group membership", "content_type": 20}}, {"pk": 28, "model": "auth.permission", "fields": {"codename": "add_institution", "name": "Can add institution", "content_type": 10}}, {"pk": 29, "model": "auth.permission", "fields": {"codename": "change_institution", "name": "Can change institution", "content_type": 10}}, {"pk": 30, "model": "auth.permission", "fields": {"codename": "delete_institution", "name": "Can delete institution", "content_type": 10}}, {"pk": 34, "model": "auth.permission", "fields": {"codename": "add_member", "name": "Can add member", "content_type": 12}}, {"pk": 35, "model": "auth.permission", "fields": {"codename": "change_member", "name": "Can change member", "content_type": 12}}, {"pk": 36, "model": "auth.permission", "fields": {"codename": "delete_member", "name": "Can delete member", "content_type": 12}}, {"pk": 52, "model": "auth.permission", "fields": {"codename": "add_membership", "name": "Can add membership", "content_type": 18}}, {"pk": 53, "model": "auth.permission", "fields": {"codename": "change_membership", "name": "Can change membership", "content_type": 18}}, {"pk": 54, "model": "auth.permission", "fields": {"codename": "delete_membership", "name": "Can delete membership", "content_type": 18}}, {"pk": 49, "model": "auth.permission", "fields": {"codename": "add_membershiptype", "name": "Can add membership type", "content_type": 17}}, {"pk": 50, "model": "auth.permission", "fields": {"codename": "change_membershiptype", "name": "Can change membership type", "content_type": 17}}, {"pk": 51, "model": "auth.permission", "fields": {"codename": "delete_membershiptype", "name": "Can delete membership type", "content_type": 17}}, {"pk": 46, "model": "auth.permission", "fields": {"codename": "add_paymentformembership", "name": "Can add payment for membership", "content_type": 16}}, {"pk": 47, "model": "auth.permission", "fields": {"codename": "change_paymentformembership", "name": "Can change payment for membership", "content_type": 16}}, {"pk": 48, "model": "auth.permission", "fields": {"codename": "delete_paymentformembership", "name": "Can delete payment for membership", "content_type": 16}}, {"pk": 31, "model": "auth.permission", "fields": {"codename": "add_placeofstudy", "name": "Can add place of study", "content_type": 11}}, {"pk": 32, "model": "auth.permission", "fields": {"codename": "change_placeofstudy", "name": "Can change place of study", "content_type": 11}}, {"pk": 33, "model": "auth.permission", "fields": {"codename": "delete_placeofstudy", "name": "Can delete place of study", "content_type": 11}}, {"pk": 13, "model": "auth.permission", "fields": {"codename": "add_session", "name": "Can add session", "content_type": 5}}, {"pk": 14, "model": "auth.permission", "fields": {"codename": "change_session", "name": "Can change session", "content_type": 5}}, {"pk": 15, "model": "auth.permission", "fields": {"codename": "delete_session", "name": "Can delete session", "content_type": 5}}, {"pk": 16, "model": "auth.permission", "fields": {"codename": "add_site", "name": "Can add site", "content_type": 6}}, {"pk": 17, "model": "auth.permission", "fields": {"codename": "change_site", "name": "Can change site", "content_type": 6}}, {"pk": 18, "model": "auth.permission", "fields": {"codename": "delete_site", "name": "Can delete site", "content_type": 6}}, {"pk": 61, "model": "auth.permission", "fields": {"codename": "add_apiaccess", "name": "Can add api access", "content_type": 21}}, {"pk": 62, "model": "auth.permission", "fields": {"codename": "change_apiaccess", "name": "Can change api access", "content_type": 21}}, {"pk": 63, "model": "auth.permission", "fields": {"codename": "delete_apiaccess", "name": "Can delete api access", "content_type": 21}}, {"pk": 64, "model": "auth.permission", "fields": {"codename": "add_apikey", "name": "Can add api key", "content_type": 22}}, {"pk": 65, "model": "auth.permission", "fields": {"codename": "change_apikey", "name": "Can change api key", "content_type": 22}}, {"pk": 66, "model": "auth.permission", "fields": {"codename": "delete_apikey", "name": "Can delete api key", "content_type": 22}}, {"pk": 1, "model": "auth.user", "fields": {"username": "robert", "first_name": "", "last_name": "", "is_active": true, "is_superuser": true, "is_staff": true, "last_login": "2013-02-21T11:54:38Z", "groups": [], "user_permissions": [], "password": "pbkdf2_sha256$10000$PI7j2wfLeR0U$ng0WLLqp/9k2TO7IKQ5DhzrakmP7Yf04aV2CVaT0THU=", "email": "robert.kolner@gmail.com", "date_joined": "2013-02-21T11:28:36Z"}}, {"pk": 2, "model": "auth.user", "fields": {"username": "testersen", "first_name": "", "last_name": "", "is_active": true, "is_superuser": false, "is_staff": false, "last_login": "2013-02-21T11:54:51Z", "groups": [], "user_permissions": [], "password": "pbkdf2_sha256$10000$vl9siKAR2xQe$UT2qewJXnotnd59+tZhL9ky9xpvx/hB3H5KaDGG/HmM=", "email": "", "date_joined": "2013-02-21T11:54:51Z"}}, {"pk": 1, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2013-02-21T11:54:51Z", "object_repr": "testersen", "object_id": "2", "change_message": "", "user": 1, "content_type": 3}}, {"pk": 1, "model": "main.member", "fields": {"phone_number": 90567268, "updated": "2013-02-21T12:33:29Z", "created": "2013-02-21T12:33:29Z", "place_of_study": [1], "date_of_birth": "1988-12-31", "user": 1, "legacy_id": null, "address": 2}}, {"pk": 2, "model": "main.member", "fields": {"phone_number": null, "updated": "2013-02-21T12:55:58Z", "created": "2013-02-21T12:55:58Z", "place_of_study": [], "date_of_birth": null, "user": 2, "legacy_id": null, "address": null}}]
+[
+    {
+        "fields": {
+            "app_label": "main", 
+            "model": "address", 
+            "name": "address"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 9
+    }, 
+    {
+        "fields": {
+            "app_label": "tastypie", 
+            "model": "apiaccess", 
+            "name": "api access"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 21
+    }, 
+    {
+        "fields": {
+            "app_label": "tastypie", 
+            "model": "apikey", 
+            "name": "api key"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 22
+    }, 
+    {
+        "fields": {
+            "app_label": "contenttypes", 
+            "model": "contenttype", 
+            "name": "content type"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 4
+    }, 
+    {
+        "fields": {
+            "app_label": "main", 
+            "model": "country", 
+            "name": "country"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 8
+    }, 
+    {
+        "fields": {
+            "app_label": "main", 
+            "model": "extendedmemberdetail", 
+            "name": "extended member detail"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 15
+    }, 
+    {
+        "fields": {
+            "app_label": "main", 
+            "model": "facebookauth", 
+            "name": "facebook auth"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 13
+    }, 
+    {
+        "fields": {
+            "app_label": "main", 
+            "model": "googleauth", 
+            "name": "google auth"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 14
+    }, 
+    {
+        "fields": {
+            "app_label": "main", 
+            "model": "group", 
+            "name": "group"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 19
+    }, 
+    {
+        "fields": {
+            "app_label": "auth", 
+            "model": "group", 
+            "name": "group"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 2
+    }, 
+    {
+        "fields": {
+            "app_label": "main", 
+            "model": "groupmembership", 
+            "name": "group membership"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 20
+    }, 
+    {
+        "fields": {
+            "app_label": "main", 
+            "model": "institution", 
+            "name": "institution"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 10
+    }, 
+    {
+        "fields": {
+            "app_label": "admin", 
+            "model": "logentry", 
+            "name": "log entry"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 7
+    }, 
+    {
+        "fields": {
+            "app_label": "main", 
+            "model": "member", 
+            "name": "member"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 12
+    }, 
+    {
+        "fields": {
+            "app_label": "main", 
+            "model": "membership", 
+            "name": "membership"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 18
+    }, 
+    {
+        "fields": {
+            "app_label": "main", 
+            "model": "membershiptype", 
+            "name": "membership type"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 17
+    }, 
+    {
+        "fields": {
+            "app_label": "main", 
+            "model": "paymentformembership", 
+            "name": "payment for membership"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 16
+    }, 
+    {
+        "fields": {
+            "app_label": "auth", 
+            "model": "permission", 
+            "name": "permission"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "app_label": "main", 
+            "model": "placeofstudy", 
+            "name": "place of study"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 11
+    }, 
+    {
+        "fields": {
+            "app_label": "sessions", 
+            "model": "session", 
+            "name": "session"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 5
+    }, 
+    {
+        "fields": {
+            "app_label": "sites", 
+            "model": "site", 
+            "name": "site"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 6
+    }, 
+    {
+        "fields": {
+            "app_label": "auth", 
+            "model": "user", 
+            "name": "user"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 3
+    }, 
+    {
+        "fields": {
+            "expire_date": "2013-04-03T18:52:40Z", 
+            "session_data": "MTFmMWM0Y2M2MjUxMzM1MjUyNWM1YjMxNjdjNjljNWRiN2Q2YzQ1NTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQSKAQF1Lg==\n"
+        }, 
+        "model": "sessions.session", 
+        "pk": "b23815af67e49b0622f813f001b6a9ee"
+    }, 
+    {
+        "fields": {
+            "expire_date": "2013-03-07T11:54:38Z", 
+            "session_data": "MTFmMWM0Y2M2MjUxMzM1MjUyNWM1YjMxNjdjNjljNWRiN2Q2YzQ1NTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQSKAQF1Lg==\n"
+        }, 
+        "model": "sessions.session", 
+        "pk": "e45f21e171700c05d2988c2138719e27"
+    }, 
+    {
+        "fields": {
+            "domain": "example.com", 
+            "name": "example.com"
+        }, 
+        "model": "sites.site", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "created": "2013-02-21T12:34:56Z", 
+            "name": "Norge", 
+            "updated": "2013-02-21T12:34:56Z"
+        }, 
+        "model": "main.country", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "city": "Oslo", 
+            "country": 1, 
+            "created": "2013-02-21T12:35:25Z", 
+            "postal_code": "0266", 
+            "street_address": "Odins gate 12A H0401", 
+            "updated": "2013-02-21T12:35:25Z"
+        }, 
+        "model": "main.address", 
+        "pk": 2
+    }, 
+    {
+        "fields": {
+            "created": "2013-02-21T12:34:23Z", 
+            "name": "Universitetet i Oslo", 
+            "updated": "2013-02-21T12:34:23Z"
+        }, 
+        "model": "main.institution", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "created": "2013-02-21T12:37:11Z", 
+            "from_date": "2008-08-01", 
+            "institution": 1, 
+            "updated": "2013-02-21T12:37:11Z"
+        }, 
+        "model": "main.placeofstudy", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "created": "2013-02-21T12:36:18Z", 
+            "duration_months": 12, 
+            "end_day_of_month": 31, 
+            "end_month": 7, 
+            "name": "Medlem av DNS", 
+            "updated": "2013-02-21T12:36:18Z"
+        }, 
+        "model": "main.membershiptype", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "created": "2013-02-21T12:36:45Z", 
+            "member": 1, 
+            "mtype": 1, 
+            "payment": null, 
+            "start_date": "2013-01-01", 
+            "updated": "2013-02-21T12:36:45Z"
+        }, 
+        "model": "main.membership", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "created": "2013-02-21T12:34:43Z", 
+            "name": "KAK: EDB", 
+            "posix_name": "edb", 
+            "updated": "2013-02-21T12:34:43Z"
+        }, 
+        "model": "main.group", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "created": "2013-02-21T12:35:52Z", 
+            "group": 1, 
+            "member": 1, 
+            "start_date": "2011-09-01", 
+            "updated": "2013-02-21T12:35:52Z"
+        }, 
+        "model": "main.groupmembership", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "codename": "add_logentry", 
+            "content_type": [
+                "admin", 
+                "logentry"
+            ], 
+            "name": "Can add log entry"
+        }, 
+        "model": "auth.permission", 
+        "pk": 19
+    }, 
+    {
+        "fields": {
+            "codename": "change_logentry", 
+            "content_type": [
+                "admin", 
+                "logentry"
+            ], 
+            "name": "Can change log entry"
+        }, 
+        "model": "auth.permission", 
+        "pk": 20
+    }, 
+    {
+        "fields": {
+            "codename": "delete_logentry", 
+            "content_type": [
+                "admin", 
+                "logentry"
+            ], 
+            "name": "Can delete log entry"
+        }, 
+        "model": "auth.permission", 
+        "pk": 21
+    }, 
+    {
+        "fields": {
+            "codename": "add_group", 
+            "content_type": [
+                "auth", 
+                "group"
+            ], 
+            "name": "Can add group"
+        }, 
+        "model": "auth.permission", 
+        "pk": 4
+    }, 
+    {
+        "fields": {
+            "codename": "change_group", 
+            "content_type": [
+                "auth", 
+                "group"
+            ], 
+            "name": "Can change group"
+        }, 
+        "model": "auth.permission", 
+        "pk": 5
+    }, 
+    {
+        "fields": {
+            "codename": "delete_group", 
+            "content_type": [
+                "auth", 
+                "group"
+            ], 
+            "name": "Can delete group"
+        }, 
+        "model": "auth.permission", 
+        "pk": 6
+    }, 
+    {
+        "fields": {
+            "codename": "add_permission", 
+            "content_type": [
+                "auth", 
+                "permission"
+            ], 
+            "name": "Can add permission"
+        }, 
+        "model": "auth.permission", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "codename": "change_permission", 
+            "content_type": [
+                "auth", 
+                "permission"
+            ], 
+            "name": "Can change permission"
+        }, 
+        "model": "auth.permission", 
+        "pk": 2
+    }, 
+    {
+        "fields": {
+            "codename": "delete_permission", 
+            "content_type": [
+                "auth", 
+                "permission"
+            ], 
+            "name": "Can delete permission"
+        }, 
+        "model": "auth.permission", 
+        "pk": 3
+    }, 
+    {
+        "fields": {
+            "codename": "add_user", 
+            "content_type": [
+                "auth", 
+                "user"
+            ], 
+            "name": "Can add user"
+        }, 
+        "model": "auth.permission", 
+        "pk": 7
+    }, 
+    {
+        "fields": {
+            "codename": "change_user", 
+            "content_type": [
+                "auth", 
+                "user"
+            ], 
+            "name": "Can change user"
+        }, 
+        "model": "auth.permission", 
+        "pk": 8
+    }, 
+    {
+        "fields": {
+            "codename": "delete_user", 
+            "content_type": [
+                "auth", 
+                "user"
+            ], 
+            "name": "Can delete user"
+        }, 
+        "model": "auth.permission", 
+        "pk": 9
+    }, 
+    {
+        "fields": {
+            "codename": "add_contenttype", 
+            "content_type": [
+                "contenttypes", 
+                "contenttype"
+            ], 
+            "name": "Can add content type"
+        }, 
+        "model": "auth.permission", 
+        "pk": 10
+    }, 
+    {
+        "fields": {
+            "codename": "change_contenttype", 
+            "content_type": [
+                "contenttypes", 
+                "contenttype"
+            ], 
+            "name": "Can change content type"
+        }, 
+        "model": "auth.permission", 
+        "pk": 11
+    }, 
+    {
+        "fields": {
+            "codename": "delete_contenttype", 
+            "content_type": [
+                "contenttypes", 
+                "contenttype"
+            ], 
+            "name": "Can delete content type"
+        }, 
+        "model": "auth.permission", 
+        "pk": 12
+    }, 
+    {
+        "fields": {
+            "codename": "add_address", 
+            "content_type": [
+                "main", 
+                "address"
+            ], 
+            "name": "Can add address"
+        }, 
+        "model": "auth.permission", 
+        "pk": 25
+    }, 
+    {
+        "fields": {
+            "codename": "change_address", 
+            "content_type": [
+                "main", 
+                "address"
+            ], 
+            "name": "Can change address"
+        }, 
+        "model": "auth.permission", 
+        "pk": 26
+    }, 
+    {
+        "fields": {
+            "codename": "delete_address", 
+            "content_type": [
+                "main", 
+                "address"
+            ], 
+            "name": "Can delete address"
+        }, 
+        "model": "auth.permission", 
+        "pk": 27
+    }, 
+    {
+        "fields": {
+            "codename": "add_country", 
+            "content_type": [
+                "main", 
+                "country"
+            ], 
+            "name": "Can add country"
+        }, 
+        "model": "auth.permission", 
+        "pk": 22
+    }, 
+    {
+        "fields": {
+            "codename": "change_country", 
+            "content_type": [
+                "main", 
+                "country"
+            ], 
+            "name": "Can change country"
+        }, 
+        "model": "auth.permission", 
+        "pk": 23
+    }, 
+    {
+        "fields": {
+            "codename": "delete_country", 
+            "content_type": [
+                "main", 
+                "country"
+            ], 
+            "name": "Can delete country"
+        }, 
+        "model": "auth.permission", 
+        "pk": 24
+    }, 
+    {
+        "fields": {
+            "codename": "add_extendedmemberdetail", 
+            "content_type": [
+                "main", 
+                "extendedmemberdetail"
+            ], 
+            "name": "Can add extended member detail"
+        }, 
+        "model": "auth.permission", 
+        "pk": 43
+    }, 
+    {
+        "fields": {
+            "codename": "change_extendedmemberdetail", 
+            "content_type": [
+                "main", 
+                "extendedmemberdetail"
+            ], 
+            "name": "Can change extended member detail"
+        }, 
+        "model": "auth.permission", 
+        "pk": 44
+    }, 
+    {
+        "fields": {
+            "codename": "delete_extendedmemberdetail", 
+            "content_type": [
+                "main", 
+                "extendedmemberdetail"
+            ], 
+            "name": "Can delete extended member detail"
+        }, 
+        "model": "auth.permission", 
+        "pk": 45
+    }, 
+    {
+        "fields": {
+            "codename": "add_facebookauth", 
+            "content_type": [
+                "main", 
+                "facebookauth"
+            ], 
+            "name": "Can add facebook auth"
+        }, 
+        "model": "auth.permission", 
+        "pk": 37
+    }, 
+    {
+        "fields": {
+            "codename": "change_facebookauth", 
+            "content_type": [
+                "main", 
+                "facebookauth"
+            ], 
+            "name": "Can change facebook auth"
+        }, 
+        "model": "auth.permission", 
+        "pk": 38
+    }, 
+    {
+        "fields": {
+            "codename": "delete_facebookauth", 
+            "content_type": [
+                "main", 
+                "facebookauth"
+            ], 
+            "name": "Can delete facebook auth"
+        }, 
+        "model": "auth.permission", 
+        "pk": 39
+    }, 
+    {
+        "fields": {
+            "codename": "add_googleauth", 
+            "content_type": [
+                "main", 
+                "googleauth"
+            ], 
+            "name": "Can add google auth"
+        }, 
+        "model": "auth.permission", 
+        "pk": 40
+    }, 
+    {
+        "fields": {
+            "codename": "change_googleauth", 
+            "content_type": [
+                "main", 
+                "googleauth"
+            ], 
+            "name": "Can change google auth"
+        }, 
+        "model": "auth.permission", 
+        "pk": 41
+    }, 
+    {
+        "fields": {
+            "codename": "delete_googleauth", 
+            "content_type": [
+                "main", 
+                "googleauth"
+            ], 
+            "name": "Can delete google auth"
+        }, 
+        "model": "auth.permission", 
+        "pk": 42
+    }, 
+    {
+        "fields": {
+            "codename": "add_group", 
+            "content_type": [
+                "main", 
+                "group"
+            ], 
+            "name": "Can add group"
+        }, 
+        "model": "auth.permission", 
+        "pk": 55
+    }, 
+    {
+        "fields": {
+            "codename": "change_group", 
+            "content_type": [
+                "main", 
+                "group"
+            ], 
+            "name": "Can change group"
+        }, 
+        "model": "auth.permission", 
+        "pk": 56
+    }, 
+    {
+        "fields": {
+            "codename": "delete_group", 
+            "content_type": [
+                "main", 
+                "group"
+            ], 
+            "name": "Can delete group"
+        }, 
+        "model": "auth.permission", 
+        "pk": 57
+    }, 
+    {
+        "fields": {
+            "codename": "add_groupmembership", 
+            "content_type": [
+                "main", 
+                "groupmembership"
+            ], 
+            "name": "Can add group membership"
+        }, 
+        "model": "auth.permission", 
+        "pk": 58
+    }, 
+    {
+        "fields": {
+            "codename": "change_groupmembership", 
+            "content_type": [
+                "main", 
+                "groupmembership"
+            ], 
+            "name": "Can change group membership"
+        }, 
+        "model": "auth.permission", 
+        "pk": 59
+    }, 
+    {
+        "fields": {
+            "codename": "delete_groupmembership", 
+            "content_type": [
+                "main", 
+                "groupmembership"
+            ], 
+            "name": "Can delete group membership"
+        }, 
+        "model": "auth.permission", 
+        "pk": 60
+    }, 
+    {
+        "fields": {
+            "codename": "add_institution", 
+            "content_type": [
+                "main", 
+                "institution"
+            ], 
+            "name": "Can add institution"
+        }, 
+        "model": "auth.permission", 
+        "pk": 28
+    }, 
+    {
+        "fields": {
+            "codename": "change_institution", 
+            "content_type": [
+                "main", 
+                "institution"
+            ], 
+            "name": "Can change institution"
+        }, 
+        "model": "auth.permission", 
+        "pk": 29
+    }, 
+    {
+        "fields": {
+            "codename": "delete_institution", 
+            "content_type": [
+                "main", 
+                "institution"
+            ], 
+            "name": "Can delete institution"
+        }, 
+        "model": "auth.permission", 
+        "pk": 30
+    }, 
+    {
+        "fields": {
+            "codename": "add_member", 
+            "content_type": [
+                "main", 
+                "member"
+            ], 
+            "name": "Can add member"
+        }, 
+        "model": "auth.permission", 
+        "pk": 34
+    }, 
+    {
+        "fields": {
+            "codename": "change_member", 
+            "content_type": [
+                "main", 
+                "member"
+            ], 
+            "name": "Can change member"
+        }, 
+        "model": "auth.permission", 
+        "pk": 35
+    }, 
+    {
+        "fields": {
+            "codename": "delete_member", 
+            "content_type": [
+                "main", 
+                "member"
+            ], 
+            "name": "Can delete member"
+        }, 
+        "model": "auth.permission", 
+        "pk": 36
+    }, 
+    {
+        "fields": {
+            "codename": "add_membership", 
+            "content_type": [
+                "main", 
+                "membership"
+            ], 
+            "name": "Can add membership"
+        }, 
+        "model": "auth.permission", 
+        "pk": 52
+    }, 
+    {
+        "fields": {
+            "codename": "change_membership", 
+            "content_type": [
+                "main", 
+                "membership"
+            ], 
+            "name": "Can change membership"
+        }, 
+        "model": "auth.permission", 
+        "pk": 53
+    }, 
+    {
+        "fields": {
+            "codename": "delete_membership", 
+            "content_type": [
+                "main", 
+                "membership"
+            ], 
+            "name": "Can delete membership"
+        }, 
+        "model": "auth.permission", 
+        "pk": 54
+    }, 
+    {
+        "fields": {
+            "codename": "add_membershiptype", 
+            "content_type": [
+                "main", 
+                "membershiptype"
+            ], 
+            "name": "Can add membership type"
+        }, 
+        "model": "auth.permission", 
+        "pk": 49
+    }, 
+    {
+        "fields": {
+            "codename": "change_membershiptype", 
+            "content_type": [
+                "main", 
+                "membershiptype"
+            ], 
+            "name": "Can change membership type"
+        }, 
+        "model": "auth.permission", 
+        "pk": 50
+    }, 
+    {
+        "fields": {
+            "codename": "delete_membershiptype", 
+            "content_type": [
+                "main", 
+                "membershiptype"
+            ], 
+            "name": "Can delete membership type"
+        }, 
+        "model": "auth.permission", 
+        "pk": 51
+    }, 
+    {
+        "fields": {
+            "codename": "add_paymentformembership", 
+            "content_type": [
+                "main", 
+                "paymentformembership"
+            ], 
+            "name": "Can add payment for membership"
+        }, 
+        "model": "auth.permission", 
+        "pk": 46
+    }, 
+    {
+        "fields": {
+            "codename": "change_paymentformembership", 
+            "content_type": [
+                "main", 
+                "paymentformembership"
+            ], 
+            "name": "Can change payment for membership"
+        }, 
+        "model": "auth.permission", 
+        "pk": 47
+    }, 
+    {
+        "fields": {
+            "codename": "delete_paymentformembership", 
+            "content_type": [
+                "main", 
+                "paymentformembership"
+            ], 
+            "name": "Can delete payment for membership"
+        }, 
+        "model": "auth.permission", 
+        "pk": 48
+    }, 
+    {
+        "fields": {
+            "codename": "add_placeofstudy", 
+            "content_type": [
+                "main", 
+                "placeofstudy"
+            ], 
+            "name": "Can add place of study"
+        }, 
+        "model": "auth.permission", 
+        "pk": 31
+    }, 
+    {
+        "fields": {
+            "codename": "change_placeofstudy", 
+            "content_type": [
+                "main", 
+                "placeofstudy"
+            ], 
+            "name": "Can change place of study"
+        }, 
+        "model": "auth.permission", 
+        "pk": 32
+    }, 
+    {
+        "fields": {
+            "codename": "delete_placeofstudy", 
+            "content_type": [
+                "main", 
+                "placeofstudy"
+            ], 
+            "name": "Can delete place of study"
+        }, 
+        "model": "auth.permission", 
+        "pk": 33
+    }, 
+    {
+        "fields": {
+            "codename": "add_session", 
+            "content_type": [
+                "sessions", 
+                "session"
+            ], 
+            "name": "Can add session"
+        }, 
+        "model": "auth.permission", 
+        "pk": 13
+    }, 
+    {
+        "fields": {
+            "codename": "change_session", 
+            "content_type": [
+                "sessions", 
+                "session"
+            ], 
+            "name": "Can change session"
+        }, 
+        "model": "auth.permission", 
+        "pk": 14
+    }, 
+    {
+        "fields": {
+            "codename": "delete_session", 
+            "content_type": [
+                "sessions", 
+                "session"
+            ], 
+            "name": "Can delete session"
+        }, 
+        "model": "auth.permission", 
+        "pk": 15
+    }, 
+    {
+        "fields": {
+            "codename": "add_site", 
+            "content_type": [
+                "sites", 
+                "site"
+            ], 
+            "name": "Can add site"
+        }, 
+        "model": "auth.permission", 
+        "pk": 16
+    }, 
+    {
+        "fields": {
+            "codename": "change_site", 
+            "content_type": [
+                "sites", 
+                "site"
+            ], 
+            "name": "Can change site"
+        }, 
+        "model": "auth.permission", 
+        "pk": 17
+    }, 
+    {
+        "fields": {
+            "codename": "delete_site", 
+            "content_type": [
+                "sites", 
+                "site"
+            ], 
+            "name": "Can delete site"
+        }, 
+        "model": "auth.permission", 
+        "pk": 18
+    }, 
+    {
+        "fields": {
+            "codename": "add_apiaccess", 
+            "content_type": [
+                "tastypie", 
+                "apiaccess"
+            ], 
+            "name": "Can add api access"
+        }, 
+        "model": "auth.permission", 
+        "pk": 61
+    }, 
+    {
+        "fields": {
+            "codename": "change_apiaccess", 
+            "content_type": [
+                "tastypie", 
+                "apiaccess"
+            ], 
+            "name": "Can change api access"
+        }, 
+        "model": "auth.permission", 
+        "pk": 62
+    }, 
+    {
+        "fields": {
+            "codename": "delete_apiaccess", 
+            "content_type": [
+                "tastypie", 
+                "apiaccess"
+            ], 
+            "name": "Can delete api access"
+        }, 
+        "model": "auth.permission", 
+        "pk": 63
+    }, 
+    {
+        "fields": {
+            "codename": "add_apikey", 
+            "content_type": [
+                "tastypie", 
+                "apikey"
+            ], 
+            "name": "Can add api key"
+        }, 
+        "model": "auth.permission", 
+        "pk": 64
+    }, 
+    {
+        "fields": {
+            "codename": "change_apikey", 
+            "content_type": [
+                "tastypie", 
+                "apikey"
+            ], 
+            "name": "Can change api key"
+        }, 
+        "model": "auth.permission", 
+        "pk": 65
+    }, 
+    {
+        "fields": {
+            "codename": "delete_apikey", 
+            "content_type": [
+                "tastypie", 
+                "apikey"
+            ], 
+            "name": "Can delete api key"
+        }, 
+        "model": "auth.permission", 
+        "pk": 66
+    }, 
+    {
+        "fields": {
+            "date_joined": "2013-02-21T11:28:36Z", 
+            "email": "robert.kolner@gmail.com", 
+            "first_name": "", 
+            "groups": [], 
+            "is_active": true, 
+            "is_staff": true, 
+            "is_superuser": true, 
+            "last_login": "2013-02-21T11:54:38Z", 
+            "last_name": "", 
+            "password": "pbkdf2_sha256$10000$PI7j2wfLeR0U$ng0WLLqp/9k2TO7IKQ5DhzrakmP7Yf04aV2CVaT0THU=", 
+            "user_permissions": [], 
+            "username": "robert"
+        }, 
+        "model": "auth.user", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "date_joined": "2013-02-21T11:54:51Z", 
+            "email": "", 
+            "first_name": "", 
+            "groups": [], 
+            "is_active": true, 
+            "is_staff": false, 
+            "is_superuser": false, 
+            "last_login": "2013-02-21T11:54:51Z", 
+            "last_name": "", 
+            "password": "pbkdf2_sha256$10000$vl9siKAR2xQe$UT2qewJXnotnd59+tZhL9ky9xpvx/hB3H5KaDGG/HmM=", 
+            "user_permissions": [], 
+            "username": "testersen"
+        }, 
+        "model": "auth.user", 
+        "pk": 2
+    }, 
+    {
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T11:54:51Z", 
+            "change_message": "", 
+            "content_type": [
+                "auth", 
+                "user"
+            ], 
+            "object_id": "2", 
+            "object_repr": "testersen", 
+            "user": [
+                "robert"
+            ]
+        }, 
+        "model": "admin.logentry", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "address": 2, 
+            "created": "2013-02-21T12:33:29Z", 
+            "date_of_birth": "1988-12-31", 
+            "legacy_id": null, 
+            "phone_number": 90567268, 
+            "place_of_study": [
+                1
+            ], 
+            "updated": "2013-02-21T12:33:29Z", 
+            "user": [
+                "robert"
+            ]
+        }, 
+        "model": "main.member", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "address": null, 
+            "created": "2013-02-21T12:55:58Z", 
+            "date_of_birth": null, 
+            "legacy_id": null, 
+            "phone_number": null, 
+            "place_of_study": [], 
+            "updated": "2013-02-21T12:55:58Z", 
+            "user": [
+                "testersen"
+            ]
+        }, 
+        "model": "main.member", 
+        "pk": 2
+    }
+]
