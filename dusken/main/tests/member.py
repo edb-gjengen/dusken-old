@@ -1,6 +1,5 @@
 import logging
 
-from django.contrib.auth.models import User
 from support.test import ResourceTestCase
 from main.models import Member
 
@@ -34,8 +33,7 @@ class MemberTest(ResourceTestCase):
 
         # Get the preloaded member, which will be used for 
         # comparison with fetched object.
-        self.member = User.objects.get(username=self.standard_username)
-        self.member_profile = self.member.get_profile()
+        self.member = Member.objects.get(username=self.standard_username)
 
         # URI to get the existing member. We'll probably 
         # need it at one point or another.
@@ -92,7 +90,7 @@ class MemberTest(ResourceTestCase):
         data = { 
             "username" : self.member.username,
             "email" : self.member.email,
-            "phone_number" : self.member_profile.phone_number
+            "phone_number" : self.member.phone_number
         }
 
         for key, value in data.items():
@@ -124,14 +122,13 @@ class MemberTest(ResourceTestCase):
 
         # Check if user was actually put into database:
         try:
-            user = User.objects.get(username=data['username'])
-        except User.DoesNotExist:
+            user = Member.objects.get(username=data['username'])
+        except Member.DoesNotExist:
             self.fail("Inserted user does not exist.")
         self.assertNotEquals(None, user)
         self.assertEquals(user.email, data['email'])
 
-        user_profile = user.get_profile()
-        self.assertEquals(user_profile.phone_number, data['phone_number'])
+        self.assertEquals(user.phone_number, data['phone_number'])
 
     def test_patch_change_member(self):
         """
@@ -149,10 +146,10 @@ class MemberTest(ResourceTestCase):
         self.assertHttpAccepted(resp)
 
         # Check if user was actually updated:
-        user = User.objects.get(username=self.standard_username)
+        user = Member.objects.get(username=self.standard_username)
         self.assertNotEquals(user.password, data['password']) # just to ensure that it's encrypted
         self.assertEquals(user.email, data['email'])
-        self.assertEquals(user.get_profile().phone_number, data['phone_number'])
+        self.assertEquals(user.phone_number, data['phone_number'])
 
     def test_patch_invalid_change_member(self):
         """
@@ -166,13 +163,13 @@ class MemberTest(ResourceTestCase):
         self.assertHttpForbidden(resp)
         
         try:
-            User.objects.get(username=oldusername)
-        except User.DoesNotExist:
+            Member.objects.get(username=oldusername)
+        except Member.DoesNotExist:
             self.fail("Username was changed. It is not supposed to.")
 
         try:
-            User.objects.get(username=newusername)
+            Member.objects.get(username=newusername)
             self.fail("You will never see this message. If you do, call +7 331 24 337 for further instructions.")
-        except User.DoesNotExist:
+        except Member.DoesNotExist:
             pass # ...the test.
 

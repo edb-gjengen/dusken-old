@@ -1,30 +1,30 @@
 [
     {
         "fields": {
-            "app_label": "main", 
-            "model": "address", 
-            "name": "address"
+            "app_label": "auth", 
+            "model": "permission", 
+            "name": "permission"
         }, 
         "model": "contenttypes.contenttype", 
-        "pk": 9
+        "pk": 1
     }, 
     {
         "fields": {
-            "app_label": "tastypie", 
-            "model": "apiaccess", 
-            "name": "api access"
+            "app_label": "auth", 
+            "model": "group", 
+            "name": "group"
         }, 
         "model": "contenttypes.contenttype", 
-        "pk": 21
+        "pk": 2
     }, 
     {
         "fields": {
-            "app_label": "tastypie", 
-            "model": "apikey", 
-            "name": "api key"
+            "app_label": "auth", 
+            "model": "user", 
+            "name": "user"
         }, 
         "model": "contenttypes.contenttype", 
-        "pk": 22
+        "pk": 3
     }, 
     {
         "fields": {
@@ -34,6 +34,33 @@
         }, 
         "model": "contenttypes.contenttype", 
         "pk": 4
+    }, 
+    {
+        "fields": {
+            "app_label": "sessions", 
+            "model": "session", 
+            "name": "session"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 5
+    }, 
+    {
+        "fields": {
+            "app_label": "sites", 
+            "model": "site", 
+            "name": "site"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 6
+    }, 
+    {
+        "fields": {
+            "app_label": "admin", 
+            "model": "logentry", 
+            "name": "log entry"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 7
     }, 
     {
         "fields": {
@@ -47,11 +74,38 @@
     {
         "fields": {
             "app_label": "main", 
-            "model": "extendedmemberdetail", 
-            "name": "extended member detail"
+            "model": "address", 
+            "name": "address"
         }, 
         "model": "contenttypes.contenttype", 
-        "pk": 15
+        "pk": 9
+    }, 
+    {
+        "fields": {
+            "app_label": "main", 
+            "model": "institution", 
+            "name": "institution"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 10
+    }, 
+    {
+        "fields": {
+            "app_label": "main", 
+            "model": "placeofstudy", 
+            "name": "place of study"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 11
+    }, 
+    {
+        "fields": {
+            "app_label": "main", 
+            "model": "member", 
+            "name": "user"
+        }, 
+        "model": "contenttypes.contenttype", 
+        "pk": 12
     }, 
     {
         "fields": {
@@ -74,65 +128,20 @@
     {
         "fields": {
             "app_label": "main", 
-            "model": "group", 
-            "name": "group"
+            "model": "extendedmemberdetail", 
+            "name": "extended member detail"
         }, 
         "model": "contenttypes.contenttype", 
-        "pk": 19
-    }, 
-    {
-        "fields": {
-            "app_label": "auth", 
-            "model": "group", 
-            "name": "group"
-        }, 
-        "model": "contenttypes.contenttype", 
-        "pk": 2
+        "pk": 15
     }, 
     {
         "fields": {
             "app_label": "main", 
-            "model": "groupmembership", 
-            "name": "group membership"
+            "model": "paymentformembership", 
+            "name": "payment for membership"
         }, 
         "model": "contenttypes.contenttype", 
-        "pk": 20
-    }, 
-    {
-        "fields": {
-            "app_label": "main", 
-            "model": "institution", 
-            "name": "institution"
-        }, 
-        "model": "contenttypes.contenttype", 
-        "pk": 10
-    }, 
-    {
-        "fields": {
-            "app_label": "admin", 
-            "model": "logentry", 
-            "name": "log entry"
-        }, 
-        "model": "contenttypes.contenttype", 
-        "pk": 7
-    }, 
-    {
-        "fields": {
-            "app_label": "main", 
-            "model": "member", 
-            "name": "member"
-        }, 
-        "model": "contenttypes.contenttype", 
-        "pk": 12
-    }, 
-    {
-        "fields": {
-            "app_label": "main", 
-            "model": "membership", 
-            "name": "membership"
-        }, 
-        "model": "contenttypes.contenttype", 
-        "pk": 18
+        "pk": 16
     }, 
     {
         "fields": {
@@ -146,56 +155,47 @@
     {
         "fields": {
             "app_label": "main", 
-            "model": "paymentformembership", 
-            "name": "payment for membership"
+            "model": "membership", 
+            "name": "membership"
         }, 
         "model": "contenttypes.contenttype", 
-        "pk": 16
-    }, 
-    {
-        "fields": {
-            "app_label": "auth", 
-            "model": "permission", 
-            "name": "permission"
-        }, 
-        "model": "contenttypes.contenttype", 
-        "pk": 1
+        "pk": 18
     }, 
     {
         "fields": {
             "app_label": "main", 
-            "model": "placeofstudy", 
-            "name": "place of study"
+            "model": "group", 
+            "name": "group"
         }, 
         "model": "contenttypes.contenttype", 
-        "pk": 11
+        "pk": 19
     }, 
     {
         "fields": {
-            "app_label": "sessions", 
-            "model": "session", 
-            "name": "session"
+            "app_label": "main", 
+            "model": "groupmembership", 
+            "name": "group membership"
         }, 
         "model": "contenttypes.contenttype", 
-        "pk": 5
+        "pk": 20
     }, 
     {
         "fields": {
-            "app_label": "sites", 
-            "model": "site", 
-            "name": "site"
+            "app_label": "tastypie", 
+            "model": "apiaccess", 
+            "name": "api access"
         }, 
         "model": "contenttypes.contenttype", 
-        "pk": 6
+        "pk": 21
     }, 
     {
         "fields": {
-            "app_label": "auth", 
-            "model": "user", 
-            "name": "user"
+            "app_label": "tastypie", 
+            "model": "apikey", 
+            "name": "api key"
         }, 
         "model": "contenttypes.contenttype", 
-        "pk": 3
+        "pk": 22
     }, 
     {
         "fields": {
@@ -207,99 +207,15 @@
     }, 
     {
         "fields": {
-            "created": "2013-03-21T12:58:25Z", 
+            "created": "2013-03-21T13:37:54Z", 
             "duration_months": 12, 
             "end_day_of_month": 1, 
             "end_month": 8, 
             "name": "Medlem av DNS", 
-            "updated": "2013-03-21T12:58:25Z"
+            "updated": "2013-03-21T13:37:54Z"
         }, 
         "model": "main.membershiptype", 
         "pk": 1
-    }, 
-    {
-        "fields": {
-            "created": "2013-03-21T12:58:50Z", 
-            "member": 1, 
-            "mtype": 1, 
-            "payment": null, 
-            "start_date": "2013-01-01", 
-            "updated": "2013-03-21T12:58:50Z"
-        }, 
-        "model": "main.membership", 
-        "pk": 1
-    }, 
-    {
-        "fields": {
-            "codename": "add_logentry", 
-            "content_type": [
-                "admin", 
-                "logentry"
-            ], 
-            "name": "Can add log entry"
-        }, 
-        "model": "auth.permission", 
-        "pk": 19
-    }, 
-    {
-        "fields": {
-            "codename": "change_logentry", 
-            "content_type": [
-                "admin", 
-                "logentry"
-            ], 
-            "name": "Can change log entry"
-        }, 
-        "model": "auth.permission", 
-        "pk": 20
-    }, 
-    {
-        "fields": {
-            "codename": "delete_logentry", 
-            "content_type": [
-                "admin", 
-                "logentry"
-            ], 
-            "name": "Can delete log entry"
-        }, 
-        "model": "auth.permission", 
-        "pk": 21
-    }, 
-    {
-        "fields": {
-            "codename": "add_group", 
-            "content_type": [
-                "auth", 
-                "group"
-            ], 
-            "name": "Can add group"
-        }, 
-        "model": "auth.permission", 
-        "pk": 4
-    }, 
-    {
-        "fields": {
-            "codename": "change_group", 
-            "content_type": [
-                "auth", 
-                "group"
-            ], 
-            "name": "Can change group"
-        }, 
-        "model": "auth.permission", 
-        "pk": 5
-    }, 
-    {
-        "fields": {
-            "codename": "delete_group", 
-            "content_type": [
-                "auth", 
-                "group"
-            ], 
-            "name": "Can delete group"
-        }, 
-        "model": "auth.permission", 
-        "pk": 6
     }, 
     {
         "fields": {
@@ -336,6 +252,42 @@
         }, 
         "model": "auth.permission", 
         "pk": 3
+    }, 
+    {
+        "fields": {
+            "codename": "add_group", 
+            "content_type": [
+                "auth", 
+                "group"
+            ], 
+            "name": "Can add group"
+        }, 
+        "model": "auth.permission", 
+        "pk": 4
+    }, 
+    {
+        "fields": {
+            "codename": "change_group", 
+            "content_type": [
+                "auth", 
+                "group"
+            ], 
+            "name": "Can change group"
+        }, 
+        "model": "auth.permission", 
+        "pk": 5
+    }, 
+    {
+        "fields": {
+            "codename": "delete_group", 
+            "content_type": [
+                "auth", 
+                "group"
+            ], 
+            "name": "Can delete group"
+        }, 
+        "model": "auth.permission", 
+        "pk": 6
     }, 
     {
         "fields": {
@@ -411,39 +363,111 @@
     }, 
     {
         "fields": {
-            "codename": "add_address", 
+            "codename": "add_session", 
             "content_type": [
-                "main", 
-                "address"
+                "sessions", 
+                "session"
             ], 
-            "name": "Can add address"
+            "name": "Can add session"
         }, 
         "model": "auth.permission", 
-        "pk": 25
+        "pk": 13
     }, 
     {
         "fields": {
-            "codename": "change_address", 
+            "codename": "change_session", 
             "content_type": [
-                "main", 
-                "address"
+                "sessions", 
+                "session"
             ], 
-            "name": "Can change address"
+            "name": "Can change session"
         }, 
         "model": "auth.permission", 
-        "pk": 26
+        "pk": 14
     }, 
     {
         "fields": {
-            "codename": "delete_address", 
+            "codename": "delete_session", 
             "content_type": [
-                "main", 
-                "address"
+                "sessions", 
+                "session"
             ], 
-            "name": "Can delete address"
+            "name": "Can delete session"
         }, 
         "model": "auth.permission", 
-        "pk": 27
+        "pk": 15
+    }, 
+    {
+        "fields": {
+            "codename": "add_site", 
+            "content_type": [
+                "sites", 
+                "site"
+            ], 
+            "name": "Can add site"
+        }, 
+        "model": "auth.permission", 
+        "pk": 16
+    }, 
+    {
+        "fields": {
+            "codename": "change_site", 
+            "content_type": [
+                "sites", 
+                "site"
+            ], 
+            "name": "Can change site"
+        }, 
+        "model": "auth.permission", 
+        "pk": 17
+    }, 
+    {
+        "fields": {
+            "codename": "delete_site", 
+            "content_type": [
+                "sites", 
+                "site"
+            ], 
+            "name": "Can delete site"
+        }, 
+        "model": "auth.permission", 
+        "pk": 18
+    }, 
+    {
+        "fields": {
+            "codename": "add_logentry", 
+            "content_type": [
+                "admin", 
+                "logentry"
+            ], 
+            "name": "Can add log entry"
+        }, 
+        "model": "auth.permission", 
+        "pk": 19
+    }, 
+    {
+        "fields": {
+            "codename": "change_logentry", 
+            "content_type": [
+                "admin", 
+                "logentry"
+            ], 
+            "name": "Can change log entry"
+        }, 
+        "model": "auth.permission", 
+        "pk": 20
+    }, 
+    {
+        "fields": {
+            "codename": "delete_logentry", 
+            "content_type": [
+                "admin", 
+                "logentry"
+            ], 
+            "name": "Can delete log entry"
+        }, 
+        "model": "auth.permission", 
+        "pk": 21
     }, 
     {
         "fields": {
@@ -483,39 +507,147 @@
     }, 
     {
         "fields": {
-            "codename": "add_extendedmemberdetail", 
+            "codename": "add_address", 
             "content_type": [
                 "main", 
-                "extendedmemberdetail"
+                "address"
             ], 
-            "name": "Can add extended member detail"
+            "name": "Can add address"
         }, 
         "model": "auth.permission", 
-        "pk": 43
+        "pk": 25
     }, 
     {
         "fields": {
-            "codename": "change_extendedmemberdetail", 
+            "codename": "change_address", 
             "content_type": [
                 "main", 
-                "extendedmemberdetail"
+                "address"
             ], 
-            "name": "Can change extended member detail"
+            "name": "Can change address"
         }, 
         "model": "auth.permission", 
-        "pk": 44
+        "pk": 26
     }, 
     {
         "fields": {
-            "codename": "delete_extendedmemberdetail", 
+            "codename": "delete_address", 
             "content_type": [
                 "main", 
-                "extendedmemberdetail"
+                "address"
             ], 
-            "name": "Can delete extended member detail"
+            "name": "Can delete address"
         }, 
         "model": "auth.permission", 
-        "pk": 45
+        "pk": 27
+    }, 
+    {
+        "fields": {
+            "codename": "add_institution", 
+            "content_type": [
+                "main", 
+                "institution"
+            ], 
+            "name": "Can add institution"
+        }, 
+        "model": "auth.permission", 
+        "pk": 28
+    }, 
+    {
+        "fields": {
+            "codename": "change_institution", 
+            "content_type": [
+                "main", 
+                "institution"
+            ], 
+            "name": "Can change institution"
+        }, 
+        "model": "auth.permission", 
+        "pk": 29
+    }, 
+    {
+        "fields": {
+            "codename": "delete_institution", 
+            "content_type": [
+                "main", 
+                "institution"
+            ], 
+            "name": "Can delete institution"
+        }, 
+        "model": "auth.permission", 
+        "pk": 30
+    }, 
+    {
+        "fields": {
+            "codename": "add_placeofstudy", 
+            "content_type": [
+                "main", 
+                "placeofstudy"
+            ], 
+            "name": "Can add place of study"
+        }, 
+        "model": "auth.permission", 
+        "pk": 31
+    }, 
+    {
+        "fields": {
+            "codename": "change_placeofstudy", 
+            "content_type": [
+                "main", 
+                "placeofstudy"
+            ], 
+            "name": "Can change place of study"
+        }, 
+        "model": "auth.permission", 
+        "pk": 32
+    }, 
+    {
+        "fields": {
+            "codename": "delete_placeofstudy", 
+            "content_type": [
+                "main", 
+                "placeofstudy"
+            ], 
+            "name": "Can delete place of study"
+        }, 
+        "model": "auth.permission", 
+        "pk": 33
+    }, 
+    {
+        "fields": {
+            "codename": "add_member", 
+            "content_type": [
+                "main", 
+                "member"
+            ], 
+            "name": "Can add user"
+        }, 
+        "model": "auth.permission", 
+        "pk": 34
+    }, 
+    {
+        "fields": {
+            "codename": "change_member", 
+            "content_type": [
+                "main", 
+                "member"
+            ], 
+            "name": "Can change user"
+        }, 
+        "model": "auth.permission", 
+        "pk": 35
+    }, 
+    {
+        "fields": {
+            "codename": "delete_member", 
+            "content_type": [
+                "main", 
+                "member"
+            ], 
+            "name": "Can delete user"
+        }, 
+        "model": "auth.permission", 
+        "pk": 36
     }, 
     {
         "fields": {
@@ -591,6 +723,150 @@
     }, 
     {
         "fields": {
+            "codename": "add_extendedmemberdetail", 
+            "content_type": [
+                "main", 
+                "extendedmemberdetail"
+            ], 
+            "name": "Can add extended member detail"
+        }, 
+        "model": "auth.permission", 
+        "pk": 43
+    }, 
+    {
+        "fields": {
+            "codename": "change_extendedmemberdetail", 
+            "content_type": [
+                "main", 
+                "extendedmemberdetail"
+            ], 
+            "name": "Can change extended member detail"
+        }, 
+        "model": "auth.permission", 
+        "pk": 44
+    }, 
+    {
+        "fields": {
+            "codename": "delete_extendedmemberdetail", 
+            "content_type": [
+                "main", 
+                "extendedmemberdetail"
+            ], 
+            "name": "Can delete extended member detail"
+        }, 
+        "model": "auth.permission", 
+        "pk": 45
+    }, 
+    {
+        "fields": {
+            "codename": "add_paymentformembership", 
+            "content_type": [
+                "main", 
+                "paymentformembership"
+            ], 
+            "name": "Can add payment for membership"
+        }, 
+        "model": "auth.permission", 
+        "pk": 46
+    }, 
+    {
+        "fields": {
+            "codename": "change_paymentformembership", 
+            "content_type": [
+                "main", 
+                "paymentformembership"
+            ], 
+            "name": "Can change payment for membership"
+        }, 
+        "model": "auth.permission", 
+        "pk": 47
+    }, 
+    {
+        "fields": {
+            "codename": "delete_paymentformembership", 
+            "content_type": [
+                "main", 
+                "paymentformembership"
+            ], 
+            "name": "Can delete payment for membership"
+        }, 
+        "model": "auth.permission", 
+        "pk": 48
+    }, 
+    {
+        "fields": {
+            "codename": "add_membershiptype", 
+            "content_type": [
+                "main", 
+                "membershiptype"
+            ], 
+            "name": "Can add membership type"
+        }, 
+        "model": "auth.permission", 
+        "pk": 49
+    }, 
+    {
+        "fields": {
+            "codename": "change_membershiptype", 
+            "content_type": [
+                "main", 
+                "membershiptype"
+            ], 
+            "name": "Can change membership type"
+        }, 
+        "model": "auth.permission", 
+        "pk": 50
+    }, 
+    {
+        "fields": {
+            "codename": "delete_membershiptype", 
+            "content_type": [
+                "main", 
+                "membershiptype"
+            ], 
+            "name": "Can delete membership type"
+        }, 
+        "model": "auth.permission", 
+        "pk": 51
+    }, 
+    {
+        "fields": {
+            "codename": "add_membership", 
+            "content_type": [
+                "main", 
+                "membership"
+            ], 
+            "name": "Can add membership"
+        }, 
+        "model": "auth.permission", 
+        "pk": 52
+    }, 
+    {
+        "fields": {
+            "codename": "change_membership", 
+            "content_type": [
+                "main", 
+                "membership"
+            ], 
+            "name": "Can change membership"
+        }, 
+        "model": "auth.permission", 
+        "pk": 53
+    }, 
+    {
+        "fields": {
+            "codename": "delete_membership", 
+            "content_type": [
+                "main", 
+                "membership"
+            ], 
+            "name": "Can delete membership"
+        }, 
+        "model": "auth.permission", 
+        "pk": 54
+    }, 
+    {
+        "fields": {
             "codename": "add_group", 
             "content_type": [
                 "main", 
@@ -660,294 +936,6 @@
         }, 
         "model": "auth.permission", 
         "pk": 60
-    }, 
-    {
-        "fields": {
-            "codename": "add_institution", 
-            "content_type": [
-                "main", 
-                "institution"
-            ], 
-            "name": "Can add institution"
-        }, 
-        "model": "auth.permission", 
-        "pk": 28
-    }, 
-    {
-        "fields": {
-            "codename": "change_institution", 
-            "content_type": [
-                "main", 
-                "institution"
-            ], 
-            "name": "Can change institution"
-        }, 
-        "model": "auth.permission", 
-        "pk": 29
-    }, 
-    {
-        "fields": {
-            "codename": "delete_institution", 
-            "content_type": [
-                "main", 
-                "institution"
-            ], 
-            "name": "Can delete institution"
-        }, 
-        "model": "auth.permission", 
-        "pk": 30
-    }, 
-    {
-        "fields": {
-            "codename": "add_member", 
-            "content_type": [
-                "main", 
-                "member"
-            ], 
-            "name": "Can add member"
-        }, 
-        "model": "auth.permission", 
-        "pk": 34
-    }, 
-    {
-        "fields": {
-            "codename": "change_member", 
-            "content_type": [
-                "main", 
-                "member"
-            ], 
-            "name": "Can change member"
-        }, 
-        "model": "auth.permission", 
-        "pk": 35
-    }, 
-    {
-        "fields": {
-            "codename": "delete_member", 
-            "content_type": [
-                "main", 
-                "member"
-            ], 
-            "name": "Can delete member"
-        }, 
-        "model": "auth.permission", 
-        "pk": 36
-    }, 
-    {
-        "fields": {
-            "codename": "add_membership", 
-            "content_type": [
-                "main", 
-                "membership"
-            ], 
-            "name": "Can add membership"
-        }, 
-        "model": "auth.permission", 
-        "pk": 52
-    }, 
-    {
-        "fields": {
-            "codename": "change_membership", 
-            "content_type": [
-                "main", 
-                "membership"
-            ], 
-            "name": "Can change membership"
-        }, 
-        "model": "auth.permission", 
-        "pk": 53
-    }, 
-    {
-        "fields": {
-            "codename": "delete_membership", 
-            "content_type": [
-                "main", 
-                "membership"
-            ], 
-            "name": "Can delete membership"
-        }, 
-        "model": "auth.permission", 
-        "pk": 54
-    }, 
-    {
-        "fields": {
-            "codename": "add_membershiptype", 
-            "content_type": [
-                "main", 
-                "membershiptype"
-            ], 
-            "name": "Can add membership type"
-        }, 
-        "model": "auth.permission", 
-        "pk": 49
-    }, 
-    {
-        "fields": {
-            "codename": "change_membershiptype", 
-            "content_type": [
-                "main", 
-                "membershiptype"
-            ], 
-            "name": "Can change membership type"
-        }, 
-        "model": "auth.permission", 
-        "pk": 50
-    }, 
-    {
-        "fields": {
-            "codename": "delete_membershiptype", 
-            "content_type": [
-                "main", 
-                "membershiptype"
-            ], 
-            "name": "Can delete membership type"
-        }, 
-        "model": "auth.permission", 
-        "pk": 51
-    }, 
-    {
-        "fields": {
-            "codename": "add_paymentformembership", 
-            "content_type": [
-                "main", 
-                "paymentformembership"
-            ], 
-            "name": "Can add payment for membership"
-        }, 
-        "model": "auth.permission", 
-        "pk": 46
-    }, 
-    {
-        "fields": {
-            "codename": "change_paymentformembership", 
-            "content_type": [
-                "main", 
-                "paymentformembership"
-            ], 
-            "name": "Can change payment for membership"
-        }, 
-        "model": "auth.permission", 
-        "pk": 47
-    }, 
-    {
-        "fields": {
-            "codename": "delete_paymentformembership", 
-            "content_type": [
-                "main", 
-                "paymentformembership"
-            ], 
-            "name": "Can delete payment for membership"
-        }, 
-        "model": "auth.permission", 
-        "pk": 48
-    }, 
-    {
-        "fields": {
-            "codename": "add_placeofstudy", 
-            "content_type": [
-                "main", 
-                "placeofstudy"
-            ], 
-            "name": "Can add place of study"
-        }, 
-        "model": "auth.permission", 
-        "pk": 31
-    }, 
-    {
-        "fields": {
-            "codename": "change_placeofstudy", 
-            "content_type": [
-                "main", 
-                "placeofstudy"
-            ], 
-            "name": "Can change place of study"
-        }, 
-        "model": "auth.permission", 
-        "pk": 32
-    }, 
-    {
-        "fields": {
-            "codename": "delete_placeofstudy", 
-            "content_type": [
-                "main", 
-                "placeofstudy"
-            ], 
-            "name": "Can delete place of study"
-        }, 
-        "model": "auth.permission", 
-        "pk": 33
-    }, 
-    {
-        "fields": {
-            "codename": "add_session", 
-            "content_type": [
-                "sessions", 
-                "session"
-            ], 
-            "name": "Can add session"
-        }, 
-        "model": "auth.permission", 
-        "pk": 13
-    }, 
-    {
-        "fields": {
-            "codename": "change_session", 
-            "content_type": [
-                "sessions", 
-                "session"
-            ], 
-            "name": "Can change session"
-        }, 
-        "model": "auth.permission", 
-        "pk": 14
-    }, 
-    {
-        "fields": {
-            "codename": "delete_session", 
-            "content_type": [
-                "sessions", 
-                "session"
-            ], 
-            "name": "Can delete session"
-        }, 
-        "model": "auth.permission", 
-        "pk": 15
-    }, 
-    {
-        "fields": {
-            "codename": "add_site", 
-            "content_type": [
-                "sites", 
-                "site"
-            ], 
-            "name": "Can add site"
-        }, 
-        "model": "auth.permission", 
-        "pk": 16
-    }, 
-    {
-        "fields": {
-            "codename": "change_site", 
-            "content_type": [
-                "sites", 
-                "site"
-            ], 
-            "name": "Can change site"
-        }, 
-        "model": "auth.permission", 
-        "pk": 17
-    }, 
-    {
-        "fields": {
-            "codename": "delete_site", 
-            "content_type": [
-                "sites", 
-                "site"
-            ], 
-            "name": "Can delete site"
-        }, 
-        "model": "auth.permission", 
-        "pk": 18
     }, 
     {
         "fields": {
@@ -1031,7 +1019,7 @@
     }, 
     {
         "fields": {
-            "date_joined": "2013-03-21T11:26:54Z", 
+            "date_joined": "2013-03-21T12:36:31Z", 
             "email": "robert.kolner@gmail.com", 
             "first_name": "Robert", 
             "groups": [
@@ -1042,9 +1030,9 @@
             "is_active": true, 
             "is_staff": false, 
             "is_superuser": false, 
-            "last_login": "2013-03-21T11:26:54Z", 
+            "last_login": "2013-03-21T12:36:31Z", 
             "last_name": "Kolner", 
-            "password": "robert", 
+            "password": "", 
             "user_permissions": [], 
             "username": "robert"
         }, 
@@ -1053,16 +1041,16 @@
     }, 
     {
         "fields": {
-            "date_joined": "2013-03-21T12:00:01Z", 
+            "date_joined": "2013-03-21T12:36:31Z", 
             "email": "", 
             "first_name": "", 
             "groups": [], 
             "is_active": true, 
             "is_staff": false, 
             "is_superuser": false, 
-            "last_login": "2013-03-21T12:00:01Z", 
+            "last_login": "2013-03-21T12:36:31Z", 
             "last_name": "", 
-            "password": "testersen", 
+            "password": "", 
             "user_permissions": [], 
             "username": "testersen"
         }, 
@@ -1072,15 +1060,18 @@
     {
         "fields": {
             "address": null, 
-            "created": "2013-03-21T11:26:54Z", 
+            "created": "2013-03-21T12:36:31Z", 
             "date_of_birth": null, 
+            "groups": [
+                [
+                    "KAK: EDB"
+                ]
+            ], 
             "legacy_id": null, 
             "phone_number": 90567268, 
             "place_of_study": [], 
-            "updated": "2013-03-21T11:26:54Z", 
-            "user": [
-                "robert"
-            ]
+            "updated": "2013-03-21T12:36:31Z", 
+            "user_permissions": []
         }, 
         "model": "main.member", 
         "pk": 1
@@ -1088,25 +1079,38 @@
     {
         "fields": {
             "address": null, 
-            "created": "2013-03-21T12:00:01Z", 
+            "created": "2013-03-21T12:36:31Z", 
             "date_of_birth": null, 
+            "groups": [], 
             "legacy_id": null, 
             "phone_number": null, 
             "place_of_study": [], 
-            "updated": "2013-03-21T12:00:01Z", 
-            "user": [
-                "testersen"
-            ]
+            "updated": "2013-03-21T12:36:31Z", 
+            "user_permissions": []
         }, 
         "model": "main.member", 
         "pk": 2
     }, 
     {
         "fields": {
-            "created": "2013-03-21T12:55:19Z", 
+            "created": "2013-03-21T13:38:08Z", 
+            "member": [
+                "robert"
+            ], 
+            "mtype": 1, 
+            "payment": null, 
+            "start_date": "2013-01-01", 
+            "updated": "2013-03-21T13:38:08Z"
+        }, 
+        "model": "main.membership", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "created": "2013-03-21T13:37:18Z", 
             "permissions": [], 
             "posix_name": "edb", 
-            "updated": "2013-03-21T12:55:19Z"
+            "updated": "2013-03-21T13:37:18Z"
         }, 
         "model": "main.group", 
         "pk": 1

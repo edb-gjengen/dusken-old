@@ -25,16 +25,7 @@ class PlaceOfStudy(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-class Member(models.Model):
-    # Auth:
-    user = models.OneToOneField(django.contrib.auth.models.User)
-
-    def username(self): return self.user.username
-    def email(self): return self.user.email
-    def first_name(self): return self.user.first_name
-    def last_name(self): return self.user.last_name
-
-    # Profile fields:
+class Member(django.contrib.auth.models.User):
     phone_number = models.IntegerField(unique=True, null=True, blank=True)
     date_of_birth = models.DateField(blank=True, null=True)
     legacy_id = models.IntegerField(unique=True, null=True, blank=True)
