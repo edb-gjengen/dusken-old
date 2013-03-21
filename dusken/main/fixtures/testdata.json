@@ -199,22 +199,6 @@
     }, 
     {
         "fields": {
-            "expire_date": "2013-04-03T18:52:40Z", 
-            "session_data": "MTFmMWM0Y2M2MjUxMzM1MjUyNWM1YjMxNjdjNjljNWRiN2Q2YzQ1NTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQSKAQF1Lg==\n"
-        }, 
-        "model": "sessions.session", 
-        "pk": "b23815af67e49b0622f813f001b6a9ee"
-    }, 
-    {
-        "fields": {
-            "expire_date": "2013-03-07T11:54:38Z", 
-            "session_data": "MTFmMWM0Y2M2MjUxMzM1MjUyNWM1YjMxNjdjNjljNWRiN2Q2YzQ1NTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQSKAQF1Lg==\n"
-        }, 
-        "model": "sessions.session", 
-        "pk": "e45f21e171700c05d2988c2138719e27"
-    }, 
-    {
-        "fields": {
             "domain": "example.com", 
             "name": "example.com"
         }, 
@@ -223,87 +207,26 @@
     }, 
     {
         "fields": {
-            "created": "2013-02-21T12:34:56Z", 
-            "name": "Norge", 
-            "updated": "2013-02-21T12:34:56Z"
-        }, 
-        "model": "main.country", 
-        "pk": 1
-    }, 
-    {
-        "fields": {
-            "city": "Oslo", 
-            "country": 1, 
-            "created": "2013-02-21T12:35:25Z", 
-            "postal_code": "0266", 
-            "street_address": "Odins gate 12A H0401", 
-            "updated": "2013-02-21T12:35:25Z"
-        }, 
-        "model": "main.address", 
-        "pk": 2
-    }, 
-    {
-        "fields": {
-            "created": "2013-02-21T12:34:23Z", 
-            "name": "Universitetet i Oslo", 
-            "updated": "2013-02-21T12:34:23Z"
-        }, 
-        "model": "main.institution", 
-        "pk": 1
-    }, 
-    {
-        "fields": {
-            "created": "2013-02-21T12:37:11Z", 
-            "from_date": "2008-08-01", 
-            "institution": 1, 
-            "updated": "2013-02-21T12:37:11Z"
-        }, 
-        "model": "main.placeofstudy", 
-        "pk": 1
-    }, 
-    {
-        "fields": {
-            "created": "2013-02-21T12:36:18Z", 
+            "created": "2013-03-21T12:58:25Z", 
             "duration_months": 12, 
-            "end_day_of_month": 31, 
-            "end_month": 7, 
+            "end_day_of_month": 1, 
+            "end_month": 8, 
             "name": "Medlem av DNS", 
-            "updated": "2013-02-21T12:36:18Z"
+            "updated": "2013-03-21T12:58:25Z"
         }, 
         "model": "main.membershiptype", 
         "pk": 1
     }, 
     {
         "fields": {
-            "created": "2013-02-21T12:36:45Z", 
+            "created": "2013-03-21T12:58:50Z", 
             "member": 1, 
             "mtype": 1, 
             "payment": null, 
             "start_date": "2013-01-01", 
-            "updated": "2013-02-21T12:36:45Z"
+            "updated": "2013-03-21T12:58:50Z"
         }, 
         "model": "main.membership", 
-        "pk": 1
-    }, 
-    {
-        "fields": {
-            "created": "2013-02-21T12:34:43Z", 
-            "name": "KAK: EDB", 
-            "posix_name": "edb", 
-            "updated": "2013-02-21T12:34:43Z"
-        }, 
-        "model": "main.group", 
-        "pk": 1
-    }, 
-    {
-        "fields": {
-            "created": "2013-02-21T12:35:52Z", 
-            "group": 1, 
-            "member": 1, 
-            "start_date": "2011-09-01", 
-            "updated": "2013-02-21T12:35:52Z"
-        }, 
-        "model": "main.groupmembership", 
         "pk": 1
     }, 
     {
@@ -1100,16 +1023,28 @@
     }, 
     {
         "fields": {
-            "date_joined": "2013-02-21T11:28:36Z", 
+            "name": "KAK: EDB", 
+            "permissions": []
+        }, 
+        "model": "auth.group", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "date_joined": "2013-03-21T11:26:54Z", 
             "email": "robert.kolner@gmail.com", 
-            "first_name": "", 
-            "groups": [], 
+            "first_name": "Robert", 
+            "groups": [
+                [
+                    "KAK: EDB"
+                ]
+            ], 
             "is_active": true, 
-            "is_staff": true, 
-            "is_superuser": true, 
-            "last_login": "2013-02-21T11:54:38Z", 
-            "last_name": "", 
-            "password": "pbkdf2_sha256$10000$PI7j2wfLeR0U$ng0WLLqp/9k2TO7IKQ5DhzrakmP7Yf04aV2CVaT0THU=", 
+            "is_staff": false, 
+            "is_superuser": false, 
+            "last_login": "2013-03-21T11:26:54Z", 
+            "last_name": "Kolner", 
+            "password": "robert", 
             "user_permissions": [], 
             "username": "robert"
         }, 
@@ -1118,16 +1053,16 @@
     }, 
     {
         "fields": {
-            "date_joined": "2013-02-21T11:54:51Z", 
+            "date_joined": "2013-03-21T12:00:01Z", 
             "email": "", 
             "first_name": "", 
             "groups": [], 
             "is_active": true, 
             "is_staff": false, 
             "is_superuser": false, 
-            "last_login": "2013-02-21T11:54:51Z", 
+            "last_login": "2013-03-21T12:00:01Z", 
             "last_name": "", 
-            "password": "pbkdf2_sha256$10000$vl9siKAR2xQe$UT2qewJXnotnd59+tZhL9ky9xpvx/hB3H5KaDGG/HmM=", 
+            "password": "testersen", 
             "user_permissions": [], 
             "username": "testersen"
         }, 
@@ -1136,33 +1071,13 @@
     }, 
     {
         "fields": {
-            "action_flag": 1, 
-            "action_time": "2013-02-21T11:54:51Z", 
-            "change_message": "", 
-            "content_type": [
-                "auth", 
-                "user"
-            ], 
-            "object_id": "2", 
-            "object_repr": "testersen", 
-            "user": [
-                "robert"
-            ]
-        }, 
-        "model": "admin.logentry", 
-        "pk": 1
-    }, 
-    {
-        "fields": {
-            "address": 2, 
-            "created": "2013-02-21T12:33:29Z", 
-            "date_of_birth": "1988-12-31", 
+            "address": null, 
+            "created": "2013-03-21T11:26:54Z", 
+            "date_of_birth": null, 
             "legacy_id": null, 
             "phone_number": 90567268, 
-            "place_of_study": [
-                1
-            ], 
-            "updated": "2013-02-21T12:33:29Z", 
+            "place_of_study": [], 
+            "updated": "2013-03-21T11:26:54Z", 
             "user": [
                 "robert"
             ]
@@ -1173,17 +1088,27 @@
     {
         "fields": {
             "address": null, 
-            "created": "2013-02-21T12:55:58Z", 
+            "created": "2013-03-21T12:00:01Z", 
             "date_of_birth": null, 
             "legacy_id": null, 
             "phone_number": null, 
             "place_of_study": [], 
-            "updated": "2013-02-21T12:55:58Z", 
+            "updated": "2013-03-21T12:00:01Z", 
             "user": [
                 "testersen"
             ]
         }, 
         "model": "main.member", 
         "pk": 2
+    }, 
+    {
+        "fields": {
+            "created": "2013-03-21T12:55:19Z", 
+            "permissions": [], 
+            "posix_name": "edb", 
+            "updated": "2013-03-21T12:55:19Z"
+        }, 
+        "model": "main.group", 
+        "pk": 1
     }
 ]

@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+import django
 from django.db import models
 
 class Country(models.Model):
@@ -27,7 +27,7 @@ class PlaceOfStudy(models.Model):
 
 class Member(models.Model):
     # Auth:
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(django.contrib.auth.models.User)
 
     def username(self): return self.user.username
     def email(self): return self.user.email
@@ -108,8 +108,7 @@ class Membership(models.Model):
     def expires(self):
         return self.mtype.end_date()
 
-class Group(models.Model):
-    name = models.CharField(max_length=50, unique=True)
+class Group(django.contrib.auth.models.Group):
     posix_name = models.CharField(max_length=255, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
