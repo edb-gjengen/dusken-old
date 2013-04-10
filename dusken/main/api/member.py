@@ -54,9 +54,7 @@ class MemberResource(ModelResource):
         """
         Catches POST and PATCH requests and intercepts data.
         """
-        if bundle.obj.user_ptr_id == None: # True if new user
-            pass
-        else:
+        if bundle.obj.user_ptr_id is not None: # happens only if user exists
             for key, value in bundle.data.items():
                 if key == 'username':
                     if value != bundle.obj.username:
