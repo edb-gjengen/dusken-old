@@ -1,6 +1,6 @@
-from tastypie.resources import ModelResource, ALL
 from tastypie.authorization import Authorization
-from main.models import *
+from tastypie.resources import ModelResource, ALL
+from main.models import Group
 
 
 class GroupResource(ModelResource):
