@@ -104,9 +104,3 @@ class Group(django.contrib.auth.models.Group):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-class GroupMembership(models.Model):
-    start_date = models.DateField()
-    member = models.ForeignKey(Member)
-    group = models.ForeignKey(Group)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)

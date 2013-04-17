@@ -4,9 +4,6 @@ from support.test import ResourceTestCase
 from main.models import Member
 
 class MemberTest(ResourceTestCase):
-    fixtures = [ 'testdata.json' ]
-    standard_username = 'robert'
-
     def assertValidMemberData(self, member):
         self.assertEquals(type(member), dict)
         self.assertKeys(member, [ 
@@ -33,7 +30,11 @@ class MemberTest(ResourceTestCase):
 
         # Get the preloaded member, which will be used for 
         # comparison with fetched object.
-        self.member = Member.objects.get(username=self.standard_username)
+        self.member = Member(username='robert', email='robert.kolner@gmail.com', phone_number=90567268)
+        self.member.save()
+
+        self.member2 = Member(username='test', email='test@test.com')
+        self.member2.save()
 
         # URI to get the existing member. We'll probably 
         # need it at one point or another.
@@ -146,7 +147,7 @@ class MemberTest(ResourceTestCase):
         self.assertHttpAccepted(resp)
 
         # Check if user was actually updated:
-        user = Member.objects.get(username=self.standard_username)
+        user = Member.objects.get(username=self.member.username)
         self.assertNotEquals(user.password, data['password']) # just to ensure that it's encrypted
         self.assertEquals(user.email, data['email'])
         self.assertEquals(user.phone_number, data['phone_number'])

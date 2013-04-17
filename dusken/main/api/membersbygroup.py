@@ -56,9 +56,7 @@ class MembersByGroupResource(Resource):
         return obj
 
     def obj_create(self, request=None, **kwargs):
-        group  = Group.objects.get(id=group_id)
-        member = Member.objects.get(id=user_id)
-        group.user_set.add(member) 
+        pass # TODO
 
     def obj_update(self, bundle, request=None, **kwargs):
         pass # We can't update.
