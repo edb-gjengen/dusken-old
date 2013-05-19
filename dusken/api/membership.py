@@ -1,8 +1,8 @@
 from tastypie import fields
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from tastypie.authorization import Authorization
-from main.api.member import MemberResource
-from main.models import *
+from dusken.api.member import MemberResource
+from dusken.models import *
 
 
 class MembershipResource(ModelResource):

@@ -1,7 +1,7 @@
 import logging
 
 from support.test import ResourceTestCase
-from main.models import Group, Member
+from dusken.models import Group, Member
 
 class MembersByGroupTest(ResourceTestCase):
 	def setUp(self):

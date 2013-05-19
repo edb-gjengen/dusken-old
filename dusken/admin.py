@@ -1,5 +1,5 @@
 from django.contrib import admin
-from main.models import Member
+from dusken.models import Member
 
 class MemberAdmin(admin.ModelAdmin):
     fieldsets = [

@@ -1,7 +1,7 @@
 import logging
 
 from support.test import ResourceTestCase
-from main.models import Member
+from dusken.models import Member
 
 class MemberTest(ResourceTestCase):
     def assertValidMemberData(self, member):
