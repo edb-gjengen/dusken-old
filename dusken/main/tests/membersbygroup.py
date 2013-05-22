@@ -7,7 +7,7 @@ class MembersByGroupTest(ResourceTestCase):
 	def setUp(self):
 		super(MembersByGroupTest, self).setUp()
 
-		# URI to get all groups
+		# URI to get all members by group relations (not functional, needs more things at the end)
 		self.url = '/api/v1/membersbygroup/'
 
 	def test_request_types(self):
@@ -26,3 +26,14 @@ class MembersByGroupTest(ResourceTestCase):
 		resp = self.api_client.delete(self.url)
 		self.assertHttpMethodNotAllowed(resp)
 
+    def test_get_all_relations(self):
+        pass
+
+    def test_get_a_relation(self):
+        pass
+
+    def test_create_relation(self):
+        pass
+
+    def test_remove_relation(self):
+        pass
