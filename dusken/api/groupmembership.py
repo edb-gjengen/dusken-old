@@ -1,9 +1,9 @@
 from tastypie import fields
 from tastypie.resources import ModelResource, ALL
 from tastypie.authorization import Authorization
-from main.api.group import GroupResource
-from main.api.member import MemberResource
-from main.models import *
+from dusken.api.group import GroupResource
+from dusken.api.member import MemberResource
+from dusken.models import *
 
 
 class GroupMembershipResource(ModelResource):
