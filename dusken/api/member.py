@@ -4,7 +4,7 @@ from tastypie.authorization import Authorization
 from tastypie.exceptions import ImmediateHttpResponse
 from tastypie.http import HttpForbidden
 from tastypie.resources import ModelResource, ALL
-from main.models import *
+from dusken.models import *
 
 
 class MemberResource(ModelResource):

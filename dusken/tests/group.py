@@ -1,7 +1,7 @@
 import logging
 
 from support.test import ResourceTestCase
-from main.models import Group
+from dusken.models import Group
 
 class GroupTest(ResourceTestCase):
 	fixtures = [ 'testdata.json' ]

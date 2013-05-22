@@ -1,6 +1,6 @@
 from tastypie.authorization import Authorization
 from tastypie.resources import ModelResource, ALL
-from main.models import Group
+from dusken.models import Group
 
 
 class GroupResource(ModelResource):

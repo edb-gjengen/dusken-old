@@ -2,26 +2,23 @@ from tastypie import fields
 from tastypie.authorization import Authorization
 from tastypie.bundle import Bundle
 from tastypie.resources import Resource
-from main.models import Member, Group
+from dusken.models import Member, Group
 
-class GroupsByMemberObject(object):
+class MembersByGroupObject(object):
     def __init__(self):
-        self.member_id = 0
-        self.groups = []
+        self.group_id = 0
+        self.members = []
 
-class GroupsByMemberResource(Resource):
-    member_id = fields.IntegerField(attribute='member_id')
-    groups = fields.ListField(attribute='groups')
+class MembersByGroupResource(Resource):
+    group_id = fields.IntegerField(attribute='group_id')
+    members = fields.ListField(attribute='members')
 
     class Meta:
-        resource_name = 'groupsbymember'
-        object_class = GroupsByMemberObject
+        resource_name = 'membersbygroup'
+        object_class = MembersByGroupObject
         list_allowed_methods = [ 'post' ]
         detail_allowed_methods = [ 'get', 'delete' ]
-        authorization = Authorization() # TODO: look up
-        filtering = {
-            'member_id' : [ 'exact' ]
-        }
+        authorization = Authorization() # TODO: Obvious
 
     def detail_uri_kwargs(self, bundle_or_obj):
         kwargs = {
@@ -29,9 +26,9 @@ class GroupsByMemberResource(Resource):
         }
  
         if isinstance(bundle_or_obj, Bundle):
-            kwargs['pk'] = bundle_or_obj.obj.member_id
+            kwargs['pk'] = bundle_or_obj.obj.group_id
         else:
-            kwargs['pk'] = bundle_or_obj.member_id
+            kwargs['pk'] = bundle_or_obj.group_id
         
         if self._meta.api_name is not None:
             kwargs['api_name'] = self._meta.api_name
@@ -45,23 +42,21 @@ class GroupsByMemberResource(Resource):
         pass # We can't return lists.
 
     def obj_get(self, request=None, **kwargs):
-        member_id = int(kwargs['pk'])
-        member = Member.objects.get(id=member_id)
+        group_id = int(kwargs['pk'])
+        group = Group.objects.get(id=group_id)
 
-        if member is None:
+        if group is None:
             return None
 
-        obj = GroupsByMemberObject()
-        obj.member_id = member.id
-        for group in member.groups.all():
-            obj.groups.append(group.id)
+        obj = MembersByGroupObject()
+        obj.group_id = group.id
+        for member in group.user_set.all():
+            obj.members.append(member.id)
 
         return obj
 
     def obj_create(self, request=None, **kwargs):
-        group  = Group.objects.get(id=group_id)
-        member = Member.objects.get(id=user_id)
-        group.user_set.add(member) 
+        pass # TODO
 
     def obj_update(self, bundle, request=None, **kwargs):
         pass # We can't update.
