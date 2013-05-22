@@ -1,6 +1,8 @@
 from tastypie import fields
 from tastypie.authorization import Authorization
 from tastypie.bundle import Bundle
+from tastypie.exceptions import ImmediateHttpResponse
+from tastypie.http import HttpNotFound
 from tastypie.resources import Resource
 from dusken.models import Member, Group
 
@@ -24,7 +26,6 @@ class MembersByGroupResource(Resource):
         kwargs = {
             'resource_name': self._meta.resource_name,
         }
- 
         if isinstance(bundle_or_obj, Bundle):
             kwargs['pk'] = bundle_or_obj.obj.group_id
         else:
@@ -42,15 +43,31 @@ class MembersByGroupResource(Resource):
         pass # We can't return lists.
 
     def obj_get(self, request=None, **kwargs):
-        group_id = int(kwargs['pk'])
+        keys = kwargs['pk'].split("/")
+        group_id = int(keys[0])
         group = Group.objects.get(id=group_id)
+
+        member = None
+        if len(keys) > 1:
+            member_id = int(keys[1])
+            member = Member.objects.get(id=member_id)
+
+            if member is None:
+                return None
+
+            if member.groups.filter(name=group.name).count() == 0:
+                raise ImmediateHttpResponse(HttpNotFound())
 
         if group is None:
             return None
 
         obj = MembersByGroupObject()
         obj.group_id = group.id
-        for member in group.user_set.all():
+
+        if member is None:
+            for member in group.user_set.all():
+                obj.members.append(member.id)
+        else:
             obj.members.append(member.id)
 
         return obj
