@@ -26,7 +26,7 @@ class MembersByGroupTest(ResourceTestCase):
         self.assertHttpMethodNotAllowed(resp)
 
         resp = self.api_client.post(self.url)
-        self.assertNotEquals(resp.status_code, 405)
+        self.assertHttpMethodNotAllowed(resp)
 
         resp = self.api_client.put(self.url)
         self.assertHttpMethodNotAllowed(resp)
@@ -48,7 +48,25 @@ class MembersByGroupTest(ResourceTestCase):
         self.assertValidJSONResponse(resp)
 
     def test_create_relation(self):
-        pass
+        group = Group(name="Design", posix_name="design")
+
+        data = {
+            'member_id': self.member.pk,
+            'group_id': group.pk
+        }
+        resp = self.api_client.post(self.url, format='json', data=data)
+        self.assertHttpCreated(resp)
+        self.assertNotEquals(self.member.groups.filter(name=group.name).count(), 0)
 
     def test_remove_relation(self):
-        pass
+        data = {
+            'member_id': self.member.pk,
+            'group_id': self.group.pk
+        }
+        resp = self.api_client.delete(self.url, format='json', data=data)
+        self.assertHttpAccepted(resp)
+        self.assertEquals(self.member.groups.filter(name=group.name).count(), 0)
+        
+        resp = self.api_client.delete(self.url, format='json', data=data)
+        self.assertHttpGone(resp)
+
