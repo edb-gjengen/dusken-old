@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from tastypie import fields
 from tastypie.authorization import Authorization
 from tastypie.exceptions import ImmediateHttpResponse
-from tastypie.http import HttpForbidden
+from tastypie.http import HttpForbidden, HttpNoContent
 from tastypie.resources import ModelResource, ALL
 from dusken.models import *
 
@@ -72,4 +72,4 @@ class MemberResource(ModelResource):
         member = Member.objects.get(kwargs['pk'])
         member.is_active = False
         member.save()
-        return 204
+        return HttpNoContent()
