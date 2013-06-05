@@ -17,7 +17,7 @@ class MemberResource(ModelResource):
         queryset = Member.objects.all()
         resource_name = 'member'
         list_allowed_methods = [ 'get', 'post' ]
-        detail_allowed_methods = [ 'get', 'patch' ]
+        detail_allowed_methods = [ 'get', 'patch', 'delete' ]
         authorization = Authorization() # TODO: for dev (VERY INSECURE)
         excludes = [ 'date_joined', 'password', 'is_active', 'is_staff', 'is_superuser', 'last_login' ]
         filtering = {
@@ -61,5 +61,15 @@ class MemberResource(ModelResource):
                         # We can't change username.
                         raise ImmediateHttpResponse(HttpForbidden("You can't change your username."))
                 elif key == 'password':
-                    bundle.obj.set_password(value)
+                    bundle.obj.set_password(value) #TODO Set password only once we know that we can trust the request.
         return bundle     
+
+    def post(self, request, **kwargs):
+        pass #TODO Activate user or...
+        return super(MemberResource, self).post(request, **kwargs)
+
+    def delete_detail(self, request, **kwargs):
+        member = Member.objects.get(kwargs['pk'])
+        member.is_active = False
+        member.save()
+        return 204
