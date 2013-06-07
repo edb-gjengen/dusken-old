@@ -1,10 +1,14 @@
 from django.contrib.auth.models import User
+from django.conf.urls import url
+from django.shortcuts import get_object_or_404
 from tastypie import fields
 from tastypie.authorization import Authorization
 from tastypie.exceptions import ImmediateHttpResponse
-from tastypie.http import HttpForbidden, HttpNoContent
+from tastypie.http import HttpForbidden, HttpNoContent, HttpResponse
 from tastypie.resources import ModelResource, ALL
 from dusken.models import *
+from dusken.api.membersbygroup import MembersByGroupResource
+from dusken.api.groupsbymember import GroupsByMemberResource
 
 
 class MemberResource(ModelResource):
@@ -27,6 +31,19 @@ class MemberResource(ModelResource):
             'last_name' : [ 'exact' ],
             'phone_number' : [ 'exact' ],
         }
+
+    def prepend_urls(self):
+        return [
+            url(r"^(?P<resource_name>%s)/(?P<pk>\d+)/groups/$" % (self._meta.resource_name), self.wrap_view("get_groups"), name="api_get_groups"),
+        ]
+
+    def get_groups(self, request, **kwargs):
+        pk = kwargs['pk']
+        member = get_object_or_404(Member, pk=pk)
+
+        #response = HttpResponse(self._meta.serializer.serialize(member, self.determine_format(request)))
+        resource = GroupsByMemberResource()
+        return resource.get_list(request, pk=pk)
 
     def apply_filters(self, request, applicable_filters):
         # Extra filters are used for filtering by attributes in User class. Find out if there

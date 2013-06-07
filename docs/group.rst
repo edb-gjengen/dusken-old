@@ -1,6 +1,8 @@
 Group
 =====
 
+GET /group/
+-----------
 .. http:get:: /group/
 
    Return information about all groups.
@@ -13,6 +15,8 @@ Group
 
    :statuscode 200: OK!
 
+GET /group/(int)/
+-----------------
 .. http:get:: /group/(int:group_id)/
 
    Return information about a specific group.
@@ -24,6 +28,8 @@ Group
    :statuscode 200: OK!
    :statuscode 404: Group (`group_id`) was not found.
 
+POST /group/
+------------
 .. http:post:: /group/
 
    Create new group.
@@ -41,6 +47,8 @@ Group
    :statuscode 403: You don't have necessary permissions.
    :statuscode 500: Group with this `posix_name` alredy exists or malformed body.
 
+PATCH /group/(int)/
+-------------------
 .. http:patch:: /group/(int:group_id)/
 
    Change name of a group.
@@ -57,3 +65,11 @@ Group
    :statuscode 202: Changed!
    :statuscode 403: You don't have enough permissions to change this group.
    :statuscode 500: Group (`group_id`) does not exist or malformed body.
+
+DELETE /group/(int)/
+--------------------
+.. http:delete:: /group/(int:group_id)/
+
+   Delete a group.
+
+   :statuscode 204: Deleted!
