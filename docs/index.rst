@@ -14,7 +14,7 @@ Contents:
    member
    group
    membership
-
+   institution
 
 Indices and tables
 ==================

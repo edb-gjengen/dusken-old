@@ -2,6 +2,9 @@ import django
 from django.db import models
 
 class Country(models.Model):
+    def __unicode__(self):
+        return self.name
+
     name = models.CharField(max_length=50, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -15,7 +18,11 @@ class Address(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
 class Institution(models.Model):
+    def __unicode__(self):
+        return u'%s - %s' % (self.short_name, self.name)
+
     name = models.CharField(max_length=255)
+    short_name = models.CharField(max_length=16)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -26,6 +33,9 @@ class PlaceOfStudy(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
 class Member(django.contrib.auth.models.User):
+    def __unicode__(self):
+        return u'%s %s' % (self.first_name, self.last_name)
+
     phone_number = models.IntegerField(unique=True, null=True, blank=True)
     date_of_birth = models.DateField(blank=True, null=True)
     legacy_id = models.IntegerField(unique=True, null=True, blank=True)
