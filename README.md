@@ -4,8 +4,10 @@ Dårlig Utrustet Studentsystem som Kommer til å Endre Norge.
 
 Installation
 ------------
+See http://edb.neuf.no/wiki/index.php/DUSKEN
+
 `sudo apt-get install python-dev libmysqlclient-dev python-virtualenv python-pip
-sudo apt-get isntall postgresql-server-dev-9.1  # for postgres client lib
+sudo apt-get install postgresql-server-dev-9.1  # for postgres client lib
 virtualenv --distribute --no-site-packages venv  # create a project specific python environment
 . venv/bin/activate  # active the environment
 pip install -U distribute  # upgrade distribute
