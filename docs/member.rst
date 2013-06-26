@@ -17,6 +17,46 @@ GET /member/
    :query offset: offset number. default is 0
    :query limit: limit number. default is 20
    :statuscode 200: Everything is gonna be alright.
+   :statuscode 403: User does not have necessary permissions.
+
+   **Example response**:
+
+   .. sourcecode:: http
+
+      HTTP/1.1 200 OK
+      Vary: Accept
+      Content-Type: text/javascript
+
+      {
+         "meta" : {
+            "limit" : 20,
+            "next" : null,
+            "offset" : 0,
+            "previous" : null,
+            "total_count" : 1
+         },
+         "objects" : {
+            {
+               "address" : {
+                  "city" : "Oslo",
+                  "country" : "Norway",
+                  "postal_code" : 0266,
+                  "street_address" : "Odins gate 12A"
+               }
+               "created" : "2013-05-22T21:58:44",
+               "date_of_birth" : null,
+               "email" : "robert.kolner@gmail.com",
+               "first_name" : "",
+               "id" : 1,
+               "last_name" : "",
+               "legacy_id" : null,
+               "phone_number" : 90567268,
+               "resource_uri" : "/api/v1/member/1/",
+               "updated" : "2013-05-22T21:58:44",
+               "username" : "robert"
+            }
+         }
+      }
 
 GET /member/(int)/
 ------------------
@@ -34,6 +74,34 @@ GET /member/(int)/
    :statuscode 200: OK!
    :statuscode 403: No permissions, mate.
    :statuscode 404: There's no user with given id.
+
+   **Example response**:
+
+   .. sourcevode:: http
+
+      HTTP/1.1 200 OK
+      Vary: Accept
+      Content-Type: text/javascript
+
+      {
+         "address" : {
+            "city" : "Oslo",
+            "country" : "Norway",
+            "postal_code" : 0266,
+            "street_address" : "Odins gate 12A"
+         }
+         "created": "2013-05-22T21:58:44",
+         "date_of_birth": null,
+         "email": "robert.kolner@gmail.com",
+         "first_name": "",
+         "id": 1,
+         "last_name": "",
+         "legacy_id": null,
+         "phone_number": 90567268,
+         "resource_uri": "/api/v1/member/1/",
+         "updated: "2013-05-22T21:58:44",
+         "username: "robert"
+      }
 
 GET /member/(int)/group/
 ------------------------
@@ -80,6 +148,7 @@ POST /member/
       }
 
    :statuscode 201: User created.
+   :statuscode 403: Permissions == missing
    :statuscode 500: Invalid body or username already exists.
 
 POST /member/(int)/group/(int)/
@@ -90,6 +159,7 @@ POST /member/(int)/group/(int)/
 
    :statuscode 201: User added!
    :statuscode 403: Yeah...no.
+   :statuscode 404: Either user or group does not exist.
 
 PATCH /member/(int)/
 --------------------
