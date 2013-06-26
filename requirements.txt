@@ -5,3 +5,5 @@ django-tastypie==0.9.14
 psycopg2==2.4.5
 python-dateutil==1.5
 django-extensions==1.1.1
+django-sphinxdocs==1.1
+sphinxcontrib-httpdomain==1.1.8
