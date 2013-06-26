@@ -77,7 +77,7 @@ GET /member/(int)/
 
    **Example response**:
 
-   .. sourcevode:: http
+   .. sourcecode:: http
 
       HTTP/1.1 200 OK
       Vary: Accept
