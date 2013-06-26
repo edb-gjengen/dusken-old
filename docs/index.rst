@@ -13,6 +13,7 @@ Contents:
 
    member
    group
+   institution
 
 
 Indices and tables
