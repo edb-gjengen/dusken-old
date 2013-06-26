@@ -42,7 +42,7 @@ GET /member/
                   "country" : "Norway",
                   "postal_code" : 0266,
                   "street_address" : "Odins gate 12A"
-               }
+               },
                "created" : "2013-05-22T21:58:44",
                "date_of_birth" : null,
                "email" : "robert.kolner@gmail.com",
@@ -77,7 +77,7 @@ GET /member/(int)/
 
    **Example response**:
 
-   .. sourcevode:: http
+   .. sourcecode:: http
 
       HTTP/1.1 200 OK
       Vary: Accept

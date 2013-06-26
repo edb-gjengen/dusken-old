@@ -53,11 +53,14 @@ class ExtendedMemberDetail(models.Model):
     updated = models.DateTimeField(auto_now=True)
     pass
 
-class PaymentForMembership(models.Model):
+class PaymentType(models.Model):
+    name = models.CharField(max_length=255)
+
+class Payment(models.Model):
     # Note: More like tokens?
-    sms_payment_id = models.IntegerField(unique=True, null=True, blank=True)
-    webshop_payment_id = models.IntegerField(unique=True, null=True, blank=True)
-    voucher_id = models.IntegerField(unique=True, null=True, blank=True)
+    payment_type = models.ForeignKey(PaymentType)
+    value = models.IntegerField()
+    transaction_id = models.IntegerField(unique=True, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
