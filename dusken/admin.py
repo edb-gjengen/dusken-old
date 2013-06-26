@@ -1,5 +1,5 @@
 from django.contrib import admin
-from dusken.models import Member
+from dusken.models import Member, Institution
 
 class MemberAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -8,4 +8,8 @@ class MemberAdmin(admin.ModelAdmin):
         ('User data',               {'fields' : ['phone_number', 'date_of_birth', 'address', 'place_of_study']}),
     ]
 
+class InstitutionAdmin(admin.ModelAdmin):
+	pass
+
 admin.site.register(Member, MemberAdmin)
+admin.site.register(Institution, InstitutionAdmin)

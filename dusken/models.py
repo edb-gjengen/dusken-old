@@ -15,7 +15,11 @@ class Address(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
 class Institution(models.Model):
+    def __unicode__(self):
+        return self.short_name +' - ' +self.name
+
     name = models.CharField(max_length=255)
+    short_name = models.CharField(max_length=16)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

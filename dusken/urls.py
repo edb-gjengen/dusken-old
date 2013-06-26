@@ -8,6 +8,7 @@ from dusken.api.membership import MembershipResource
 from dusken.api.group import GroupResource
 from dusken.api.groupsbymember import GroupsByMemberResource
 from dusken.api.membersbygroup import MembersByGroupResource
+from dusken.api.institution import InstitutionResource
 
 admin.autodiscover()
 
@@ -17,6 +18,7 @@ v1_api.register(MembershipResource())
 v1_api.register(GroupResource())
 v1_api.register(GroupsByMemberResource())
 v1_api.register(MembersByGroupResource())
+v1_api.register(InstitutionResource())
 
 urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

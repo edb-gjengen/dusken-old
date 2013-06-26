@@ -5,4 +5,4 @@ settings.py
 *.bak
 build
 docs/_build
-
+db.sqlite3
