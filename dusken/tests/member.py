@@ -7,7 +7,8 @@ class MemberTest(ResourceTestCase):
     def assertValidMemberData(self, member):
         self.assertEquals(type(member), dict)
         self.assertKeys(member, [ 
-            u'id', 
+            u'id',
+            u'address',
             u'email', 
             u'username', 
             u'phone_number', 
