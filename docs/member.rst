@@ -129,6 +129,21 @@ GET /member/(int)/group/(int)/
    :statuscode 200: OK!
    :statuscode 403: No go, brother :(
 
+   **Example response**:
+
+   .. sourcecode:: http
+
+      HTTP/1.1 200 OK
+      Vary: Accept
+      Content-Type: text/javascript
+      
+      {
+         group_id: 1,
+         is_member: true,
+         member_id: 1,
+         resource_uri: ""
+      }
+
 POST /member/
 -------------
 .. http:post:: /member/

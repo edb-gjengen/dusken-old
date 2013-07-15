@@ -9,17 +9,19 @@ from dusken.models import Member, Group
 
 import logging
 
-class GroupsByMemberObject(object):
+class GroupByMemberObject(object):
     def __init__(self):
         self.member_id = 0
-        self.groups = []
+        self.group_id = []
+        self.is_member = True
 
 class GroupsByMemberResource(Resource):
     member_id = fields.IntegerField(attribute='member_id')
-    groups = fields.ListField(attribute='groups')
+    group_id = fields.IntegerField(attribute='group_id')
+    is_member = fields.BooleanField(attribute='is_member')
 
     class Meta:
-        object_class = GroupsByMemberObject
+        object_class = GroupByMemberObject
         list_allowed_methods = [ 'get' ]
         detail_allowed_methods = [ 'get', 'delete', 'post' ]
         authorization = Authorization() # TODO: Obvious
@@ -38,33 +40,31 @@ class GroupsByMemberResource(Resource):
     def obj_get_list(self, request=None, **kwargs):
         member_id = int(kwargs['member_id'])
         member = get_object_or_404(Member, pk=member_id)
-
         groups = []
         for group in member.groups.all():
-            groups.append(group)
+            obj = GroupByMemberObject
+            obj.member_id = member_id
+            obj.group_id = group.id
+            obj.is_member = True
+            groups.append(obj)
 
         return groups
 
     def obj_get(self, request=None, **kwargs):
         member_id = int(kwargs['member_id'])
-        member = Member.objects.get(id=member_id)
+        member = get_object_or_404(Member, pk=member_id)
 
         group_id = int(kwargs['group_id'])
-        group = Group.objects.get(id=group_id)
+        group = get_object_or_404(Group, pk=group_id)
 
-        if member is None:
-            raise ImmediateHttpResponse(HttpNotFound())
-
-        if member.groups.filter(name=group.name).count() == 0:
-            raise ImmediateHttpResponse(HttpNotFound())
-
-        if group is None:
-            return None
-
-        obj = GroupsByMemberObject()
+        obj = GroupByMemberObject()
         obj.member_id = member_id
-        for group in member.groups.all():
-            obj.groups.append(group)
+        obj.group_id = group_id
+
+        if member.groups.filter(id=group_id).count() == 0:
+            obj.is_member = False
+        else:
+            obj.is_member = True
 
         return obj
 
@@ -81,7 +81,7 @@ class GroupsByMemberResource(Resource):
         group_id = keys[1]
 
         
-        logging.error("Calling create function with parameters {0}".format(str(kwargs)))
+        print("Calling create function with parameters {0}".format(str(kwargs)))
         return HttpCreated()
 
     def obj_update(self, bundle, request=None, **kwargs):
