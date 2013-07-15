@@ -82,6 +82,25 @@ class MemberResource(ModelResource):
                     bundle.obj.set_password(value) #TODO Set password only once we know that we can trust the request.
         return bundle     
 
+    def dehydrate(self, bundle):
+        """
+        Catches GET requests and adds more data.
+        """
+        # Add address:
+        address = bundle.obj.address
+        if address is None:
+            bundle.data['address'] = None
+        else:
+            # TODO: There has to be a better way...
+            bundle.data['address'] = {
+                'city' : address.city,
+                'country' : address.country.name,
+                'postal_code' : address.postal_code,
+                'street_address' : address.street_address,
+            }
+
+        return bundle
+
     def post(self, request, **kwargs):
         pass #TODO Activate user or...
         return super(MemberResource, self).post(request, **kwargs)
