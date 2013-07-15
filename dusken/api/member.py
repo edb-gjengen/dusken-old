@@ -34,16 +34,17 @@ class MemberResource(ModelResource):
 
     def prepend_urls(self):
         return [
-            url(r"^(?P<resource_name>%s)/(?P<pk>\d+)/groups/$" % (self._meta.resource_name), self.wrap_view("get_groups"), name="api_get_groups"),
+            url(r"^(?P<resource_name>%s)/(?P<member_id>\d+)/groups/$" % (self._meta.resource_name), self.wrap_view("get_groups"), name="api_get_groups"),
+            url(r"^(?P<resource_name>%s)/(?P<member_id>\d+)/groups/(?P<group_id>\d+)/$" % (self._meta.resource_name), self.wrap_view("get_detail_groups"), name="api_get_detail_groups"),
         ]
 
     def get_groups(self, request, **kwargs):
-        pk = kwargs['pk']
-        member = get_object_or_404(Member, pk=pk)
-
-        #response = HttpResponse(self._meta.serializer.serialize(member, self.determine_format(request)))
         resource = GroupsByMemberResource()
-        return resource.get_list(request, pk=pk)
+        return resource.dispatch_list(request, **kwargs)
+
+    def get_detail_groups(self, request, **kwargs):
+        resource = GroupsByMemberResource()
+        return resource.dispatch_detail(request, **kwargs)
 
     def apply_filters(self, request, applicable_filters):
         # Extra filters are used for filtering by attributes in User class. Find out if there

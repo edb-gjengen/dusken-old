@@ -104,7 +104,7 @@ class MembershipType(models.Model):
 class Membership(models.Model):
     start_date = models.DateField()
     mtype = models.ForeignKey(MembershipType, db_column='type')
-    payment = models.ForeignKey(PaymentForMembership, unique=True, null=True, blank=True)
+    payment = models.ForeignKey(Payment, unique=True, null=True, blank=True)
     member = models.ForeignKey(Member)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

@@ -20,7 +20,7 @@ class GroupsByMemberResource(Resource):
 
     class Meta:
         object_class = GroupsByMemberObject
-        list_allowed_methods = []
+        list_allowed_methods = [ 'get' ]
         detail_allowed_methods = [ 'get', 'delete', 'post' ]
         authorization = Authorization() # TODO: Obvious
 
@@ -28,59 +28,43 @@ class GroupsByMemberResource(Resource):
         kwargs = {
             'resource_name': self._meta.resource_name,
         }
-        if isinstance(bundle_or_obj, Bundle):
-            kwargs['pk'] = bundle_or_obj.obj.group_id
-        else:
-            kwargs['pk'] = bundle_or_obj.group_id
-        
-        if self._meta.api_name is not None:
-            kwargs['api_name'] = self._meta.api_name
-        
+
         return kwargs
 
     def get_object_list(self, request):
-        logging.info("Someone tried to get_object_list, but I can't do that, man, I can't do that!")
-        pass # We can't return lists.
+        return self.obj_get_list(request)
+
 
     def obj_get_list(self, request=None, **kwargs):
-        member_id = int(kwargs['pk'])
+        member_id = int(kwargs['member_id'])
         member = get_object_or_404(Member, pk=member_id)
 
-        obj = GroupsByMemberObject()
-        obj.member_id = member_id
-
-        #print "\n\n\n" +str(member.groups.all()) +"\n\n\n"
+        groups = []
         for group in member.groups.all():
-            obj.groups.append(group)
+            groups.append(group)
 
-        return obj
+        return groups
 
     def obj_get(self, request=None, **kwargs):
-        member_id = int(kwargs['pk'])
+        member_id = int(kwargs['member_id'])
         member = Member.objects.get(id=member_id)
 
-        member = None
-        if len(keys) > 1:
-            member_id = int(keys[1])
-            member = Member.objects.get(id=member_id)
+        group_id = int(kwargs['group_id'])
+        group = Group.objects.get(id=group_id)
 
-            if member is None:
-                return None
+        if member is None:
+            raise ImmediateHttpResponse(HttpNotFound())
 
-            if member.groups.filter(name=group.name).count() == 0:
-                raise ImmediateHttpResponse(HttpNotFound())
+        if member.groups.filter(name=group.name).count() == 0:
+            raise ImmediateHttpResponse(HttpNotFound())
 
         if group is None:
             return None
 
-        obj = MembersByGroupObject()
-        obj.group_id = group.id
-
-        if member is None:
-            for member in group.user_set.all():
-                obj.members.append(member.id)
-        else:
-            obj.members.append(member.id)
+        obj = GroupsByMemberObject()
+        obj.member_id = member_id
+        for group in member.groups.all():
+            obj.groups.append(group)
 
         return obj
 
