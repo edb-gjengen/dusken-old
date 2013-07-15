@@ -34,15 +34,15 @@ class MemberResource(ModelResource):
 
     def prepend_urls(self):
         return [
-            url(r"^(?P<resource_name>%s)/(?P<member_id>\d+)/groups/$" % (self._meta.resource_name), self.wrap_view("get_groups"), name="api_get_groups"),
-            url(r"^(?P<resource_name>%s)/(?P<member_id>\d+)/groups/(?P<group_id>\d+)/$" % (self._meta.resource_name), self.wrap_view("get_detail_groups"), name="api_get_detail_groups"),
+            url(r"^(?P<resource_name>%s)/(?P<member_id>\d+)/groups/$" % (self._meta.resource_name), self.wrap_view("groups"), name="api_groups"),
+            url(r"^(?P<resource_name>%s)/(?P<member_id>\d+)/groups/(?P<group_id>\d+)/$" % (self._meta.resource_name), self.wrap_view("detail_groups"), name="api_detail_groups"),
         ]
 
-    def get_groups(self, request, **kwargs):
+    def groups(self, request, **kwargs):
         resource = GroupsByMemberResource()
         return resource.dispatch_list(request, **kwargs)
 
-    def get_detail_groups(self, request, **kwargs):
+    def detail_groups(self, request, **kwargs):
         resource = GroupsByMemberResource()
         return resource.dispatch_detail(request, **kwargs)
 

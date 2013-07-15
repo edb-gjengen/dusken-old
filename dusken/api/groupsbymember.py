@@ -61,27 +61,30 @@ class GroupsByMemberResource(Resource):
         obj.member_id = member_id
         obj.group_id = group_id
 
-        if member.groups.filter(id=group_id).count() == 0:
-            obj.is_member = False
-        else:
+        if self.__member_has_group(member, group):
             obj.is_member = True
+        else:
+            obj.is_member = False
 
         return obj
 
     def post_detail(self, request=None, **kwargs):
         """
-        Creates a new relationship be.
+        Creates a new relationship between a member and a group.
         """
+        member_id = int(kwargs['member_id'])
+        member = get_object_or_404(Member, pk=member_id)
 
-        keys = kwargs['pk'].split('/')
-        if len(keys) < 2:
-            raise ImmediateHttpResponse(HttpBadRequest())
+        group_id = int(kwargs['group_id'])
+        group = get_object_or_404(Group, pk=group_id)
 
-        member_id = keys[0]
-        group_id = keys[1]
+        if self.__member_has_group(member, group):
+            # TODO: Check for a correct status code to return in this case.
+            return HttpCreated()
 
-        
-        print("Calling create function with parameters {0}".format(str(kwargs)))
+        member.groups.add(group)
+        member.save()
+
         return HttpCreated()
 
     def obj_update(self, bundle, request=None, **kwargs):
@@ -102,3 +105,6 @@ class GroupsByMemberResource(Resource):
     def rollback(self, bundles):
         logging.info("Someone tried to rollback, but I can't do that, man, I can't do that!")
         return
+
+    def __member_has_group(self, member, group):
+        return member.groups.filter(id=group.id).count() != 0
