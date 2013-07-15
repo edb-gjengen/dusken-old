@@ -3,7 +3,7 @@ from tastypie import fields
 from tastypie.authorization import Authorization
 from tastypie.bundle import Bundle
 from tastypie.exceptions import ImmediateHttpResponse
-from tastypie.http import HttpNotFound, HttpAccepted, HttpCreated, HttpResponse, HttpBadRequest
+from tastypie.http import HttpNotFound, HttpAccepted, HttpCreated, HttpResponse, HttpBadRequest, HttpNoContent
 from tastypie.resources import Resource
 from dusken.models import Member, Group
 
@@ -96,11 +96,14 @@ class GroupsByMemberResource(Resource):
         return # We can't delete lists.
 
     def obj_delete(self, request=None, **kwargs):
-        print str(kwargs +"\n\n\n\n")
-        group  = Group.objects.get(id=group_id)
-        member = Member.objects.get(id=user_id)
-        group.user_set.remove(member) 
+        member_id = int(kwargs['member_id'])
+        member = get_object_or_404(Member, pk=member_id)
 
+        group_id = int(kwargs['group_id'])
+        group  = get_object_or_404(Group, pk=group_id)
+        
+        group.user_set.remove(member) 
+        return HttpNoContent()
 
     def rollback(self, bundles):
         logging.info("Someone tried to rollback, but I can't do that, man, I can't do that!")
