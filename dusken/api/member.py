@@ -82,8 +82,9 @@ class MemberResource(ModelResource):
         return bundle     
 
     def obj_update(self, bundle, request, **kwargs):
-        bundle.obj.set_password(bundle.data['password'])
-        bundle.obj.save()
+        if bundle.data.get('password') is not None:
+            bundle.obj.set_password(bundle.data['password'])
+            bundle.obj.save()
         return super(MemberResource, self).obj_update(bundle, request, **kwargs)
 
     def dehydrate(self, bundle):
