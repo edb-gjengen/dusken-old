@@ -8,7 +8,6 @@ from tastypie.exceptions import ImmediateHttpResponse
 from tastypie.http import HttpForbidden, HttpNoContent, HttpResponse
 from tastypie.resources import ModelResource, ALL
 from dusken.models import *
-from dusken.api.membersbygroup import MembersByGroupResource
 from dusken.api.groupsbymember import GroupsByMemberResource
 
 
