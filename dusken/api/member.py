@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.conf.urls import url
 from django.shortcuts import get_object_or_404
@@ -78,9 +79,12 @@ class MemberResource(ModelResource):
                     if value != bundle.obj.username:
                         # We can't change username.
                         raise ImmediateHttpResponse(HttpForbidden("You can't change your username."))
-                elif key == 'password':
-                    bundle.obj.set_password(value) #TODO Set password only once we know that we can trust the request.
         return bundle     
+
+    def obj_update(self, bundle, request, **kwargs):
+        bundle.obj.set_password(bundle.data['password'])
+        bundle.obj.save()
+        return super(MemberResource, self).obj_update(bundle, request, **kwargs)
 
     def dehydrate(self, bundle):
         """
