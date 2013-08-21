@@ -2,6 +2,9 @@ import django
 from django.db import models
 
 class Country(models.Model):
+    class Meta:
+        verbose_name_plural = "Countries"
+
     def __unicode__(self):
         return self.name
 
@@ -10,6 +13,10 @@ class Country(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
 class Address(models.Model):
+
+    class Meta:
+        verbose_name_plural = "Addresses"
+
     def __unicode__(self):
         return u"{street}, {code} {city}, {country}".format(street=self.street_address, code=self.postal_code, city=self.city, country=self.country)
 
