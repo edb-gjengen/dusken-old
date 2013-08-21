@@ -34,7 +34,9 @@ class PlaceOfStudy(models.Model):
 
 class Member(django.contrib.auth.models.User):
     def __unicode__(self):
-        return u'%s %s' % (self.first_name, self.last_name)
+        if len(self.first_name) + len(self.last_name) > 0:
+            return u'%s %s (%s)' % (self.first_name, self.last_name, self.username)
+        return u"%s" % (self.username)
 
     phone_number = models.IntegerField(unique=True, null=True, blank=True)
     date_of_birth = models.DateField(blank=True, null=True)
