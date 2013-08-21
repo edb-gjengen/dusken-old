@@ -147,7 +147,7 @@ class Membership(models.Model):
 
 class Group(django.contrib.auth.models.Group):
     def __unicode__(self):
-        return u"{}".format(self.posix_name)
+        return u"{} ({})".format(self.name, self.posix_name)
     posix_name = models.CharField(max_length=255, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

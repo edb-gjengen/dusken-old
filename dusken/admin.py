@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from dusken.models import Member, Institution, Address, Country
+from dusken.models import *
 
 class MemberAdmin(admin.ModelAdmin):
     exclude = ( 'password', 'last_login', )
@@ -31,8 +31,13 @@ class MemberAdmin(admin.ModelAdmin):
 class InstitutionAdmin(admin.ModelAdmin):
 	pass
 
+admin.site.unregister(django.contrib.auth.models.Group)
 admin.site.unregister(User)
-admin.site.register(Member, MemberAdmin)
-admin.site.register(Institution, InstitutionAdmin)
 admin.site.register(Address)
 admin.site.register(Country)
+admin.site.register(Group)
+admin.site.register(Institution, InstitutionAdmin)
+admin.site.register(Member, MemberAdmin)
+admin.site.register(MembershipType)
+admin.site.register(Membership)
+admin.site.register(PlaceOfStudy)
