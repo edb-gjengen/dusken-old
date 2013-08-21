@@ -1,7 +1,9 @@
 import logging
 
 from support.test import ResourceTestCase
-from dusken.models import Member
+from dusken.models import Address, Country, Member
+
+from utils.tests import test_fixtures
 
 class MemberTestBase(ResourceTestCase):
 
@@ -19,7 +21,7 @@ class MemberTestBase(ResourceTestCase):
 
         # URIs to the member api
         self.all_members_url = '/api/v1/member/'
-        self.member_url = self.all_members_url + '{}/'.format(self.member.pk)
+        self.member_url = self.all_members_url + '{}/'
 
 
 class MemberTest(MemberTestBase):
@@ -49,7 +51,7 @@ class MemberTest(MemberTestBase):
         """
         Tests that we can get a premade user correctly.
         """
-        resp = self.api_client.get(self.member_url, format='json')
+        resp = self.api_client.get(self.member_url.format(self.member.pk), format='json')
         self.assertValidJSONResponse(resp)
 
         # Check if the returned data is correct:
@@ -127,7 +129,7 @@ class MemberTest(MemberTestBase):
             'phone_number' : 90541242
         }
 
-        resp = self.api_client.patch(self.member_url, 
+        resp = self.api_client.patch(self.member_url.format(self.member.pk), 
             format='json', 
             data=data)
         self.assertHttpAccepted(resp)
@@ -146,7 +148,7 @@ class MemberTest(MemberTestBase):
         newusername = oldusername + 'lolzorz'
 
         data = { 'username' : newusername }
-        resp = self.api_client.patch(self.member_url, format='json', data=data)
+        resp = self.api_client.patch(self.member_url.format(self.member.pk), format='json', data=data)
         self.assertHttpForbidden(resp)
         
         try:
@@ -161,20 +163,93 @@ class MemberTest(MemberTestBase):
             pass # ...the test.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-class MemberAdressTest(MemberTestBase):
+class MemberAddressTest(MemberTestBase):
 
-    def test_member_update_address(self):
+    fixtures = test_fixtures()
+
+    def setUp(self):
+        super(MemberAddressTest, self).setUp()
+
+        self.user_id = 1
+
+        member = Member.objects.get(id=self.user_id)
+        member.address = Address.objects.get(id=1)
+        member.save()
+
+    def test_member_address_update_street(self):
         data = {
                 "address": {
-                "street" : "somestreet",
-            }
+                    "street_address" : "somestreet 2",
+                }
         }
 
-        response = self.api_client.patch(self.member_url, 
-            format='json', 
-            data=data)
+        response = self.api_client.patch(
+                self.member_url.format(self.user_id), 
+                format='json', 
+                data=data)
 
         self.assertHttpAccepted(response)
+        self.assertEquals('somestreet 2', Member.objects.get(id=self.user_id).address.street_address)
 
-        print response
-        print Member.objects.get(username="robert").address
+    def test_member_address_update_city(self):
+        data = {
+                "address": {
+                    "city": "Amsterdam"
+                }
+        }
+
+        response = self.api_client.patch(
+                self.member_url.format(self.user_id), 
+                format='json',
+                data=data)
+
+        self.assertHttpAccepted(response)
+        self.assertEquals('Amsterdam', Member.objects.get(id=self.user_id).address.city)
+
+    def test_member_address_update_postcode(self):
+        data = {
+                "address": {
+                    "postal_code": "0977RT"
+                }
+        }
+
+        response = self.api_client.patch(
+                self.member_url.format(self.user_id),
+                format='json',
+                data=data)
+
+        self.assertHttpAccepted(response)
+        self.assertEquals('0977RT', Member.objects.get(id=self.user_id).address.postal_code)
+
+    def test_member_address_update_country(self):
+        data = {
+                "address": {
+                    "country": "Netherlands"
+                }
+        }
+
+        response = self.api_client.patch(
+                self.member_url.format(self.user_id),
+                format='json',
+                data=data)
+
+        self.assertHttpAccepted(response)
+        self.assertEquals(
+                Country.objects.get(name="Netherlands"), 
+                Member.objects.get(id=self.user_id).address.country)
+
+    def test_member_adress_update_unknown_country(self):
+        data = {
+                "address": {
+                    "country": "unknown"
+                }
+        }
+
+        response = self.api_client.patch(
+                self.member_url.format(self.user_id),
+                format='json',
+                data=data)
+
+        self.assertHttpForbidden(response)
+        self.assertEquals('The country "unknown" does not exist.', response.content)
+

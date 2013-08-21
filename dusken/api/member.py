@@ -72,18 +72,36 @@ class MemberResource(ModelResource):
         """
         Catches POST and PATCH requests and intercepts data.
         """
-        if bundle.obj.user_ptr_id is not None: # happens only if user exists
-            for key, value in bundle.data.items():
-                if key == 'username':
-                    if value != bundle.obj.username:
-                        # We can't change username.
-                        raise ImmediateHttpResponse(HttpForbidden("You can't change your username."))
-        return bundle     
+        # Check if the user exists and return an error when attempting to change the username
+        if bundle.obj.user_ptr_id is not None and not bundle.data['username'] == bundle.obj.username:
+            raise ImmediateHttpResponse(HttpForbidden("You can't change your username."))
+        return bundle
 
     def obj_update(self, bundle, request, **kwargs):
         if bundle.data.get('password') is not None:
             bundle.obj.set_password(bundle.data['password'])
             bundle.obj.save()
+
+        if 'address' in bundle.data:
+            new_address = bundle.data.get('address')
+            address = bundle.obj.address
+            
+            if 'street_address' in new_address:
+                address.street_address = new_address['street_address']
+            if 'city' in new_address:
+                address.city = new_address['city']
+            if 'postal_code' in new_address:
+                address.postal_code = new_address['postal_code']
+            if 'country' in new_address:
+                try:
+                    country = Country.objects.get(name=new_address['country'])
+                except Country.DoesNotExist, e:
+                    raise ImmediateHttpResponse(HttpForbidden('The country "{}" does not exist.'.format(new_address['country'])))
+                else:
+                    address.country = country
+
+            address.save()
+
         return super(MemberResource, self).obj_update(bundle, request, **kwargs)
 
     def dehydrate(self, bundle):

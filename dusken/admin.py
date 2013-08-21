@@ -27,16 +27,13 @@ class MemberAdmin(admin.ModelAdmin):
             return self.readonly_fields + ('username', )
         return self.readonly_fields
 
-
-class InstitutionAdmin(admin.ModelAdmin):
-	pass
-
 admin.site.unregister(django.contrib.auth.models.Group)
 admin.site.unregister(User)
+
 admin.site.register(Address)
 admin.site.register(Country)
 admin.site.register(Group)
-admin.site.register(Institution, InstitutionAdmin)
+admin.site.register(Institution)
 admin.site.register(Member, MemberAdmin)
 admin.site.register(MembershipType)
 admin.site.register(Membership)
