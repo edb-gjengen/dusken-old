@@ -4,20 +4,22 @@ Dårlig Utrustet Studentsystem som Kommer til å Endre Norge.
 
 Installation
 ------------
-See http://edb.neuf.no/wiki/index.php/DUSKEN
+See http://edb.neuf.no/wiki/index.php/DUSKEN for installation
 
-`sudo apt-get install python-dev libmysqlclient-dev python-virtualenv python-pip
-sudo apt-get install postgresql-server-dev-9.1  # for postgres client lib
-virtualenv --distribute --no-site-packages venv  # create a project specific python environment
-. venv/bin/activate  # active the environment
-pip install -U distribute  # upgrade distribute
-pip install -r requirements.txt  # install all requirements`
+**TODO installation:**
+
+Download latest version of Vagrant from [http://downloads.vagrantup.com/]() and then do:
+
+    vagrant plugin install vagrant-salt
+    vagrant up
+    vagrant ssh
+
 
 Database Diagram Generation
 ---------------------------
-`sudo apt-get install graphviz libgraphviz-dev 
+sudo apt-get install graphviz libgraphviz-dev 
 pip install pygraphviz django-extensions
-python manage.py graph_models -o diagramfile.png main`
+python manage.py graph_models -o diagramfile.png main
 
 
 Generate Fixtures for Test
