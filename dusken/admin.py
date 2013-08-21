@@ -4,7 +4,6 @@ from dusken.models import Member, Institution
 
 class MemberAdmin(admin.ModelAdmin):
     exclude = ( 'password', 'last_login', )
-    readonly_fields = ( 'username', )
 
 class InstitutionAdmin(admin.ModelAdmin):
 	pass
