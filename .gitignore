@@ -6,3 +6,4 @@ settings.py
 build
 docs/_build
 db.sqlite3
+dusken.db
