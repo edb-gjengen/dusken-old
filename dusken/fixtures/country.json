@@ -1,0 +1,1 @@
+[{"pk": 1, "model": "dusken.country", "fields": {"updated": "2013-08-21T19:37:24.851Z", "name": "Norway", "created": "2013-08-21T19:37:24.851Z"}}, {"pk": 2, "model": "dusken.country", "fields": {"updated": "2013-08-21T19:37:31.577Z", "name": "Netherlands", "created": "2013-08-21T19:37:31.577Z"}}]
