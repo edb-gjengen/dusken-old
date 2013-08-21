@@ -10,6 +10,9 @@ class Country(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
 class Address(models.Model):
+    def __unicode__(self):
+        return u"{street}, {code} {city}, {country}".format(street=self.street_address, code=self.postal_code, city=self.city, country=self.country)
+
     street_address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
     country = models.ForeignKey(Country)
@@ -27,6 +30,9 @@ class Institution(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
 class PlaceOfStudy(models.Model):
+    def __unicode__(self):
+        return u"{institution}, {year}".format(institution=self.institution, year=self.from_date.year)
+
     from_date = models.DateField()
     institution = models.ForeignKey(Institution)
     created = models.DateTimeField(auto_now_add=True)
@@ -35,8 +41,8 @@ class PlaceOfStudy(models.Model):
 class Member(django.contrib.auth.models.User):
     def __unicode__(self):
         if len(self.first_name) + len(self.last_name) > 0:
-            return u'%s %s (%s)' % (self.first_name, self.last_name, self.username)
-        return u"%s" % (self.username)
+            return u'{first} {last} ({username})'.format(first=self.first_name, last=self.last_name, username=self.username)
+        return u"{username}".format(username=self.username)
 
     phone_number = models.IntegerField(unique=True, null=True, blank=True)
     date_of_birth = models.DateField(blank=True, null=True)
@@ -47,6 +53,9 @@ class Member(django.contrib.auth.models.User):
     updated = models.DateTimeField(auto_now=True)
 
 class FacebookAuth(models.Model):
+    def __unicode__(self):
+        return u"{}".format(self.token)
+
     token = models.CharField(max_length=255, unique=True, null=True, blank=True)
     token_expires = models.DateTimeField(null=True, blank=True)
     member = models.OneToOneField(Member, null=True, blank=True)
@@ -54,6 +63,9 @@ class FacebookAuth(models.Model):
     updated = models.DateTimeField(auto_now=True)
     
 class GoogleAuth(models.Model):
+    def __unicode__(self):
+        return u"{}".format(self.token)
+
     token = models.CharField(max_length=255, unique=True, null=True, blank=True)
     token_expires = models.DateTimeField(null=True, blank=True)
     member = models.OneToOneField(Member, null=True, blank=True)
@@ -66,9 +78,15 @@ class ExtendedMemberDetail(models.Model):
     pass
 
 class PaymentType(models.Model):
+    def __unicode__(self):
+        return u"{}".format(self.name)
+
     name = models.CharField(max_length=255)
 
 class Payment(models.Model):
+    def __unicode__(self):
+        return self.payment_type #TODO
+
     # Note: More like tokens?
     payment_type = models.ForeignKey(PaymentType)
     value = models.IntegerField()
@@ -80,6 +98,9 @@ class Payment(models.Model):
    TODO: should validate end_day_of_month and end_month (use datetime exceptions)
 '''
 class MembershipType(models.Model):
+    def __unicode__(self):
+        return u"{}".format(self.name)
+
     name = models.CharField(max_length=50, unique=True)
     duration_months = models.IntegerField(default=12)
     end_day_of_month = models.IntegerField(default=31)
@@ -104,6 +125,9 @@ class MembershipType(models.Model):
         return min(end1, end2)
 
 class Membership(models.Model):
+    def __unicode__(self):
+        return u"{member}: {fromdate}".format(member=self.member, fromdate=self.start_date)
+
     start_date = models.DateField()
     mtype = models.ForeignKey(MembershipType, db_column='type')
     payment = models.ForeignKey(Payment, unique=True, null=True, blank=True)
@@ -115,6 +139,8 @@ class Membership(models.Model):
         return self.mtype.end_date()
 
 class Group(django.contrib.auth.models.Group):
+    def __unicode__(self):
+        return u"{}".format(self.posix_name)
     posix_name = models.CharField(max_length=255, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

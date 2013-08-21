@@ -53,3 +53,13 @@ GET /institution/
              }
          ]
       }
+
+POST /institution/
+------------
+.. http:post:: /institution/
+
+   Makes a new institution/
+
+PATCH /institution/
+------------
+.. http:patch:: /institution/(int)
