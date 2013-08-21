@@ -3,7 +3,26 @@ import logging
 from support.test import ResourceTestCase
 from dusken.models import Member
 
-class MemberTest(ResourceTestCase):
+class MemberTestBase(ResourceTestCase):
+
+    def setUp(self):
+        super(MemberTestBase, self).setUp()
+
+        # TODO use fixtures for this
+        # Get the preloaded member, which will be used for 
+        # comparison with fetched object.
+        self.member = Member(username='robert', email='robert.kolner@gmail.com', phone_number=90567268)
+        self.member.save()
+
+        self.member2 = Member(username='test', email='test@test.com')
+        self.member2.save()
+
+        # URIs to the member api
+        self.all_members_url = '/api/v1/member/'
+        self.member_url = self.all_members_url + '{}/'.format(self.member.pk)
+
+
+class MemberTest(MemberTestBase):
     def assertValidMemberData(self, member):
         self.assertEquals(type(member), dict)
         self.assertKeys(member, [ 
@@ -24,23 +43,7 @@ class MemberTest(ResourceTestCase):
         self.assertNotEquals(None,member['email'])
         self.assertNotEquals(None,member['created'])
         self.assertNotEquals(None,member['updated'])
-        self.assertNotEquals(None,member['resource_uri'])
-
-    def setUp(self):
-        super(MemberTest, self).setUp()
-
-        # Get the preloaded member, which will be used for 
-        # comparison with fetched object.
-        self.member = Member(username='robert', email='robert.kolner@gmail.com', phone_number=90567268)
-        self.member.save()
-
-        self.member2 = Member(username='test', email='test@test.com')
-        self.member2.save()
-
-        # URI to get the existing member. We'll probably 
-        # need it at one point or another.
-        self.all_members_url = '/api/v1/member/'
-        self.member_url = self.all_members_url + '{}/'.format(self.member.pk)
+        self.assertNotEquals(None,member['resource_uri'])   
 
     def test_get_member(self):
         """
@@ -156,4 +159,21 @@ class MemberTest(ResourceTestCase):
             self.fail("You will never see this message. If you do, call +7 331 24 337 for further instructions.")
         except Member.DoesNotExist:
             pass # ...the test.
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+class MemberAdressTest(MemberTestBase):
+
+    def test_member_update_address(self):
+        data = {
+                "api_client": "v1",
+                "address": {
+                "street" : "somestreet",
+            }
+        }
+
+        resp = self.api_client.patch(self.member_url, 
+            format='json', 
+            data=data)
+
+        print resp
 
