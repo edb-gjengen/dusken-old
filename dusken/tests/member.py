@@ -165,15 +165,16 @@ class MemberAdressTest(MemberTestBase):
 
     def test_member_update_address(self):
         data = {
-                "api_client": "v1",
                 "address": {
                 "street" : "somestreet",
             }
         }
 
-        resp = self.api_client.patch(self.member_url, 
+        response = self.api_client.patch(self.member_url, 
             format='json', 
             data=data)
 
-        print resp
+        self.assertHttpAccepted(response)
 
+        print response
+        print Member.objects.get(username="robert").address

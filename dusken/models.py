@@ -2,6 +2,9 @@ import django
 from django.db import models
 
 class Country(models.Model):
+    class Meta:
+        verbose_name_plural = "Countries"
+
     def __unicode__(self):
         return self.name
 
@@ -10,6 +13,9 @@ class Country(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
 class Address(models.Model):
+    class Meta:
+        verbose_name_plural = "Addresses"
+
     street_address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
     country = models.ForeignKey(Country)
