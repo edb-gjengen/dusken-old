@@ -119,6 +119,22 @@ class MemberTest(MemberTestBase):
 
         self.assertEquals(user.phone_number, data['phone_number'])
 
+    def test_post_existing_member(self):
+        """
+        Tests that we can't create users with duplicate username
+        """
+        data = {
+            'username' : self.member.username,
+            'password' : 'asdf',
+            'email' : self.member.email,
+            'phone_number' : self.member.phone_number
+        }
+
+        resp = self.api_client.post(self.all_members_url,
+            format = 'json',
+            data = data)
+        self.assertHttpForbidden(resp)
+
     def test_patch_change_member(self):
         """
         Tests that we can correctly change data of existing members.

@@ -72,9 +72,19 @@ class MemberResource(ModelResource):
         """
         Catches POST and PATCH requests and intercepts data.
         """
-        # Check if the user exists and return an error when attempting to change the username
-        if bundle.obj.user_ptr_id is not None and not bundle.data['username'] == bundle.obj.username:
-            raise ImmediateHttpResponse(HttpForbidden("You can't change your username."))
+        update_existing_user = bundle.obj.user_ptr_id is not None
+
+        if update_existing_user: 
+            # If the user already exists, return an error when attempting to change the username.
+            if bundle.data['username'] != bundle.obj.username:
+                raise ImmediateHttpResponse(HttpForbidden("You can't change your username."))
+        else:
+            # If creating new user, check if it already exists:
+            member_count = len(Member.objects.filter(username=bundle.data['username'])) \
+                + len(Member.objects.filter(email=bundle.data['email'])) \
+                + len(Member.objects.filter(phone_number=bundle.data['phone_number']))
+            if member_count > 0:
+                raise ImmediateHttpResponse(HttpForbidden("User with given data already exists"))
         return bundle
 
     def obj_update(self, bundle, request, **kwargs):
