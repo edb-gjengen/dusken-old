@@ -82,7 +82,7 @@ class MemberResource(ModelResource):
             bundle.obj.set_password(bundle.data['password'])
             bundle.obj.save()
 
-        if 'address' in bundle.data:
+        if 'address' in bundle.data and bundle.data['address'] is not None:
             new_address = bundle.data.get('address')
             address = bundle.obj.address
             
