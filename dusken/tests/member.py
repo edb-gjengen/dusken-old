@@ -170,10 +170,10 @@ class MemberAddressTest(MemberTestBase):
     def setUp(self):
         super(MemberAddressTest, self).setUp()
 
-        self.user_id = 1
+        self.user_id = self.member.id
 
         member = Member.objects.get(id=self.user_id)
-        member.address = Address.objects.get(id=1)
+        member.address = Address.objects.all()[0]
         member.save()
 
     def test_member_address_update_street(self):
