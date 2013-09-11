@@ -27,7 +27,6 @@ class MemberResource(ModelResource):
         authorization = DjangoAuthorization()
         excludes = [ 'date_joined', 'password', 'is_active', 'is_staff', 'is_superuser', 'last_login' ]
         filtering = {
-            'email' : [ 'exact' ],
             'first_name' : [ 'exact' ],
             'last_name' : [ 'exact' ],
             'phone_number' : [ 'exact' ],
@@ -140,6 +139,8 @@ class MemberResource(ModelResource):
 
 
     def get_list(self, request, **kwargs):
+        import pdb
+        pdb.set_trace()
         return super(MemberResource, self).get_list(request, **kwargs)
 
     def get_detail(self, request, **kwargs):

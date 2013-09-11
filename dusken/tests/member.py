@@ -15,7 +15,7 @@ class MemberTestBase(ResourceTestCase):
         # comparison with fetched object.
         self.member = Member(username='robert', password='pass', email='robert.kolner@gmail.com', phone_number=90567268)
         self.member.is_staff = True
-        self.member.is_admin = True
+        self.member.is_superuser = True
         self.member.save()
 
         self.member2 = Member(username='test', password='pass', email='test@test.com')
@@ -88,8 +88,6 @@ class MemberTest(MemberTestBase):
         Tests that we can get a filtered list from the api.
         """
         data = { 
-            "username" : self.member.username,
-            "email" : self.member.email,
             "phone_number" : self.member.phone_number
         }
 
@@ -118,7 +116,7 @@ class MemberTest(MemberTestBase):
         resp = self.api_client.post(self.all_members_url, 
             format='json', 
             data=data,
-            authentication=str(self.creds))
+            authentication=self.creds)
         self.assertHttpCreated(resp)
 
         # Check if user was actually put into database:
