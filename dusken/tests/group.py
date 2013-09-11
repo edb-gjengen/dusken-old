@@ -4,7 +4,6 @@ from support.test import ResourceTestCase
 from dusken.models import Group
 
 class GroupTest(ResourceTestCase):
-	fixtures = [ 'testdata.json' ]
 
 	def assertValidMemberData(self, member):
 		self.assertEquals(type(member), dict)	
