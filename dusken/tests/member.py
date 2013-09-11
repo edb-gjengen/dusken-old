@@ -1,8 +1,8 @@
 import logging
 
-from support.test import ResourceTestCase
 from dusken.models import Address, Country, Member
-
+from support.test import ResourceTestCase
+from tastypie.models import ApiKey
 from utils.tests import test_fixtures
 
 class MemberTestBase(ResourceTestCase):
@@ -13,16 +13,21 @@ class MemberTestBase(ResourceTestCase):
         # TODO use fixtures for this
         # Get the preloaded member, which will be used for 
         # comparison with fetched object.
-        self.member = Member(username='robert', email='robert.kolner@gmail.com', phone_number=90567268)
+        self.member = Member(username='robert', password='pass', email='robert.kolner@gmail.com', phone_number=90567268)
+        self.member.is_staff = True
+        self.member.is_admin = True
         self.member.save()
 
-        self.member2 = Member(username='test', email='test@test.com')
+        self.member2 = Member(username='test', password='pass', email='test@test.com')
         self.member2.save()
+
+        # create credentials for both members:
+        self.creds = self.create_apikey(username=self.member.username, api_key=ApiKey.objects.get(user=self.member).key)
+        self.creds2 = self.create_apikey(username=self.member2.username, api_key=ApiKey.objects.get(user=self.member2).key)
 
         # URIs to the member api
         self.all_members_url = '/api/v1/member/'
         self.member_url = self.all_members_url + '{}/'
-
 
 class MemberTest(MemberTestBase):
     def assertValidMemberData(self, member):
@@ -47,22 +52,28 @@ class MemberTest(MemberTestBase):
         self.assertNotEquals(None,member['updated'])
         self.assertNotEquals(None,member['resource_uri'])   
 
+    def test_get_member_unauthorized(self):
+        self.assertHttpUnauthorized(self.api_client.get(self.member_url.format(self.member.pk), format='json'))
+
     def test_get_member(self):
         """
         Tests that we can get a premade user correctly.
         """
-        resp = self.api_client.get(self.member_url.format(self.member.pk), format='json')
+        resp = self.api_client.get(self.member_url.format(self.member.pk), format='json', authentication=self.creds)
         self.assertValidJSONResponse(resp)
 
         # Check if the returned data is correct:
         member = self.deserialize(resp)
         self.assertValidMemberData(member)
 
+    def test_get_member_unauthorized(self):
+        self.assertHttpUnauthorized(self.api_client.get(self.all_members_url, format='json'))
+
     def test_get_all_members(self):
         """
         Tests that we can get all users from the api.
         """
-        resp = self.api_client.get(self.all_members_url, format='json')
+        resp = self.api_client.get(self.all_members_url, format='json', authentication=self.creds)
         self.assertValidJSONResponse(resp)
 
         # Check if the returned data is correct:
@@ -83,7 +94,7 @@ class MemberTest(MemberTestBase):
         }
 
         for key, value in data.items():
-            resp = self.api_client.get(self.all_members_url, format='json', data={ key : value })
+            resp = self.api_client.get(self.all_members_url, format='json', data={ key : value }, authentication=self.creds)
             self.assertValidJSONResponse(resp)
 
             # Check if the returned data is correct:
@@ -106,7 +117,8 @@ class MemberTest(MemberTestBase):
 
         resp = self.api_client.post(self.all_members_url, 
             format='json', 
-            data=data)
+            data=data,
+            authentication=str(self.creds))
         self.assertHttpCreated(resp)
 
         # Check if user was actually put into database:
@@ -132,7 +144,8 @@ class MemberTest(MemberTestBase):
 
         resp = self.api_client.post(self.all_members_url,
             format = 'json',
-            data = data)
+            data = data,
+            authentication=self.creds)
         self.assertHttpForbidden(resp)
 
     def test_patch_change_member(self):
@@ -147,7 +160,8 @@ class MemberTest(MemberTestBase):
 
         resp = self.api_client.patch(self.member_url.format(self.member.pk), 
             format='json', 
-            data=data)
+            data=data,
+            authentication=self.creds)
         self.assertHttpAccepted(resp)
 
         # Check if user was actually updated:
@@ -164,7 +178,7 @@ class MemberTest(MemberTestBase):
         newusername = oldusername + 'lolzorz'
 
         data = { 'username' : newusername }
-        resp = self.api_client.patch(self.member_url.format(self.member.pk), format='json', data=data)
+        resp = self.api_client.patch(self.member_url.format(self.member.pk), format='json', data=data, authentication=self.creds)
         self.assertHttpForbidden(resp)
         
         try:
@@ -202,7 +216,8 @@ class MemberAddressTest(MemberTestBase):
         response = self.api_client.patch(
                 self.member_url.format(self.user_id), 
                 format='json', 
-                data=data)
+                data=data,
+                authentication=self.creds)
 
         self.assertHttpAccepted(response)
         self.assertEquals('somestreet 2', Member.objects.get(id=self.user_id).address.street_address)
@@ -217,8 +232,9 @@ class MemberAddressTest(MemberTestBase):
         response = self.api_client.patch(
                 self.member_url.format(self.user_id), 
                 format='json',
-                data=data)
-
+                data=data,
+                authentication=self.creds)
+        
         self.assertHttpAccepted(response)
         self.assertEquals('Amsterdam', Member.objects.get(id=self.user_id).address.city)
 
@@ -232,7 +248,8 @@ class MemberAddressTest(MemberTestBase):
         response = self.api_client.patch(
                 self.member_url.format(self.user_id),
                 format='json',
-                data=data)
+                data=data,
+                authentication=self.creds)
 
         self.assertHttpAccepted(response)
         self.assertEquals('0977RT', Member.objects.get(id=self.user_id).address.postal_code)
@@ -247,7 +264,8 @@ class MemberAddressTest(MemberTestBase):
         response = self.api_client.patch(
                 self.member_url.format(self.user_id),
                 format='json',
-                data=data)
+                data=data,
+                authentication=self.creds)
 
         self.assertHttpAccepted(response)
         self.assertEquals(
@@ -264,7 +282,8 @@ class MemberAddressTest(MemberTestBase):
         response = self.api_client.patch(
                 self.member_url.format(self.user_id),
                 format='json',
-                data=data)
+                data=data,
+                authentication=self.creds)
 
         self.assertHttpForbidden(response)
         self.assertEquals('The country "unknown" does not exist.', response.content)

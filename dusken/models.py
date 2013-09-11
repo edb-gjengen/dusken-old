@@ -1,5 +1,6 @@
 import django
 from django.db import models
+from tastypie.models import create_api_key
 
 class Country(models.Model):
     class Meta:
@@ -151,4 +152,9 @@ class Group(django.contrib.auth.models.Group):
     posix_name = models.CharField(max_length=255, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+###########
+# SIGNALS #
+###########
+models.signals.post_save.connect(create_api_key, sender=Member)
 

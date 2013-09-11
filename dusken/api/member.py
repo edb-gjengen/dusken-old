@@ -3,9 +3,10 @@ from django.contrib.auth.models import User
 from django.conf.urls import url
 from django.shortcuts import get_object_or_404
 from tastypie import fields
-from tastypie.authorization import Authorization
+from tastypie.authentication import ApiKeyAuthentication
+from tastypie.authorization import DjangoAuthorization
 from tastypie.exceptions import ImmediateHttpResponse
-from tastypie.http import HttpForbidden, HttpNoContent, HttpResponse
+from tastypie.http import HttpForbidden, HttpNoContent, HttpResponse, HttpAccepted
 from tastypie.resources import ModelResource, ALL
 from dusken.models import *
 from dusken.api.groupsbymember import GroupsByMemberResource
@@ -22,10 +23,10 @@ class MemberResource(ModelResource):
         resource_name = 'member'
         list_allowed_methods = [ 'get', 'post' ]
         detail_allowed_methods = [ 'get', 'patch', 'delete' ]
-        authorization = Authorization() # TODO: for dev (VERY INSECURE)
+        authentication = ApiKeyAuthentication()
+        authorization = DjangoAuthorization()
         excludes = [ 'date_joined', 'password', 'is_active', 'is_staff', 'is_superuser', 'last_login' ]
         filtering = {
-            'username' : [ 'exact' ],
             'email' : [ 'exact' ],
             'first_name' : [ 'exact' ],
             'last_name' : [ 'exact' ],
@@ -133,12 +134,37 @@ class MemberResource(ModelResource):
 
         return bundle
 
-    def post(self, request, **kwargs):
-        pass #TODO Activate user or...
-        return super(MemberResource, self).post(request, **kwargs)
+
+    def get_list(self, request, **kwargs):
+        return super(MemberResource, self).get_list(request, **kwargs)
+
+    def get_detail(self, request, **kwargs):
+        return super(MemberResource, self).get_detail(request, **kwargs)
+
+    def post_list(self, request, **kwargs):
+        return super(MemberResource, self).post_list(request, **kwargs)
+
+    def post_detail(self, request, **kwargs):
+        try:
+            member = MemberResource.objects.get(kwargs['pk'])
+            member.is_active = True
+            member.save()
+            return HttpAccepted()
+        except MemberResource.DoesNotExist:
+            pass
+        return super(MemberResource, self).post_detail(request, **kwargs)
+
+    def patch_list(self, request, **kwargs):
+        return super(MemberResource, self).patch_list(request, **kwargs)
+
+    def patch_detail(self, request, **kwargs):
+        return super(MemberResource, self).patch_detail(request, **kwargs)
+
+    def delete_list(self, request, **kwargs):
+        return super(MemberResource, self).delete_list(request, **kwargs)
 
     def delete_detail(self, request, **kwargs):
-        member = Member.objects.get(kwargs['pk'])
+        member = MemberResource.objects.get(kwargs['pk'])
         member.is_active = False
         member.save()
         return HttpNoContent()
