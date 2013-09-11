@@ -1,0 +1,17 @@
+[
+    {
+        "pk": 2, 
+        "model": "dusken.member", 
+        "fields": {
+            "phone_number": null, 
+            "updated": "2013-09-11T18:45:06.354Z", 
+            "groups": [], 
+            "created": "2013-09-11T18:45:06.354Z", 
+            "place_of_study": [], 
+            "date_of_birth": null, 
+            "legacy_id": null, 
+            "address": null, 
+            "user_permissions": []
+        }
+    }
+]
