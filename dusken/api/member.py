@@ -96,24 +96,28 @@ class MemberResource(ModelResource):
         if 'address' in bundle.data and bundle.data['address'] is not None:
             new_address = bundle.data.get('address')
             address = bundle.obj.address
+            self._update_address(address, new_address)
             
-            if 'street_address' in new_address:
-                address.street_address = new_address['street_address']
-            if 'city' in new_address:
-                address.city = new_address['city']
-            if 'postal_code' in new_address:
-                address.postal_code = new_address['postal_code']
-            if 'country' in new_address:
-                try:
-                    country = Country.objects.get(name=new_address['country'])
-                except Country.DoesNotExist, e:
-                    raise ImmediateHttpResponse(HttpForbidden('The country "{}" does not exist.'.format(new_address['country'])))
-                else:
-                    address.country = country
-
-            address.save()
-
         return super(MemberResource, self).obj_update(bundle, request, **kwargs)
+
+    def _update_address(self, address, new_address):
+        if 'street_address' in new_address:
+            address.street_address = new_address['street_address']
+        if 'city' in new_address:
+            address.city = new_address['city']
+        if 'postal_code' in new_address:
+            address.postal_code = new_address['postal_code']
+        if 'country' in new_address:
+            try:
+                country = Country.objects.get(name=new_address['country'])
+            except Country.DoesNotExist, e:
+                raise ImmediateHttpResponse(HttpForbidden(
+                        'The country "{}" does not exist.'.format(new_address['country']))
+                      )
+            else:
+                address.country = country
+
+        address.save()
 
     def dehydrate(self, bundle):
         """
