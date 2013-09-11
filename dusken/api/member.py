@@ -137,18 +137,6 @@ class MemberResource(ModelResource):
 
         return bundle
 
-
-    def get_list(self, request, **kwargs):
-        import pdb
-        pdb.set_trace()
-        return super(MemberResource, self).get_list(request, **kwargs)
-
-    def get_detail(self, request, **kwargs):
-        return super(MemberResource, self).get_detail(request, **kwargs)
-
-    def post_list(self, request, **kwargs):
-        return super(MemberResource, self).post_list(request, **kwargs)
-
     def post_detail(self, request, **kwargs):
         try:
             member = MemberResource.objects.get(kwargs['pk'])
