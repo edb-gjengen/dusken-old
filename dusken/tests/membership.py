@@ -5,11 +5,10 @@ from support.test import ResourceTestCase
 from tastypie.models import ApiKey
 from utils.tests import load_test_fixtures_for_membership
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 class MembershipTest(ResourceTestCase):
 
     membership_url = '/api/v1/membership/'
-    membership_url_single = '/api/v1/membership/{}/'.format(1)
+    membership_url_single = '/api/v1/membership/{}/'
 
     def setUp(self):
         load_test_fixtures_for_membership()
@@ -20,20 +19,85 @@ class MembershipTest(ResourceTestCase):
 
         super(MembershipTest, self).setUp()
 
-    def test_get_memberships(self):
-        resp = self.api_client.get(
-                self.membership_url, 
+    ####################################################################
+    ### Helper Functions
+    def member_url(self, member_id):
+        return self.membership_url_single.format(member_id)
+
+    def do_request(self, url):
+        return self.api_client.get(
+                url, 
                 format='json', 
                 authentication=self.creds
         )
 
-        self.assertValidJSONResponse(resp)
-
-    def test_get_single_membership(self):
-        resp = self.api_client.get(
-                self.membership_url_single,
-                format='json',
-                authentication=self.creds
-        )
+    ####################################################################
+    ### Tests
+    def test_get_memberships(self):
+        resp = self.do_request(self.membership_url)
 
         self.assertValidJSONResponse(resp)
+        self.assertEqual(self.expected_memberships(), self.deserialize(resp)['objects'])
+
+    def test_get_membership(self):
+        resp = self.do_request(self.member_url(1))
+
+        self.assertValidJSONResponse(resp)
+        self.assertEqual(self.expected_membership(), self.deserialize(resp))
+
+    def test_get_membership_with_payment(self):
+        resp = self.do_request(self.member_url(4))
+
+    ####################################################################
+    ### JSON Responses
+    def expected_memberships(self):
+        return [{
+                u'created': u'2013-09-11T20:45:13.341000',
+                u'expires': u'2014-07-31T00:00:00',
+                u'id': 1,
+                u'member': 2,
+                u'membership_type': 1,
+                u'payment': None,
+                u'resource_uri': u'/api/v1/membership/1/',
+                u'start_date': u'2013-09-11',
+                u'updated': u'2013-09-11T20:45:13.341000'
+            },
+            {
+                u'membership_type': 1, 
+                u'updated': u'2013-09-11T20:45:30.084000', 
+                u'created': u'2013-09-11T20:45:30.084000', 
+                u'expires': u'2014-07-31T00:00:00', 
+                u'id': 2, u'member': 2, 
+                u'start_date': u'2013-09-15', 
+                u'payment': None, 
+                u'resource_uri': u'/api/v1/membership/2/'
+            },
+            {
+                u'membership_type': 2, 
+                u'updated': u'2013-09-11T20:45:53.522000', 
+                u'created': u'2013-09-11T20:45:53.522000', 
+                u'expires': u'2014-03-18T00:00:00', 
+                u'id': 3, 
+                u'member': 2, 
+                u'start_date': u'2013-09-11', 
+                u'payment': None, 
+                u'resource_uri': u'/api/v1/membership/3/'
+            }]
+
+    def expected_membership(self):
+        return {
+                u'created': u'2013-09-11T20:45:13.341000',
+                u'expires': u'2014-07-31T00:00:00',
+                u'id': 1,
+                u'member': 2,
+                u'membership_type': 1,
+                u'payment': None,
+                u'resource_uri': u'/api/v1/membership/1/',
+                u'start_date': u'2013-09-11',
+                u'updated': u'2013-09-11T20:45:13.341000'
+            }
+
+    def expected_membership_with_payment(self):
+        return {
+
+        }
