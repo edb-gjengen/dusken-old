@@ -90,6 +90,7 @@ class PaymentType(models.Model):
         return u"{}".format(self.name)
 
     name = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
 
 class Payment(models.Model):
     def __unicode__(self):
@@ -115,6 +116,7 @@ class MembershipType(models.Model):
     end_month = models.IntegerField(default=7)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
 
     def end_date(self):
         import datetime
