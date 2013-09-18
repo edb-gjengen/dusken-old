@@ -24,29 +24,62 @@ class MembershipTest(ResourceTestCase):
     def member_url(self, member_id):
         return self.membership_url_single.format(member_id)
 
-    def do_request(self, url):
+    def do_get_request(self, url):
         return self.api_client.get(
                 url, 
                 format='json', 
                 authentication=self.creds
         )
 
+    def do_post_request(self, url, data):
+        return self.api_client.post(
+            url,
+            format='json',
+            data=data,
+            authentication=self.creds
+        )
+
     ####################################################################
     ### Tests
     def test_get_memberships(self):
-        resp = self.do_request(self.membership_url)
+        resp = self.do_get_request(self.membership_url)
 
         self.assertValidJSONResponse(resp)
         self.assertEqual(self.expected_memberships(), self.deserialize(resp)['objects'])
 
     def test_get_membership(self):
-        resp = self.do_request(self.member_url(1))
+        resp = self.do_get_request(self.member_url(1))
 
         self.assertValidJSONResponse(resp)
         self.assertEqual(self.expected_membership(), self.deserialize(resp))
 
     def test_get_membership_with_payment(self):
-        resp = self.do_request(self.member_url(4))
+        resp = self.do_get_request(self.member_url(4))
+
+    def test_post_membership(self):
+        data = {
+                u'member': 2,
+                u'membership_type': 1,
+                u'start_date': u'2013-09-11',
+            }
+
+        resp = self.do_post_request(self.membership_url, data)
+
+        self.assertValidJSONResponse(resp)
+
+    def test_patch_membership(self):
+        data = {
+                u'member': 2,
+                u'membership_type': 1,
+                u'start_date': u'2013-09-11',
+            }
+
+        resp = self.api_client.patch(self.member_url(1), 
+            format='json', 
+            data=data,
+            authentication=self.creds)
+
+        self.assertValidJSONResponse(resp)
 
     ####################################################################
     ### JSON Responses
@@ -99,5 +132,5 @@ class MembershipTest(ResourceTestCase):
 
     def expected_membership_with_payment(self):
         return {
-
+            # TODO add membership with payment
         }
