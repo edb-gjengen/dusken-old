@@ -39,11 +39,33 @@ class MembershipResource(ModelResource):
         resource = MembershipTypeResource()
         return resource.dispatch_detail(request, **kwargs)
 
+    def hydrate(self, bundle):
+        if 'membership_type' in bundle.data:
+            bundle.data['mtype'] = bundle.data['membership_type']
+            del bundle.data['membership_type']
+
+        if 'member' in bundle.data:
+            bundle.data['member'] = Member.objects.get(id=bundle.data['member'])
+
+        return bundle
+
     def dehydrate(self, bundle):
         bundle.data['member'] = bundle.obj.member.id
         bundle.data['membership_type'] = bundle.obj.mtype.id
         bundle.data['payment'] = None if not bundle.obj.payment else bundle.obj.payment.id
         return bundle
+
+    def obj_update(self, bundle, request, **kwargs):
+        member_id = bundle.data.get('member')
+        membership_type = bundle.data.get('member')
+        start_date = bundle.data.get('start_date')
+
+        if None in (member_id, membership_type, start_date):
+            return super(MembershipResource, self).obj_update(bundle, request, **kwargs)
+
+        # TODO: Refuse to update to exactly the same object.
+
+        return super(MembershipResource, self).obj_update(bundle, request, **kwargs)
 
 
 class MembershipTypeResource(ModelResource):
