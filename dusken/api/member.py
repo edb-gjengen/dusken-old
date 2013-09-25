@@ -87,7 +87,7 @@ class MemberResource(ModelResource):
                 raise ImmediateHttpResponse(HttpForbidden("User with given data already exists"))
         return bundle
 
-    def obj_update(self, bundle, request, **kwargs):
+    def obj_update(self, bundle, **kwargs):
         if bundle.data.get('password') is not None:
             bundle.obj.set_password(bundle.data['password'])
             bundle.obj.save()
@@ -97,7 +97,7 @@ class MemberResource(ModelResource):
             address = bundle.obj.address
             self._update_address(address, new_address)
             
-        return super(MemberResource, self).obj_update(bundle, request, **kwargs)
+        return super(MemberResource, self).obj_update(bundle, **kwargs)
 
     def _update_address(self, address, new_address):
         if 'street_address' in new_address:
