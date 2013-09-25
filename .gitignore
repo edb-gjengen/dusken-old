@@ -1,9 +1,11 @@
-venv
-settings.py
+/.idea/
+/venv/
+/docs/_build/
+
 *.swp
 *.pyc
 *.bak
-build
-docs/_build
+
+settings.py
 db.sqlite3
 dusken.db
