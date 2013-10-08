@@ -1,7 +1,7 @@
 import os.path
 from django.core.management import call_command
 import django
-from dusken.models import Member
+from dusken.models import *
 from tastypie.models import create_api_key
 
 ####################################################################
@@ -39,8 +39,8 @@ def load_test_fixtures():
 
 def test_fixtures_member():
     ''' Returns a list with the locations of all defined fixtures. '''
-    return [os.path.join('dusken', 'fixtures', 'address.json'),
-            os.path.join('dusken', 'fixtures', 'country.json'),
+    return [os.path.join('dusken', 'fixtures', 'country.json'),
+            os.path.join('dusken', 'fixtures', 'address.json'),
             os.path.join('dusken', 'fixtures', 'institution.json'),
            ]
 
