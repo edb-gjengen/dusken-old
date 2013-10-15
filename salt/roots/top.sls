@@ -1,4 +1,5 @@
 base:
     '*':
+        - devtools
         - postgresql
         - django

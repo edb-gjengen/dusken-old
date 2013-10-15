@@ -7,7 +7,7 @@ django:
             - postgresql-server-dev-9.1
             
 
-/home/vagrant/dusken/venv:
+/vagrant/dusken/venv:
 virtualenv.managed:
     - no_site_packages: True
     - runas: vagrant
