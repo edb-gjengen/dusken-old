@@ -4,6 +4,7 @@
 	    "id" : 1,
             "created": "2013-08-21T19:37:24.851Z",
             "name": "Norway",
+            "code": "NO",
             "updated": "2013-08-21T19:37:24.851Z"
         },
         "model": "dusken.country",
@@ -14,6 +15,7 @@
 	    "id" : 2,
             "created": "2013-08-21T19:37:31.577Z",
             "name": "Netherlands",
+            "code": "NL",
             "updated": "2013-08-21T19:37:31.577Z"
         },
         "model": "dusken.country",
