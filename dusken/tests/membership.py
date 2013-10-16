@@ -54,7 +54,9 @@ class MembershipTest(ResourceTestCase):
         self.assertEqual(self.expected_membership(), self.deserialize(resp))
 
     def test_get_membership_with_payment(self):
-        resp = self.do_get_request(self.member_url(4))
+        resp = self.do_get_request(self.member_url(3))
+
+        self.assertValidJSONResponse(resp)
 
     def test_post_membership(self):
         data = {
@@ -69,8 +71,8 @@ class MembershipTest(ResourceTestCase):
 
     def test_patch_membership(self):
         data = {
-                u'member': 2,
-                u'membership_type': 1,
+                #u'member': 2,
+                #u'membership_type': 1,
                 u'start_date': u'2013-09-11',
             }
 
@@ -86,7 +88,7 @@ class MembershipTest(ResourceTestCase):
     def expected_memberships(self):
         return [{
                 u'created': u'2013-09-11T20:45:13.341000',
-                u'expires': u'2014-07-31T00:00:00',
+                u'expires': u'2013-09-11',
                 u'id': 1,
                 u'member': 2,
                 u'membership_type': 1,
@@ -99,7 +101,7 @@ class MembershipTest(ResourceTestCase):
                 u'membership_type': 1, 
                 u'updated': u'2013-09-11T20:45:30.084000', 
                 u'created': u'2013-09-11T20:45:30.084000', 
-                u'expires': u'2014-07-31T00:00:00', 
+                u'expires': u'2013-09-11', 
                 u'id': 2, u'member': 2, 
                 u'start_date': u'2013-09-15', 
                 u'payment': None, 
@@ -109,7 +111,7 @@ class MembershipTest(ResourceTestCase):
                 u'membership_type': 2, 
                 u'updated': u'2013-09-11T20:45:53.522000', 
                 u'created': u'2013-09-11T20:45:53.522000', 
-                u'expires': u'2014-03-18T00:00:00', 
+                u'expires': u'2013-09-11', 
                 u'id': 3, 
                 u'member': 2, 
                 u'start_date': u'2013-09-11', 
@@ -120,7 +122,7 @@ class MembershipTest(ResourceTestCase):
     def expected_membership(self):
         return {
                 u'created': u'2013-09-11T20:45:13.341000',
-                u'expires': u'2014-07-31T00:00:00',
+                u'expires': u'2013-09-11',
                 u'id': 1,
                 u'member': 2,
                 u'membership_type': 1,
