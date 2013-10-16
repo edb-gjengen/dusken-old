@@ -100,6 +100,7 @@ class GoogleAuth(BaseModel):
     token_expires = models.DateTimeField(null=True, blank=True)
     member = models.OneToOneField('dusken.Member', null=True, blank=True)
 
+
 class Address(BaseModel):
     class Meta:
         verbose_name_plural = "Addresses"
@@ -116,6 +117,7 @@ class Address(BaseModel):
     city = models.CharField(max_length=100)
     country = models.ForeignKey('dusken.Country', null=True, blank=True)
 
+
 class Country(BaseModel):
     class Meta:
         verbose_name_plural = "Countries"
@@ -126,6 +128,7 @@ class Country(BaseModel):
     name = models.CharField(max_length=100, unique=True)
     code = models.CharField(max_length=3, unique=True) #ISO 3166-1 alpha 2
 
+
 class PlaceOfStudy(BaseModel):
     def __unicode__(self):
         return u"{institution}, {year}".format(
@@ -135,6 +138,7 @@ class PlaceOfStudy(BaseModel):
     from_date = models.DateField()
     institution = models.ForeignKey('dusken.Institution')
 
+
 class Institution(BaseModel):
     def __unicode__(self):
         return u'%s - %s' % (self.short_name, self.name)
@@ -142,8 +146,10 @@ class Institution(BaseModel):
     name = models.CharField(max_length=255)
     short_name = models.CharField(max_length=16)
 
+
 class ExtendedMemberDetail(BaseModel):
     pass
+
 
 class Group(django.contrib.auth.models.Group):
     def __unicode__(self):

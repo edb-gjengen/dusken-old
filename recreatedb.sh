@@ -20,6 +20,8 @@ echo '  - Address'
 python manage.py loaddata dusken/fixtures/address.json > /dev/null
 echo '  - Institution'
 python manage.py loaddata dusken/fixtures/institution.json > /dev/null
+echo '  - Group'
+python manage.py loaddata dusken/fixtures/group.json
 
 echo ''
 echo 'Done.'
