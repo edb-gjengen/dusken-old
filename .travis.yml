@@ -3,8 +3,10 @@ python:
   - "2.7"
 install:
     pip install -r requirements.txt --use-mirrors
+before_script:
+  - psql -c 'create database dusken_test;' -U postgres
 script:
-   python manage.py test 
+   python manage.py test --settings="dusken.settings-sample"
 notifications:
   irc: "irc.ifi.uio.no#edb"
 
