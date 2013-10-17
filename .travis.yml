@@ -8,5 +8,5 @@ before_script:
 script:
    python manage.py test --settings="dusken.settings-sample"
 notifications:
-  irc: "irc.ifi.uio.no#edb"
+  irc: "ircnet.eversible.com#edb"
 
