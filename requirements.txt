@@ -1,8 +1,7 @@
-Django==1.5
-South==0.7.6
-django-tastypie==0.9.14
-psycopg2==2.4.5
-python-dateutil==1.5
-django-extensions==1.1.1
-django-sphinxdoc==1.1
-sphinxcontrib-httpdomain==1.1.8
+Django==1.5.4
+South==0.8.2
+django-tastypie==0.10.0
+psycopg2==2.5.1
+django-extensions==1.2.2
+django-sphinxdoc==1.2.0
+sphinxcontrib-httpdomain==1.1.9

@@ -1,9 +1,8 @@
 import logging
 
-from dusken.models import Address, Country, Member
+from dusken.models import Address, Country, Member, ApiKey
 from support.test import ResourceTestCase
-from tastypie.models import ApiKey
-from utils.tests import test_fixtures
+from utils.tests import test_fixtures_member
 
 class MemberTestBase(ResourceTestCase):
 
@@ -193,7 +192,8 @@ class MemberTest(MemberTestBase):
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 class MemberAddressTest(MemberTestBase):
 
-    fixtures = test_fixtures()
+    # Ref: https://docs.djangoproject.com/en/dev/topics/testing/overview/#django.test.TransactionTestCase.fixtures 
+    fixtures = test_fixtures_member()
 
     def setUp(self):
         super(MemberAddressTest, self).setUp()
@@ -233,6 +233,8 @@ class MemberAddressTest(MemberTestBase):
                 data=data,
                 authentication=self.creds)
         
+        import pdb
+        pdb.set_trace()
         self.assertHttpAccepted(response)
         self.assertEquals('Amsterdam', Member.objects.get(id=self.user_id).address.city)
 

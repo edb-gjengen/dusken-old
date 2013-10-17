@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.conf.urls import url
 from django.shortcuts import get_object_or_404
 from tastypie import fields
-from tastypie.authentication import ApiKeyAuthentication
+from dusken.authentication import ApiKeyAuthentication
 from tastypie.authorization import DjangoAuthorization
 from tastypie.exceptions import ImmediateHttpResponse
 from tastypie.http import HttpForbidden, HttpNoContent, HttpResponse, HttpAccepted

@@ -2,7 +2,6 @@ import os.path
 from django.core.management import call_command
 import django
 from dusken.models import *
-from tastypie.models import create_api_key
 
 ####################################################################
 ### Request helper functions
@@ -55,5 +54,6 @@ def test_fixtures_membership():
 
 def load_test_fixtures_for_membership():
     django.db.models.signals.post_save.disconnect(create_api_key, sender=Member)
+    print test_fixtures_membership()
     for f in test_fixtures_membership():
         call_command('loaddata', f, verbosity=0)

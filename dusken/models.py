@@ -1,6 +1,16 @@
 import django
 from django.db import models
-from tastypie.models import create_api_key
+import tastypie
+from tastypie.models import ApiKey as tastypieApiKey
+import uuid
+import hmac
+
+# TODO override ApiKeyAuthentication 
+try:
+    from hashlib import sha1
+except ImportError:
+    import sha
+    sha1 = sha.sha
 
 class BaseModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -9,8 +19,18 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
 
+    
+class ApiKey(tastypieApiKey):
+    user = models.OneToOneField('dusken.Member', related_name='api_key')
 
-class Member(django.contrib.auth.models.User):
+def create_api_key(sender, **kwargs):
+    """
+    A signal for hooking up automatic ``ApiKey`` creation.
+    """
+    if kwargs.get('created') is True:
+        ApiKey.objects.create(user=kwargs.get('instance'))
+
+class Member(django.contrib.auth.models.AbstractUser):
     def __unicode__(self):
         if len(self.first_name) + len(self.last_name) > 0:
             return u'{first} {last} ({username})'.format(

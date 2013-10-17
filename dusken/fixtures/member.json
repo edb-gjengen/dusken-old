@@ -1,6 +1,24 @@
 [
     {
         "pk": 2, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2013-10-17T10:59:18.493Z", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "", 
+            "email": "", 
+            "date_joined": "2013-10-17T10:59:18.493Z"
+        }
+    },
+    {
+        "pk": 2, 
         "model": "dusken.member", 
         "fields": {
             "phone_number": null, 

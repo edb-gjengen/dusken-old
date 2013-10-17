@@ -1,21 +1,24 @@
 import logging
+import django
 
-from dusken.models import Address, Country, Member
+from dusken.models import Address, Country, Member, ApiKey
 from support.test import ResourceTestCase
-from tastypie.models import ApiKey
-from utils.tests import load_test_fixtures_for_membership
+from utils.tests import load_test_fixtures_for_membership, test_fixtures_membership
 
 class MembershipTest(ResourceTestCase):
 
     membership_url = '/api/v1/membership/'
     membership_url_single = '/api/v1/membership/{}/'
 
+    fixtures = test_fixtures_membership()
+
+
     def setUp(self):
-        load_test_fixtures_for_membership()
+        #load_test_fixtures_for_membership() # FIXME use fixtures above
 
         self.creds = self.create_apikey(
-                username=Member.objects.get(user_ptr_id=2).username, 
-                api_key=ApiKey.objects.get(user=Member.objects.get(user_ptr_id=2)).key)
+                username=Member.objects.get(id=2).username, 
+                api_key=ApiKey.objects.get(user=Member.objects.get(id=2)).key)
 
         super(MembershipTest, self).setUp()
 
