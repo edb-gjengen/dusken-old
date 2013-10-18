@@ -18,7 +18,7 @@ class Member(django.contrib.auth.models.AbstractUser):
                 username=self.username)
         return u"{username}".format(username=self.username)
 
-    phone_number = models.IntegerField(unique=True, null=True, blank=True)
+    phone_number = models.CharField(max_length=30, unique=True, null=True, blank=True)
     date_of_birth = models.DateField(blank=True, null=True)
     legacy_id = models.IntegerField(unique=True, null=True, blank=True)
     address = models.ForeignKey('dusken.Address', null=True, blank=True)

@@ -105,7 +105,7 @@ class MemberTest(MemberTestBase):
             'username' : 'testmemberUno',
             'password' : 'unodostres',
             'email' : 'kak-edb@studentersamfundet.no',
-            'phone_number' : 90567260
+            'phone_number' : "+4790567260"
         }
 
         resp = self.api_client.post(self.all_members_url, 
@@ -148,7 +148,7 @@ class MemberTest(MemberTestBase):
         data = {
             'password' : 'unodostres',
             'email' : 'kak-edb@studentersamfundet.no',
-            'phone_number' : 90541242
+            'phone_number' : "+4790541242"
         }
 
         resp = self.api_client.patch(self.member_url.format(self.member.pk), 
