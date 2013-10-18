@@ -2,7 +2,7 @@ import logging
 import utils.tests
 
 from dusken.models import Group
-from support.test import ResourceTestCase
+from tastypie.test import ResourceTestCase
 
 class GroupTest(ResourceTestCase):
 

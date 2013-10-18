@@ -16,7 +16,6 @@ v1_api.register(GroupResource())
 v1_api.register(InstitutionResource())
 
 urlpatterns = patterns('',
-    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(v1_api.urls)),
 )

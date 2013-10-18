@@ -1,9 +1,10 @@
 import logging
 import django
+from tastypie.models import ApiKey
 
-from dusken.models import Address, Country, Member, ApiKey
-from support.test import ResourceTestCase
-from utils.tests import load_test_fixtures_for_membership, test_fixtures_membership
+from dusken.models import Address, Country, Member
+from tastypie.test import ResourceTestCase
+from utils.tests import test_fixtures_membership
 
 class MembershipTest(ResourceTestCase):
 
@@ -12,13 +13,12 @@ class MembershipTest(ResourceTestCase):
 
     fixtures = test_fixtures_membership()
 
-
     def setUp(self):
-        #load_test_fixtures_for_membership() # FIXME use fixtures above
+        self.member = Member.objects.get(pk=2)
 
         self.creds = self.create_apikey(
-                username=Member.objects.get(id=2).username, 
-                api_key=ApiKey.objects.get(user=Member.objects.get(id=2)).key)
+                username=self.member.username, 
+                api_key=ApiKey.objects.get(user=self.member).key)
 
         super(MembershipTest, self).setUp()
 

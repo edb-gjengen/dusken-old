@@ -6,7 +6,7 @@ install:
 before_script:
   - psql -c 'create database dusken_test;' -U postgres
 script:
-   python manage.py test --settings="dusken.settings-sample"
+   python manage.py test dusken --settings="dusken.settings-sample"
 notifications:
   irc: "ircnet.eversible.com#edb"
 

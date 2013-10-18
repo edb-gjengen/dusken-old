@@ -1,10 +1,14 @@
 import logging
+from tastypie.models import ApiKey
 
-from dusken.models import Address, Country, Member, ApiKey
-from support.test import ResourceTestCase
+from dusken.models import Address, Country, Member
+from tastypie.test import ResourceTestCase
 from utils.tests import test_fixtures_member
 
 class MemberTestBase(ResourceTestCase):
+    
+    # Ref: https://docs.djangoproject.com/en/dev/topics/testing/overview/#django.test.TransactionTestCase.fixtures 
+    fixtures = test_fixtures_member()
 
     def setUp(self):
         super(MemberTestBase, self).setUp()
@@ -12,17 +16,9 @@ class MemberTestBase(ResourceTestCase):
         # TODO use fixtures for this
         # Get the preloaded member, which will be used for 
         # comparison with fetched object.
-        self.member = Member(username='robert', password='pass', email='robert.kolner@gmail.com', phone_number=90567268)
-        self.member.is_staff = True
-        self.member.is_superuser = True
-        self.member.save()
-
-        self.member2 = Member(username='test', password='pass', email='test@test.com')
-        self.member2.save()
-
-        # create credentials for both members:
+        self.member = Member.objects.get(pk=2)
+        ## create credentials
         self.creds = self.create_apikey(username=self.member.username, api_key=ApiKey.objects.get(user=self.member).key)
-        self.creds2 = self.create_apikey(username=self.member2.username, api_key=ApiKey.objects.get(user=self.member2).key)
 
         # URIs to the member api
         self.all_members_url = '/api/v1/member/'
@@ -65,7 +61,7 @@ class MemberTest(MemberTestBase):
         member = self.deserialize(resp)
         self.assertValidMemberData(member)
 
-    def test_get_member_unauthorized(self):
+    def test_get_all_members_unauthorized(self):
         self.assertHttpUnauthorized(self.api_client.get(self.all_members_url, format='json'))
 
     def test_get_all_members(self):
@@ -192,17 +188,8 @@ class MemberTest(MemberTestBase):
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 class MemberAddressTest(MemberTestBase):
 
-    # Ref: https://docs.djangoproject.com/en/dev/topics/testing/overview/#django.test.TransactionTestCase.fixtures 
-    fixtures = test_fixtures_member()
-
     def setUp(self):
         super(MemberAddressTest, self).setUp()
-
-        self.user_id = self.member.id
-
-        member = Member.objects.get(id=self.user_id)
-        member.address = Address.objects.all()[0]
-        member.save()
 
     def test_member_address_update_street(self):
         data = {
@@ -212,13 +199,13 @@ class MemberAddressTest(MemberTestBase):
         }
 
         response = self.api_client.patch(
-                self.member_url.format(self.user_id), 
+                self.member_url.format(self.member.id), 
                 format='json', 
                 data=data,
                 authentication=self.creds)
 
         self.assertHttpAccepted(response)
-        self.assertEquals('somestreet 2', Member.objects.get(id=self.user_id).address.street_address)
+        self.assertEquals('somestreet 2', Member.objects.get(id=self.member.id).address.street_address)
 
     def test_member_address_update_city(self):
         data = {
@@ -228,15 +215,13 @@ class MemberAddressTest(MemberTestBase):
         }
 
         response = self.api_client.patch(
-                self.member_url.format(self.user_id), 
+                self.member_url.format(self.member.id), 
                 format='json',
                 data=data,
                 authentication=self.creds)
         
-        import pdb
-        pdb.set_trace()
         self.assertHttpAccepted(response)
-        self.assertEquals('Amsterdam', Member.objects.get(id=self.user_id).address.city)
+        self.assertEquals('Amsterdam', Member.objects.get(id=self.member.id).address.city)
 
     def test_member_address_update_postcode(self):
         data = {
@@ -246,13 +231,13 @@ class MemberAddressTest(MemberTestBase):
         }
 
         response = self.api_client.patch(
-                self.member_url.format(self.user_id),
+                self.member_url.format(self.member.id),
                 format='json',
                 data=data,
                 authentication=self.creds)
 
         self.assertHttpAccepted(response)
-        self.assertEquals('0977RT', Member.objects.get(id=self.user_id).address.postal_code)
+        self.assertEquals('0977RT', Member.objects.get(id=self.member.id).address.postal_code)
 
     def test_member_address_update_country(self):
         data = {
@@ -262,7 +247,7 @@ class MemberAddressTest(MemberTestBase):
         }
 
         response = self.api_client.patch(
-                self.member_url.format(self.user_id),
+                self.member_url.format(self.member.id),
                 format='json',
                 data=data,
                 authentication=self.creds)
@@ -270,7 +255,7 @@ class MemberAddressTest(MemberTestBase):
         self.assertHttpAccepted(response)
         self.assertEquals(
                 Country.objects.get(name="Netherlands"), 
-                Member.objects.get(id=self.user_id).address.country)
+                Member.objects.get(id=self.member.id).address.country)
 
     def test_member_adress_update_unknown_country(self):
         data = {
@@ -280,7 +265,7 @@ class MemberAddressTest(MemberTestBase):
         }
 
         response = self.api_client.patch(
-                self.member_url.format(self.user_id),
+                self.member_url.format(self.member.id),
                 format='json',
                 data=data,
                 authentication=self.creds)

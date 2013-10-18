@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib.auth.models import User
 from dusken.models import *
 
 class MemberAdmin(admin.ModelAdmin):
@@ -28,7 +27,6 @@ class MemberAdmin(admin.ModelAdmin):
         return self.readonly_fields
 
 admin.site.unregister(django.contrib.auth.models.Group)
-admin.site.unregister(User)
 
 admin.site.register(Address)
 admin.site.register(Country)

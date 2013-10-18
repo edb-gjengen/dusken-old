@@ -122,8 +122,6 @@ INSTALLED_APPS = (
     'south'
 )
 
-# Profile of the User class used for authentication.
-AUTH_PROFILE_MODULE = 'dusken.Member'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -155,4 +153,6 @@ LOGGING = {
 }
 
 TASTYPIE_DEFAULT_FORMATS = ['json']
-TASTYPIE_ABSTRACT_APIKEY = True
+
+# Our own User class used for authentication.
+AUTH_USER_MODEL = 'dusken.Member'

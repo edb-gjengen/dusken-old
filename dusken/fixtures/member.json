@@ -1,26 +1,11 @@
 [
     {
-        "pk": 2, 
-        "model": "auth.user", 
-        "fields": {
-            "username": "", 
-            "first_name": "", 
-            "last_name": "", 
-            "is_active": true, 
-            "is_superuser": false, 
-            "is_staff": false, 
-            "last_login": "2013-10-17T10:59:18.493Z", 
-            "groups": [], 
-            "user_permissions": [], 
-            "password": "", 
-            "email": "", 
-            "date_joined": "2013-10-17T10:59:18.493Z"
-        }
-    },
-    {
-        "pk": 2, 
+        "pk": 1, 
         "model": "dusken.member", 
         "fields": {
+            "username": "robert",
+            "first_name": "Robert",
+            "last_name": "Kolner",
             "phone_number": null, 
             "updated": "2013-09-11T18:45:06.354Z", 
             "groups": [], 
@@ -28,7 +13,25 @@
             "place_of_study": [], 
             "date_of_birth": null, 
             "legacy_id": null, 
-            "address": null, 
+            "address": 1, 
+            "user_permissions": []
+        }
+    },
+    {
+        "pk": 2, 
+        "model": "dusken.member", 
+        "fields": {
+            "username": "testesen",
+            "first_name": "Test",
+            "last_name": "Testesen",
+            "phone_number": null, 
+            "updated": "2013-09-11T18:45:06.354Z", 
+            "groups": [], 
+            "created": "2013-09-11T18:45:06.354Z", 
+            "place_of_study": [], 
+            "date_of_birth": null, 
+            "legacy_id": null, 
+            "address": 2, 
             "user_permissions": []
         }
     }

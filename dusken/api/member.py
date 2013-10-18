@@ -3,12 +3,12 @@ from django.contrib.auth.models import User
 from django.conf.urls import url
 from django.shortcuts import get_object_or_404
 from tastypie import fields
-from dusken.authentication import ApiKeyAuthentication
-from tastypie.authorization import DjangoAuthorization
 from tastypie.exceptions import ImmediateHttpResponse
 from tastypie.http import HttpForbidden, HttpNoContent, HttpResponse, HttpAccepted
 from tastypie.resources import ModelResource, ALL
 from dusken.models import *
+from dusken.authorization import MyDjangoAuthorization
+from dusken.authentication import MyApiKeyAuthentication
 from dusken.api.groupsbymember import GroupsByMemberResource
 
 
@@ -23,8 +23,8 @@ class MemberResource(ModelResource):
         resource_name = 'member'
         list_allowed_methods = [ 'get', 'post' ]
         detail_allowed_methods = [ 'get', 'patch', 'delete' ]
-        authentication = ApiKeyAuthentication()
-        authorization = DjangoAuthorization()
+        authentication = MyApiKeyAuthentication()
+        authorization = MyDjangoAuthorization()
         excludes = [ 'date_joined', 'password', 'is_active', 'is_staff', 'is_superuser', 'last_login' ]
         filtering = {
             'first_name' : [ 'exact' ],
@@ -72,7 +72,7 @@ class MemberResource(ModelResource):
         """
         Catches POST and PATCH requests and intercepts data.
         """
-        update_existing_user = bundle.obj.user_ptr_id is not None
+        update_existing_user = bundle.obj.id is not None
 
         if update_existing_user: 
             # If the user already exists, return an error when attempting to change the username.
