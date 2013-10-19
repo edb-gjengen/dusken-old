@@ -34,6 +34,7 @@ class MembershipTest(ResourceTestCase):
                 authentication=self.creds
         )
 
+    # Help set format and add authentication credentials
     def do_post_request(self, url, data):
         return self.api_client.post(
             url,
@@ -70,7 +71,7 @@ class MembershipTest(ResourceTestCase):
 
         resp = self.do_post_request(self.membership_url, data)
 
-        self.assertValidJSONResponse(resp)
+        self.assertHttpCreated(resp)
 
     def test_patch_membership(self):
         data = {
@@ -83,8 +84,8 @@ class MembershipTest(ResourceTestCase):
             format='json', 
             data=data,
             authentication=self.creds)
-
-        self.assertValidJSONResponse(resp)
+        
+        self.assertHttpAccepted(resp) # Note: Patch requests should return HTTP 202 Accepted
 
     ####################################################################
     ### JSON Responses

@@ -7,7 +7,7 @@
             "updated": "2013-09-11T18:45:13.341Z", 
             "created": "2013-09-11T18:45:13.341Z", 
             "payment": null, 
-            "mtype": 1, 
+            "membership_type": 1, 
             "start_date": "2013-09-11"
         }
     }, {
@@ -18,7 +18,7 @@
             "updated": "2013-09-11T18:45:30.084Z", 
             "created": "2013-09-11T18:45:30.084Z", 
             "payment": null, 
-            "mtype": 1, 
+            "membership_type": 1, 
             "start_date": "2013-09-15"
         }
     }, {
@@ -29,7 +29,7 @@
             "updated": "2013-09-11T18:45:53.522Z", 
             "created": "2013-09-11T18:45:53.522Z", 
             "payment": null, 
-            "mtype": 2, 
+            "membership_type": 2, 
             "start_date": "2013-09-11"
         }
     }

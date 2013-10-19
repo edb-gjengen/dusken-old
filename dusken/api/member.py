@@ -84,7 +84,11 @@ class MemberResource(ModelResource):
                 + len(Member.objects.filter(email=bundle.data['email'])) \
                 + len(Member.objects.filter(phone_number=bundle.data['phone_number']))
             if member_count > 0:
+                # TODO Specify what data is missing
                 raise ImmediateHttpResponse(HttpForbidden("User with given data already exists"))
+
+            # Quick hack to allow new users to be created anonymously (unauthenticated)
+            bundle._anonymous_request_allowed = True
         return bundle
 
     def obj_update(self, bundle, **kwargs):

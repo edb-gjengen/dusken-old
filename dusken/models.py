@@ -21,10 +21,13 @@ class Member(django.contrib.auth.models.AbstractUser):
     phone_number = models.CharField(max_length=30, unique=True, null=True, blank=True)
     date_of_birth = models.DateField(blank=True, null=True)
     legacy_id = models.IntegerField(unique=True, null=True, blank=True)
-    address = models.ForeignKey('dusken.Address', null=True, blank=True)
+    address = models.ForeignKey('dusken.Address', null=True, blank=True) # TODO change to ManyToManyField
     place_of_study = models.ManyToManyField('dusken.PlaceOfStudy', null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    def owner(self):
+        return self
 
 
 class Membership(BaseModel):
@@ -32,22 +35,22 @@ class Membership(BaseModel):
         return u"{member}: {fromdate}".format(member=self.member, fromdate=self.start_date)
 
     start_date = models.DateField()
-    mtype = models.ForeignKey('dusken.MembershipType', db_column='type')
+    membership_type = models.ForeignKey('dusken.MembershipType')
     payment = models.ForeignKey('dusken.Payment', unique=True, null=True, blank=True)
     member = models.ForeignKey('dusken.Member')
 
     def expires(self):
-        return self.mtype.end_date
+        return self.membership_type.end_date
 
-'''
-   TODO: should validate end_day_of_month and end_month (use datetime exceptions)
-'''
+    def owner(self):
+        return self.member
+
 class MembershipType(BaseModel):
     def __unicode__(self):
         return u"{}".format(self.name)
 
     name = models.CharField(max_length=50, unique=True)
-    end_date = models.DateField()
+    end_date = models.DateField(null=True, blank=True) # TODO move to Membership (no new Membership types every year)
     is_active = models.BooleanField(default=True)
     does_not_expire = models.BooleanField(default=False)
 
@@ -77,6 +80,9 @@ class FacebookAuth(BaseModel):
     token_expires = models.DateTimeField(null=True, blank=True)
     member = models.OneToOneField('dusken.Member', null=True, blank=True)
 
+    def owner(self):
+        return self.member
+
 
 class GoogleAuth(BaseModel):
     def __unicode__(self):
@@ -85,6 +91,9 @@ class GoogleAuth(BaseModel):
     token = models.CharField(max_length=255, unique=True, null=True, blank=True)
     token_expires = models.DateTimeField(null=True, blank=True)
     member = models.OneToOneField('dusken.Member', null=True, blank=True)
+
+    def owner(self):
+        return self.member
 
 
 class Address(BaseModel):

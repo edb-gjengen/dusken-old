@@ -2,7 +2,8 @@ from django.conf.urls import url
 from dusken.api.member import MemberResource
 from dusken.models import *
 from tastypie import fields
-from tastypie.authorization import Authorization
+from dusken.authorization import MyDjangoAuthorization
+from dusken.authentication import MyApiKeyAuthentication
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 
 
@@ -19,7 +20,8 @@ class MembershipResource(ModelResource):
         resource_name = 'membership'
         list_allowed_methods = [ 'get', 'post' ]
         detail_allowed_methods = [ 'get', 'patch' ]
-        authorization = Authorization() # TODO: for dev (VERY INSECURE)
+        authorization = MyDjangoAuthorization()
+        authentication = MyApiKeyAuthentication()
         filtering = {
             'member' : ALL_WITH_RELATIONS,
             'expires' : [ 'exact','range','gt','gte','lt','lte' ], #TODO: Doesn't work.
@@ -41,8 +43,7 @@ class MembershipResource(ModelResource):
 
     def hydrate(self, bundle):
         if 'membership_type' in bundle.data:
-            bundle.data['mtype'] = bundle.data['membership_type']
-            del bundle.data['membership_type']
+            bundle.obj.membership_type = MembershipType.objects.get(id=bundle.data['membership_type'])
 
         if 'member' in bundle.data:
             bundle.data['member'] = Member.objects.get(id=bundle.data['member'])
@@ -51,13 +52,13 @@ class MembershipResource(ModelResource):
 
     def dehydrate(self, bundle):
         bundle.data['member'] = bundle.obj.member.id
-        bundle.data['membership_type'] = bundle.obj.mtype.id
+        bundle.data['membership_type'] = bundle.obj.membership_type.id
         bundle.data['payment'] = None if not bundle.obj.payment else bundle.obj.payment.id
         return bundle
 
     def obj_update(self, bundle, request, **kwargs):
         member_id = bundle.data.get('member')
-        membership_type = bundle.data.get('member')
+        membership_type = bundle.data.get('membership_type')
         start_date = bundle.data.get('start_date')
 
         if None in (member_id, membership_type, start_date):
@@ -75,7 +76,7 @@ class MembershipTypeResource(ModelResource):
         resource_name = "membership/type"
         list_allowed_methods = [ 'get', 'post' ]
         detail_allowed_methods = [ 'get', 'delete' ]
-        authorization = Authorization() # TODO
+        authorization = MyDjangoAuthorization()
 
     def delete_detail(self, request, **kwarg):
         #TODO set is_active flag to False
