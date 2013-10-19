@@ -5,8 +5,7 @@
         "fields": {
             "updated": "2013-09-11T18:44:13.123Z", 
             "name": "Medlemskap ved DNS", 
-            "created": "2013-09-11T18:44:13.123Z",  
-            "end_date": "2013-09-11"
+            "created": "2013-09-11T18:44:13.123Z"
         }
     }, 
     {
@@ -15,8 +14,7 @@
         "fields": {
             "updated": "2013-09-11T18:44:31.824Z", 
             "name": "Halvtaarsmedlemskap", 
-            "created": "2013-09-11T18:44:31.824Z", 
-            "end_date": "2013-09-11"
+            "created": "2013-09-11T18:44:31.824Z"
         }
     }
 ]

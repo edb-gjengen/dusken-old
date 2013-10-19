@@ -32,15 +32,19 @@ class Member(django.contrib.auth.models.AbstractUser):
 
 class Membership(BaseModel):
     def __unicode__(self):
-        return u"{member}: {fromdate}".format(member=self.member, fromdate=self.start_date)
+        return u"{0}: {1} - {2}".format(
+            self.member,
+            self.start_date,
+            self.end_date)
 
     start_date = models.DateField()
+    end_date = models.DateField(null=True, blank=True)
     membership_type = models.ForeignKey('dusken.MembershipType')
     payment = models.ForeignKey('dusken.Payment', unique=True, null=True, blank=True)
     member = models.ForeignKey('dusken.Member')
 
     def expires(self):
-        return self.membership_type.end_date
+        return self.end_date
 
     def owner(self):
         return self.member
@@ -50,7 +54,6 @@ class MembershipType(BaseModel):
         return u"{}".format(self.name)
 
     name = models.CharField(max_length=50, unique=True)
-    end_date = models.DateField(null=True, blank=True) # TODO move to Membership (no new Membership types every year)
     is_active = models.BooleanField(default=True)
     does_not_expire = models.BooleanField(default=False)
 

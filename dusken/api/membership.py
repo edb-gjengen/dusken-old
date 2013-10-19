@@ -22,6 +22,7 @@ class MembershipResource(ModelResource):
         detail_allowed_methods = [ 'get', 'patch' ]
         authorization = MyDjangoAuthorization()
         authentication = MyApiKeyAuthentication()
+        excludes = [ 'end_date']
         filtering = {
             'member' : ALL_WITH_RELATIONS,
             'expires' : [ 'exact','range','gt','gte','lt','lte' ], #TODO: Doesn't work.
