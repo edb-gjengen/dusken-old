@@ -1,5 +1,5 @@
 import logging
-import utils.tests
+import dusken.utils.tests
 
 from dusken.models import Group
 from tastypie.test import ResourceTestCase

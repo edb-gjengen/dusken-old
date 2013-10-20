@@ -3,7 +3,7 @@ from tastypie.models import ApiKey
 
 from dusken.models import Address, Country, Member
 from tastypie.test import ResourceTestCase
-from utils.tests import test_fixtures_member
+from dusken.utils.tests import test_fixtures_member
 
 class MemberTestBase(ResourceTestCase):
     
