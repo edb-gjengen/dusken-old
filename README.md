@@ -2,6 +2,8 @@ D.U.S.K.E.N
 ===========
 Dårlig Utrustet Studentsystem som Kommer til å Endre Norge.
 
+You can find the documentation at [http://dusken.readthedocs.org/]().
+
 
 [![Build Status](https://api.travis-ci.org/neuf/dusken.png)](https://travis-ci.org/neuf/dusken)
 
@@ -40,5 +42,5 @@ Design References
 
 Developer References
 --------------------
-* Tastypie: https://django-tastypie.readthedocs.org/en/latest/toc.html 
+* Tastypie: [https://django-tastypie.readthedocs.org/en/latest/]()
 
