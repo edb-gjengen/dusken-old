@@ -13,7 +13,6 @@ class MemberTestBase(ResourceTestCase):
     def setUp(self):
         super(MemberTestBase, self).setUp()
 
-        # TODO use fixtures for this
         # Get the preloaded member, which will be used for 
         # comparison with fetched object.
         self.member = Member.objects.get(pk=2)

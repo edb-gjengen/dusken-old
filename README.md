@@ -29,3 +29,16 @@ Database Diagram Generation
 Generate Fixtures for Test
 --------------------------
 `python manage.py dumpdata --all -n > main/fixtures/new-testdata.json`
+
+
+Design References
+-----------------
+
+* Database model: [http://www.databaseanswers.org/data_models/generic_foundation/index.htm]()
+* Database model: [http://www.databaseanswers.org/data_models/organisations_and_people_and_transactions/index.htm]()
+* Database model: [http://www.databaseanswers.org/data_models/organisations_and_people/index.htm]()
+
+Developer References
+--------------------
+* Tastypie: https://django-tastypie.readthedocs.org/en/latest/toc.html 
+
