@@ -9,4 +9,5 @@ script:
    python manage.py test dusken --settings="dusken.settings-sample"
 notifications:
   irc: "ircnet.eversible.com#edb"
-
+  on_success: change
+  on_failure: always
