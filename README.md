@@ -9,8 +9,20 @@ You can find the documentation at [dusken.readthedocs.org](http://dusken.readthe
 ## Installation
 
 ### Manual install:
+    sudo apt-get install python-virtualenv python-dev postgresql libpq-dev pgadmin3
+    cd dusken
+    virtualenv --distribute venv
+    . venv/bin/activate
+    pip install -r requirements.txt
+    cd dusken
+    cp settings-sample.py settings.py
+    # Edit database settings (sqlite3 is easiest to setup, but postgresql is recommended)
+    cd ..
+    ./manage.py syncdb
+    ./manage.py runserver
 
-See http://edb.neuf.no/wiki/index.php/DUSKEN for installation
+
+See [the EDB wiki](http://edb.neuf.no/wiki/index.php/DUSKEN) for more info.
 
 ### TODO Vagrant install:
 
