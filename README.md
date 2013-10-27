@@ -44,7 +44,7 @@ Download latest version of Vagrant from [downloads.vagrantup.com](http://downloa
 
 
 ## Design References
-A similar data model might allready [exist](http://www.databaseanswers.org/data_models/generic_foundation/index.htm) [out](http://www.databaseanswers.org/data_models/organisations_and_people_and_transactions/index.htm) [there](http://www.databaseanswers.org/data_models/organisations_and_people/index.htm).
+A similar data model might allready [exist](http://www.databaseanswers.org/data_models/generic_foundation/index.htm) [out](http://www.databaseanswers.org/data_models/organisations_and_people_and_transactions/index.htm) [there](http://www.databaseanswers.org/data_models/organisations_and_people/index.htm), [somewhere](http://www.databaseanswers.org/data_models/magazine_subscriptions/index.htm).
 
 ## Developer References
 

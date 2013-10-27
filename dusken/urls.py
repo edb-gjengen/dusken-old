@@ -18,4 +18,5 @@ v1_api.register(InstitutionResource())
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(v1_api.urls)),
+    url(r'^authenticate/', 'dusken.views.authenticate')
 )
