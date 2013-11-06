@@ -5,19 +5,19 @@ from dusken.models import *
 
 ####################################################################
 ### Request helper functions
-def do_get_request(self, url, creds):
+def do_get_request(self, url):
     return self.api_client.get(
             url, 
             format='json', 
-            authentication=creds
+            authentication=self.creds
     )
 
-def do_post_request(self, url, data, creds):
+def do_post_request(self, url, data):
     return self.api_client.post(
             url,
             format='json',
             data=data,
-            authentication=creds
+            authentication=self.creds
     )
 
 ####################################################################
@@ -43,3 +43,8 @@ def test_fixtures_membership():
             os.path.join('dusken', 'fixtures', 'membershiptype.json'),
             os.path.join('dusken', 'fixtures', 'membership.json'),
         ]
+
+def test_fixtures_group():
+    return test_fixtures_member() + [
+        os.path.join('dusken', 'fixtures', 'group.json'),
+    ]

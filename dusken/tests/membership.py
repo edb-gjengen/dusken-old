@@ -1,17 +1,18 @@
-import logging
-import django
 from tastypie.models import ApiKey
 
-from dusken.models import Address, Country, Member
+from dusken.models import Member
 from tastypie.test import ResourceTestCase
-from dusken.utils.tests import test_fixtures_membership
+from dusken.utils.tests import test_fixtures_membership, do_get_request, do_post_request
 
 class MembershipTest(ResourceTestCase):
+    fixtures = test_fixtures_membership()
+
+    #TODO Perhaps a subclass is better suited for these
+    do_get_request = do_get_request
+    do_post_request = do_post_request
 
     membership_url = '/api/v1/membership/'
     membership_url_single = '/api/v1/membership/{}/'
-
-    fixtures = test_fixtures_membership()
 
     def setUp(self):
         self.member = Member.objects.get(pk=2)
@@ -27,21 +28,6 @@ class MembershipTest(ResourceTestCase):
     def member_url(self, member_id):
         return self.membership_url_single.format(member_id)
 
-    def do_get_request(self, url):
-        return self.api_client.get(
-                url, 
-                format='json', 
-                authentication=self.creds
-        )
-
-    # Help set format and add authentication credentials
-    def do_post_request(self, url, data):
-        return self.api_client.post(
-            url,
-            format='json',
-            data=data,
-            authentication=self.creds
-        )
 
     ####################################################################
     ### Tests
