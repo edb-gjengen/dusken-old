@@ -1,8 +1,9 @@
 Django==1.5.4
-South==0.8.2
-django-tastypie==0.10.0
-psycopg2==2.5.1
+django-cors-headers==0.12
 django-extensions==1.2.2
 django-sphinxdoc==1.2.0
-sphinxcontrib-httpdomain==1.1.9
+django-tastypie==0.10.0
+psycopg2==2.5.1
 python-mimeparse==0.1.4
+South==0.8.2
+sphinxcontrib-httpdomain==1.1.9

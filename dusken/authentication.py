@@ -1,5 +1,7 @@
-from tastypie.authentication import ApiKeyAuthentication
+from tastypie.authentication import ApiKeyAuthentication, Authentication
 from tastypie.http import HttpUnauthorized
+
+# TODO replace with Oauth2 http://django-tastypie.readthedocs.org/en/latest/cookbook.html#creating-a-full-oauth-2-0-api
 
 class MyApiKeyAuthentication(ApiKeyAuthentication):
     """
@@ -40,3 +42,14 @@ class MyApiKeyAuthentication(ApiKeyAuthentication):
             request.user = user
 
         return key_auth_check
+
+
+class ServiceAuthentication(Authentication):
+    pass
+#
+    # TODO auth for services
+    #
+    #def is_authenticated(self, request, **kwargs):
+    #    return True
+    #    return False
+

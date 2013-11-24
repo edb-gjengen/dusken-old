@@ -1,15 +1,20 @@
+from django.conf.urls import url
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
-from django.conf.urls import url
+from django.db import IntegrityError
 from django.shortcuts import get_object_or_404
-from tastypie import fields
-from tastypie.exceptions import ImmediateHttpResponse
+
+from tastypie.authorization import Authorization
+from tastypie.exceptions import ImmediateHttpResponse, BadRequest
 from tastypie.http import HttpForbidden, HttpNoContent, HttpResponse, HttpAccepted
+from tastypie import fields
 from tastypie.resources import ModelResource, ALL
-from dusken.models import *
-from dusken.authorization import MyDjangoAuthorization
-from dusken.authentication import MyApiKeyAuthentication
+
 from dusken.api.groupsbymember import GroupsByMemberResource
+from dusken.authentication import MyApiKeyAuthentication, ServiceAuthentication
+from dusken.authorization import MyDjangoAuthorization
+from dusken.models import *
+from dusken.utils.api import generate_username, random_string
 
 
 class MemberResource(ModelResource):
@@ -21,10 +26,10 @@ class MemberResource(ModelResource):
     class Meta:
         queryset = Member.objects.all()
         resource_name = 'member'
-        list_allowed_methods = [ 'get', 'post' ]
+        list_allowed_methods = [ 'get' ]
         detail_allowed_methods = [ 'get', 'patch', 'delete' ]
-        authentication = MyApiKeyAuthentication()
-        authorization = MyDjangoAuthorization()
+        authentication = MyApiKeyAuthentication() # Who are you?
+        authorization = MyDjangoAuthorization() # What are you allowed to do?
         excludes = [ 'date_joined', 'password', 'is_active', 'is_staff', 'is_superuser', 'last_login' ]
         filtering = {
             'first_name' : [ 'exact' ],
@@ -70,25 +75,13 @@ class MemberResource(ModelResource):
 
     def hydrate(self, bundle):
         """
-        Catches POST and PATCH requests and intercepts data.
+        Catches PATCH requests and intercepts data.
         """
-        update_existing_user = bundle.obj.id is not None
 
-        if update_existing_user: 
-            # If the user already exists, return an error when attempting to change the username.
-            if bundle.data['username'] != bundle.obj.username:
-                raise ImmediateHttpResponse(HttpForbidden("You can't change your username."))
-        else:
-            # If creating new user, check if it already exists:
-            member_count = len(Member.objects.filter(username=bundle.data['username'])) \
-                + len(Member.objects.filter(email=bundle.data['email'])) \
-                + len(Member.objects.filter(phone_number=bundle.data['phone_number']))
-            if member_count > 0:
-                # TODO Specify what data is missing
-                raise ImmediateHttpResponse(HttpForbidden("User with given data already exists"))
+        # If the user already exists, return an error when attempting to change the username.
+        if bundle.data['username'] != bundle.obj.username:
+            raise ImmediateHttpResponse(HttpForbidden("You can't change your username."))
 
-            # Quick hack to allow new users to be created anonymously (unauthenticated)
-            bundle._anonymous_request_allowed = True
         return bundle
 
     def obj_update(self, bundle, **kwargs):
@@ -114,6 +107,7 @@ class MemberResource(ModelResource):
             try:
                 country = Country.objects.get(name=new_address['country'])
             except Country.DoesNotExist, e:
+                # FIXME change to badrequest?
                 raise ImmediateHttpResponse(HttpForbidden(
                         'The country "{}" does not exist.'.format(new_address['country']))
                       )
@@ -165,3 +159,58 @@ class MemberResource(ModelResource):
         member.is_active = False
         member.save()
         return HttpNoContent()
+
+class MemberCreateResource(ModelResource):
+    # TODO 
+    # - get the post request to return auth info
+    # - do not return fields in excludes list
+    """
+    This class provides the following endpoint:
+     (1) /api/v1/register/
+
+    The create Member resource is needed because:
+     - You need a user account to authenticate to our API
+     - and you need to to be authenticated to create a user account.
+
+    Ref: http://psjinx.com/programming/2013/06/07/so-you-want-to-create-users-using-djangotastypie/
+    """
+    class Meta:
+        object_class = Member
+        resource_name = "register"
+        allowed_methods = ['post']
+        default_format = "application/json"
+        always_return_data = True
+        queryset = Member.objects.all()
+        authentication = ServiceAuthentication() # anyone
+        authorization = Authorization() # can do what they want with anything
+        excludes = [ 'date_joined', 'password', 'is_active', 'is_staff', 'is_superuser', 'last_login' ]
+
+    def obj_create(self, bundle, request=None, **kwargs):
+        # TODO factor out validation http://django-tastypie.readthedocs.org/en/latest/validation.html
+        # email must be unique
+        email = bundle.data.get('email')
+        if(len(Member.objects.filter(email=email)) > 0):
+            raise BadRequest("E-mail '{0}' already exists".format(email))
+
+        password = bundle.data.get('password')
+        if not password:
+            # generate a random password if it is not set
+            bundle.data['password'] = random_string(32);
+
+        username = bundle.data.get('username')
+        if not username:
+            username = bundle.data['username'] = generate_username(bundle.data)
+            # FIXME unsafe
+            while(len(Member.objects.filter(username=username)) > 0):
+                username = bundle.data['username'] = generate_username(bundle.data)
+
+        # When creating a new user, check if it already exists:
+        try:
+            bundle = super(MemberCreateResource, self).obj_create(bundle, **kwargs)
+            bundle.obj.set_password(password)
+            bundle.obj.save()
+        except IntegrityError as e:
+            print e
+            raise BadRequest('That username already exists')
+
+        return bundle

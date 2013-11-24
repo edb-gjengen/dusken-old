@@ -16,7 +16,7 @@ You can find the documentation at [dusken.readthedocs.org](http://dusken.readthe
     pip install -r requirements.txt
     cd dusken
     cp settings-sample.py settings.py
-    # Edit database settings (sqlite3 is easiest to setup, but postgresql is recommended)
+    # Edit database settings (sqlite3 is easiest to setup, but postgresql is recommended. See discussion below.)
     cd ..
     ./manage.py syncdb
     ./manage.py runserver
@@ -31,7 +31,6 @@ Download latest version of Vagrant from [downloads.vagrantup.com](http://downloa
     vagrant plugin install vagrant-salt
     vagrant up
     vagrant ssh
-
 
 ## Generate Fixtures for Test
     python manage.py dumpdata dusken.<model> -n --indent=4 > dusken/fixtures/<model>.json
@@ -49,4 +48,9 @@ A similar data model might allready [exist](http://www.databaseanswers.org/data_
 ## Developer References
 
 * [Tastypie](https://django-tastypie.readthedocs.org/)
+
+## SQLite3 vs PostgreSQL
+Tests run much faster with SQLite, but it does not check foreign key constraints out of the box [[1]](http://stackoverflow.com/questions/6745763/enable-integrity-checking-with-sqlite-in-django).
+
+SQLite is much easier to set up, but does not provide environment parity between development and production [[2]](http://12factor.net/dev-prod-parity).
 

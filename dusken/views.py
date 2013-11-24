@@ -12,7 +12,9 @@ def authenticate(request):
             # get apikey and return it
             user = form.get_user()
             api_key = user.api_key.key
-            return HttpResponse(json.dumps({'api_key': api_key}), content_type='application/javascript; charset=utf8')
+            response = HttpResponse(json.dumps({'api_key': api_key}), content_type='application/javascript; charset=utf8', )
+            response['Access-Control-Allow-Origin'] = '*'
+            return response
         else:
             return HttpResponse(json.dumps({'error': 'unauthorized'}), content_type='application/javascript; charset=utf8', status=401)
     else:

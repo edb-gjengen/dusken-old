@@ -95,6 +95,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 )
 
 ROOT_URLCONF = 'dusken.urls'
@@ -119,7 +120,8 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'dusken',
     'tastypie',
-    'south'
+    'south',
+    'corsheaders',
 )
 
 
@@ -152,7 +154,16 @@ LOGGING = {
     }
 }
 
-TASTYPIE_DEFAULT_FORMATS = ['json']
 
 # Our own User class used for authentication.
 AUTH_USER_MODEL = 'dusken.Member'
+
+TASTYPIE_DEFAULT_FORMATS = ['json']
+
+CORS_ORIGIN_ALLOW_ALL = False
+# Allow Ajax calls only from tuple of domain:port
+CORS_ORIGIN_WHITELIST = (
+    '127.0.0.1:3030',
+    'dusken.neuf.no:3030',
+    'dusken.neuf.no',
+)
