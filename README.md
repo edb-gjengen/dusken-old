@@ -32,6 +32,11 @@ Download latest version of Vagrant from [downloads.vagrantup.com](http://downloa
     vagrant up
     vagrant ssh
 
+## Test coverage
+    pip install coverage
+    coverage run --source='dusken' manage.py test dusken
+    coverage report -m
+
 ## Generate Fixtures for Test
     python manage.py dumpdata dusken.<model> -n --indent=4 > dusken/fixtures/<model>.json
 

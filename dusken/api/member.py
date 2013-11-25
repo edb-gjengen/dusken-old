@@ -179,23 +179,25 @@ class MemberCreateResource(ModelResource):
         resource_name = "register"
         allowed_methods = ['post']
         default_format = "application/json"
-        always_return_data = True
         queryset = Member.objects.all()
         authentication = ServiceAuthentication() # anyone
         authorization = Authorization() # can do what they want with anything
+        always_return_data = True
         excludes = [ 'date_joined', 'password', 'is_active', 'is_staff', 'is_superuser', 'last_login' ]
 
     def obj_create(self, bundle, request=None, **kwargs):
         # TODO factor out validation http://django-tastypie.readthedocs.org/en/latest/validation.html
         # email must be unique
         email = bundle.data.get('email')
-        if(len(Member.objects.filter(email=email)) > 0):
+        if(len(Member.objects.filter(email__iexact=email)) > 0):
             raise BadRequest("E-mail '{0}' already exists".format(email))
+
+        bundle.data['email'] = Member.objects.normalize_email(email)
 
         password = bundle.data.get('password')
         if not password:
             # generate a random password if it is not set
-            bundle.data['password'] = random_string(32);
+            bundle.data['password'] = Member.objects.make_random_password(length=32)
 
         username = bundle.data.get('username')
         if not username:
