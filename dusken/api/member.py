@@ -35,6 +35,7 @@ class MemberResource(ModelResource):
             'first_name' : [ 'exact' ],
             'last_name' : [ 'exact' ],
             'phone_number' : [ 'exact' ],
+            'email' : [ 'exact' ],
         }
 
     def prepend_urls(self):
@@ -51,27 +52,27 @@ class MemberResource(ModelResource):
         resource = GroupsByMemberResource()
         return resource.dispatch_detail(request, **kwargs)
 
-    def apply_filters(self, request, applicable_filters):
-        # Extra filters are used for filtering by attributes in User class. Find out if there
-        # are any, and if so, apply them.
+    #def apply_filters(self, request, applicable_filters):
+    #    # Extra filters are used for filtering by attributes in User class. Find out if there
+    #    # are any, and if so, apply them.
 
-        extra_filters = {}
-        if 'username__exact' in applicable_filters:
-            extra_filters['username'] = applicable_filters.pop('username__exact')
-        if 'first_name__exact' in applicable_filters:
-            extra_filters['first_name'] = applicable_filters.pop('first_name__exact')
-        if 'last_name__exact' in applicable_filters:
-            extra_filters['last_name'] = applicable_filters.pop('last_name__exact')
-        if 'email__exact' in applicable_filters:
-            extra_filters['email'] = applicable_filters.pop('email__exact')
+    #    extra_filters = {}
+    #    if 'username__exact' in applicable_filters:
+    #        extra_filters['username'] = applicable_filters.pop('username__exact')
+    #    if 'first_name__exact' in applicable_filters:
+    #        extra_filters['first_name'] = applicable_filters.pop('first_name__exact')
+    #    if 'last_name__exact' in applicable_filters:
+    #        extra_filters['last_name'] = applicable_filters.pop('last_name__exact')
+    #    if 'email__exact' in applicable_filters:
+    #        extra_filters['email'] = applicable_filters.pop('email__exact')
 
 
-        filtered = super(MemberResource, self).apply_filters(request, applicable_filters)
+    #    filtered = super(MemberResource, self).apply_filters(request, applicable_filters)
 
-        for key,value in extra_filters.items():
-            filtered = filter(lambda m: getattr(m, key) == value, filtered)
+    #    for key,value in extra_filters.items():
+    #        filtered = filter(lambda m: getattr(m, key) == value, filtered)
 
-        return filtered
+    #    return filtered
 
     def hydrate(self, bundle):
         """
