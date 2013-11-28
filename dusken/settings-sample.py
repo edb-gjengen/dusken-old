@@ -163,7 +163,7 @@ TASTYPIE_DEFAULT_FORMATS = ['json']
 CORS_ORIGIN_ALLOW_ALL = False
 # Allow Ajax calls only from tuple of domain:port
 CORS_ORIGIN_WHITELIST = (
-    '127.0.0.1:3030',
-    'dusken.neuf.no:3030',
+    '127.0.0.1:3000',
+    'dusken.neuf.no:3000',
     'dusken.neuf.no',
 )
