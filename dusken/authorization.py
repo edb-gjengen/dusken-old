@@ -1,7 +1,10 @@
 from tastypie.authorization import DjangoAuthorization
 from tastypie.exceptions import Unauthorized
 
-# TODO add django-guardian for object level/row level permissions, then 
+# TODO add django-guardian for object level/row level permissions.
+# Ref: https://gist.github.com/7wonders/6557760
+# Usage example: User in group x is admin of group y 
+# Literal usage example: Runar in group KAK-styret is admin of group KAK.
 
 """
     Create
