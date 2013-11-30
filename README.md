@@ -55,7 +55,8 @@ A similar data model might allready [exist](http://www.databaseanswers.org/data_
 * [Tastypie](https://django-tastypie.readthedocs.org/)
 
 ## SQLite3 vs PostgreSQL
-Tests run much faster with SQLite, but it does not check foreign key constraints out of the box [[1]](http://stackoverflow.com/questions/6745763/enable-integrity-checking-with-sqlite-in-django).
-
-SQLite is much easier to set up, but does not provide environment parity between development and production [[2]](http://12factor.net/dev-prod-parity).
+* SQLite runs tests much faster
+* SQLite does not check foreign key constraints out of the box [[1]](http://stackoverflow.com/questions/6745763/enable-integrity-checking-with-sqlite-in-django) [FIXED].
+* SQLite is easier to set up.
+* SQLite does not provide environment parity between development and production [[2]](http://12factor.net/dev-prod-parity).
 
