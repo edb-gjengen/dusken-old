@@ -107,7 +107,7 @@ class MemberTest(MemberTestBase):
             'phone_number' : "+4790567260"
         }
 
-        resp = self.api_client.post(self.all_members_url, 
+        resp = self.api_client.post(self.all_members_url + 'register/', 
             format='json', 
             data=data,
             authentication=self.creds)
@@ -134,7 +134,7 @@ class MemberTest(MemberTestBase):
             'phone_number' : self.member.phone_number
         }
 
-        resp = self.api_client.post(self.all_members_url,
+        resp = self.api_client.post(self.all_members_url + 'register/',
             format = 'json',
             data = data,
             authentication=self.creds)

@@ -54,7 +54,6 @@ class MemberResource(ModelResource):
         return resource.dispatch_detail(request, **kwargs)
 
     def register_member(self, request, **kwargs):
-        print "yoyo"
         resource = MemberCreateResource()
         return resource.dispatch_list(request, **kwargs)
 
