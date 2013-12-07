@@ -11,7 +11,6 @@ admin.autodiscover()
 
 v1_api = Api(api_name='v1')
 v1_api.register(MemberResource())
-v1_api.register(MemberCreateResource())
 v1_api.register(MembershipResource())
 v1_api.register(GroupResource())
 v1_api.register(InstitutionResource())

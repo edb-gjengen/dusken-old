@@ -42,6 +42,7 @@ class MemberResource(ModelResource):
         return [
             url(r"^(?P<resource_name>%s)/(?P<member_id>\d+)/groups/$" % (self._meta.resource_name), self.wrap_view("list_groups"), name="api_groups"),
             url(r"^(?P<resource_name>%s)/(?P<member_id>\d+)/groups/(?P<group_id>\d+)/$" % (self._meta.resource_name), self.wrap_view("detail_groups"), name="api_detail_groups"),
+            url(r"^(?P<resource_name>%s)/register/$" % (self._meta.resource_name), self.wrap_view("register_member"), name="api_register_member"),
         ]
 
     def list_groups(self, request, **kwargs):
@@ -51,6 +52,11 @@ class MemberResource(ModelResource):
     def detail_groups(self, request, **kwargs):
         resource = GroupsByMemberResource()
         return resource.dispatch_detail(request, **kwargs)
+
+    def register_member(self, request, **kwargs):
+        print "yoyo"
+        resource = MemberCreateResource()
+        return resource.dispatch_list(request, **kwargs)
 
     #def apply_filters(self, request, applicable_filters):
     #    # Extra filters are used for filtering by attributes in User class. Find out if there
@@ -167,7 +173,7 @@ class MemberCreateResource(ModelResource):
     # - do not return fields in excludes list
     """
     This class provides the following endpoint:
-     (1) /api/v1/register/
+     (1) /api/v1/member/register/
 
     The create Member resource is needed because:
      - You need a user account to authenticate to our API
@@ -176,9 +182,8 @@ class MemberCreateResource(ModelResource):
     Ref: http://psjinx.com/programming/2013/06/07/so-you-want-to-create-users-using-djangotastypie/
     """
     class Meta:
-        object_class = Member
-        resource_name = "register"
-        allowed_methods = ['post']
+        list_allowed_methods = [ 'post' ]
+        detail_allowed_methods = []
         default_format = "application/json"
         queryset = Member.objects.all()
         authentication = ServiceAuthentication() # anyone
