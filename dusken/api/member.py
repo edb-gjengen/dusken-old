@@ -196,7 +196,7 @@ class MemberCreateResource(ModelResource):
         # email must be unique
         email = bundle.data.get('email')
         if(len(Member.objects.filter(email__iexact=email)) > 0):
-            raise BadRequest("E-mail '{0}' already exists".format(email))
+            raise ImmediateHttpResponse(HttpForbidden("E-mail '{0}' already exists".format(email)))
 
         bundle.data['email'] = Member.objects.normalize_email(email)
 
@@ -219,6 +219,6 @@ class MemberCreateResource(ModelResource):
             bundle.obj.save()
         except IntegrityError as e:
             print e
-            raise BadRequest('That username already exists')
+            raise ImmediateHttpResponse(HttpForbidden('That username already exists'))
 
         return bundle
