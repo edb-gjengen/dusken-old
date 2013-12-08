@@ -1,20 +1,22 @@
 # Service design
 
-ApiHook-model with the following attributes:
+ServiceHook-model with the following attributes [DONE]:
+
 * event
 * callback-URL
 * member
 * (active)
 
 Our own Tastypie BaseResource which triggers events based on:
+
 * resource_name / type of object
 * method used.
 
+Use a queue for service tasks, f.ex rq (python library with redis backend)
+
 Add logic to our Django Basemodel 
 
-Use a queue for service tasks:
-* rq (python library with redis backend)
+Take a look at Django signals:
 
-Take a look at signals
 * pre_save
 * post_save

@@ -9,12 +9,14 @@ from tastypie.exceptions import ImmediateHttpResponse, BadRequest
 from tastypie.http import HttpForbidden, HttpNoContent, HttpResponse, HttpAccepted
 from tastypie import fields
 from tastypie.resources import ModelResource, ALL
+from tastypie.validation import CleanedDataFormValidation
 
 from dusken.api.groupsbymember import GroupsByMemberResource
 from dusken.authentication import MyApiKeyAuthentication, ServiceAuthentication
 from dusken.authorization import MyDjangoAuthorization
 from dusken.models import *
 from dusken.utils.api import generate_username, random_string
+from dusken.forms import MemberCreateForm
 
 
 class MemberResource(ModelResource):
@@ -57,28 +59,6 @@ class MemberResource(ModelResource):
         resource = MemberCreateResource()
         return resource.dispatch_list(request, **kwargs)
 
-    #def apply_filters(self, request, applicable_filters):
-    #    # Extra filters are used for filtering by attributes in User class. Find out if there
-    #    # are any, and if so, apply them.
-
-    #    extra_filters = {}
-    #    if 'username__exact' in applicable_filters:
-    #        extra_filters['username'] = applicable_filters.pop('username__exact')
-    #    if 'first_name__exact' in applicable_filters:
-    #        extra_filters['first_name'] = applicable_filters.pop('first_name__exact')
-    #    if 'last_name__exact' in applicable_filters:
-    #        extra_filters['last_name'] = applicable_filters.pop('last_name__exact')
-    #    if 'email__exact' in applicable_filters:
-    #        extra_filters['email'] = applicable_filters.pop('email__exact')
-
-
-    #    filtered = super(MemberResource, self).apply_filters(request, applicable_filters)
-
-    #    for key,value in extra_filters.items():
-    #        filtered = filter(lambda m: getattr(m, key) == value, filtered)
-
-    #    return filtered
-
     def hydrate(self, bundle):
         """
         Catches PATCH requests and intercepts data.
@@ -105,6 +85,8 @@ class MemberResource(ModelResource):
     def _update_address(self, address, new_address):
         if 'street_address' in new_address:
             address.street_address = new_address['street_address']
+        if 'street_address_two' in new_address:
+            address.street_address_two = new_address['street_address_two']
         if 'city' in new_address:
             address.city = new_address['city']
         if 'postal_code' in new_address:
@@ -169,7 +151,7 @@ class MemberResource(ModelResource):
 class MemberCreateResource(ModelResource):
     # TODO 
     # - get the post request to return auth info
-    # - do not return fields in excludes list
+    # - Code 400 is triggered on validation error instead of 403 in tastypie.resource.ModelResource.save(). 
     """
     This class provides the following endpoint:
      (1) /api/v1/member/register/
@@ -189,27 +171,28 @@ class MemberCreateResource(ModelResource):
         authorization = Authorization() # can do what they want with anything
         always_return_data = True
         excludes = [ 'date_joined', 'password', 'is_active', 'is_staff', 'is_superuser', 'last_login' ]
+        validation = CleanedDataFormValidation(form_class=MemberCreateForm)
+
+    def dehydrate(self, bundle):
+        # Do not return fields in excludes
+        # Ref: https://groups.google.com/forum/#!topic/django-tastypie/WE_d92Fkl-I/discussion
+        for field in getattr(self.Meta, 'excludes', []):
+            if field in bundle.data:
+                del bundle.data[field]
+        return bundle
 
     def obj_create(self, bundle, request=None, **kwargs):
-        # TODO factor out validation http://django-tastypie.readthedocs.org/en/latest/validation.html
-        # email must be unique
-        email = bundle.data.get('email')
-        if(len(Member.objects.filter(email__iexact=email)) > 0):
-            raise ImmediateHttpResponse(HttpForbidden("E-mail '{0}' already exists".format(email)))
-
-        bundle.data['email'] = Member.objects.normalize_email(email)
-
+        # TODO factor out validation and cleaning of fields:
+        # * password
+        # * username
         password = bundle.data.get('password')
         if not password:
-            # generate a random password if it is not set
+            # generate a random password if it is not provided
             bundle.data['password'] = Member.objects.make_random_password(length=32)
 
-        username = bundle.data.get('username')
-        if not username:
-            username = bundle.data['username'] = generate_username(bundle.data)
-            # FIXME unsafe
-            while(len(Member.objects.filter(username=username)) > 0):
-                username = bundle.data['username'] = generate_username(bundle.data)
+        if not bundle.data.get('username'):
+            # Simply use the provided email
+            bundle.data['username'] = bundle.data['email']
 
         # When creating a new user, check if it already exists:
         try:
@@ -217,7 +200,6 @@ class MemberCreateResource(ModelResource):
             bundle.obj.set_password(password)
             bundle.obj.save()
         except IntegrityError as e:
-            print e
-            raise ImmediateHttpResponse(HttpForbidden('That username already exists'))
+            raise ImmediateHttpResponse(HttpForbidden("Database error: {0}".format(e)))
 
         return bundle

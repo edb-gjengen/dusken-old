@@ -6,7 +6,7 @@ if [ -f dusken.db ]; then
 fi
 
 echo 'Synchronizing database...'
-python manage.py syncdb --noinput > /dev/null
+python manage.py syncdb --noinput --all > /dev/null
 echo 'Migrating database...'
 python manage.py migrate > /dev/null
 

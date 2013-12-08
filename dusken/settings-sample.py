@@ -118,6 +118,7 @@ INSTALLED_APPS = (
     'dusken',
     'tastypie',
     'south',
+    'django_extensions',
     'corsheaders',
 )
 

@@ -18,9 +18,9 @@ class Member(django.contrib.auth.models.AbstractUser):
                 username=self.username)
         return u"{username}".format(username=self.username)
 
-    phone_number = models.CharField(max_length=30, unique=True, null=True, blank=True)
+    phone_number = models.CharField(max_length=30, null=True, blank=True)
     date_of_birth = models.DateField(blank=True, null=True)
-    legacy_id = models.IntegerField(unique=True, null=True, blank=True)
+    legacy_id = models.IntegerField(null=True, blank=True)
     address = models.OneToOneField('dusken.Address', null=True, blank=True)
     place_of_study = models.ManyToManyField('dusken.PlaceOfStudy', null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -136,9 +136,9 @@ class Group(django.contrib.auth.models.Group):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-class VolunteerGroup(BaseModel):
+class Division(BaseModel):
     """
-    Associations 
+    Associations, comittee or similar
     """
     def __unicode__(self):
         return u"{}".format(self.name)
@@ -148,6 +148,19 @@ class VolunteerGroup(BaseModel):
     members = models.ManyToManyField('dusken.Member', null=True, blank=True)
     parent = models.ForeignKey('self', null=True, blank=True, related_name='children')
     groups = models.ManyToManyField('dusken.Group', null=True, blank=True) # permissions
+
+class ServiceHook(BaseModel):
+    """
+    Events with callback_urls
+    """
+    def __unicode__(self):
+        return u"{}".format(self.name)
+
+    event = models.CharField(max_length=255)
+    member = models.ForeignKey('dusken.Member')
+    is_active = models.BooleanField(default=True)
+    callback_url = models.TextField()
+
 
 # SIGNALS #
 ###########
