@@ -21,7 +21,7 @@ class Member(django.contrib.auth.models.AbstractUser):
     phone_number = models.CharField(max_length=30, unique=True, null=True, blank=True)
     date_of_birth = models.DateField(blank=True, null=True)
     legacy_id = models.IntegerField(unique=True, null=True, blank=True)
-    address = models.ForeignKey('dusken.Address', null=True, blank=True) # TODO change to ManyToManyField
+    address = models.OneToOneField('dusken.Address', null=True, blank=True)
     place_of_study = models.ManyToManyField('dusken.PlaceOfStudy', null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -74,31 +74,6 @@ class Payment(BaseModel):
     value = models.IntegerField()
     transaction_id = models.IntegerField(unique=True, null=True, blank=True)
 
-
-class FacebookAuth(BaseModel):
-    def __unicode__(self):
-        return u"{}".format(self.token)
-
-    token = models.CharField(max_length=255, unique=True, null=True, blank=True)
-    token_expires = models.DateTimeField(null=True, blank=True)
-    member = models.OneToOneField('dusken.Member', null=True, blank=True)
-
-    def owner(self):
-        return self.member
-
-
-class GoogleAuth(BaseModel):
-    def __unicode__(self):
-        return u"{}".format(self.token)
-
-    token = models.CharField(max_length=255, unique=True, null=True, blank=True)
-    token_expires = models.DateTimeField(null=True, blank=True)
-    member = models.OneToOneField('dusken.Member', null=True, blank=True)
-
-    def owner(self):
-        return self.member
-
-
 class Address(BaseModel):
     class Meta:
         verbose_name_plural = "Addresses"
@@ -111,6 +86,7 @@ class Address(BaseModel):
             country=self.country)
 
     street_address = models.CharField(max_length=255)
+    street_address_two = models.CharField(max_length=255)
     postal_code = models.CharField(max_length=10)
     city = models.CharField(max_length=100)
     country = models.ForeignKey('dusken.Country', null=True, blank=True)
@@ -144,12 +120,15 @@ class Institution(BaseModel):
     name = models.CharField(max_length=255)
     short_name = models.CharField(max_length=16)
 
-
-class ExtendedMemberDetail(BaseModel):
-    pass
-
+class MemberMeta(BaseModel):
+    key = models.CharField(max_length=255)
+    value = models.TextField(blank=True)
+    member = models.ForeignKey('dusken.Member')
 
 class Group(django.contrib.auth.models.Group):
+    """
+    django.contrib.auth.model.Group extended with additional fields.
+    """
     def __unicode__(self):
         return u"{} ({})".format(self.name, self.posix_name)
 
@@ -157,7 +136,19 @@ class Group(django.contrib.auth.models.Group):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-###########
+class VolunteerGroup(BaseModel):
+    """
+    Associations 
+    """
+    def __unicode__(self):
+        return u"{}".format(self.name)
+
+    name = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    members = models.ManyToManyField('dusken.Member', null=True, blank=True)
+    parent = models.ForeignKey('self', null=True, blank=True, related_name='children')
+    groups = models.ManyToManyField('dusken.Group', null=True, blank=True) # permissions
+
 # SIGNALS #
 ###########
 models.signals.post_save.connect(create_api_key, sender=Member)
