@@ -115,6 +115,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'provider',
+    'provider.oauth2',
     'dusken',
     'tastypie',
     'south',

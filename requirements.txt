@@ -1,6 +1,7 @@
 Django==1.5.4
 django-cors-headers==0.12
 django-extensions==1.2.2
+django-oauth2-provider==0.2.6
 django-sphinxdoc==1.2.0
 django-tastypie==0.10.0
 psycopg2==2.5.1
