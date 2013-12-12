@@ -122,6 +122,8 @@ INSTALLED_APPS = (
     'south',
     'django_extensions',
     'corsheaders',
+    'provider',
+    'provider.oauth2',
 )
 
 

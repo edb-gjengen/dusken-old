@@ -3,7 +3,7 @@ from dusken.api.member import MemberResource
 from dusken.models import *
 from tastypie import fields
 from dusken.authorization import MyDjangoAuthorization
-from dusken.authentication import MyApiKeyAuthentication
+from dusken.authentication import OAuth20Authentication
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 
 
@@ -21,7 +21,7 @@ class MembershipResource(ModelResource):
         list_allowed_methods = [ 'get', 'post' ]
         detail_allowed_methods = [ 'get', 'patch' ]
         authorization = MyDjangoAuthorization()
-        authentication = MyApiKeyAuthentication()
+        authentication = OAuth20Authentication()
         excludes = [ 'end_date']
         filtering = {
             'member' : ALL_WITH_RELATIONS,

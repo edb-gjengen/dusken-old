@@ -12,12 +12,11 @@ from tastypie.resources import ModelResource, ALL
 from tastypie.validation import CleanedDataFormValidation
 
 from dusken.api.groupsbymember import GroupsByMemberResource
-from dusken.authentication import MyApiKeyAuthentication, ServiceAuthentication
+from dusken.authentication import ServiceAuthentication, OAuth20Authentication
 from dusken.authorization import MyDjangoAuthorization
 from dusken.models import *
 from dusken.utils.api import generate_username, random_string
 from dusken.forms import MemberCreateForm
-
 
 class MemberResource(ModelResource):
     """
@@ -30,7 +29,7 @@ class MemberResource(ModelResource):
         resource_name = 'member'
         list_allowed_methods = [ 'get' ]
         detail_allowed_methods = [ 'get', 'patch', 'delete' ]
-        authentication = MyApiKeyAuthentication() # Who are you?
+        authentication = OAuth20Authentication()  # Who are you?
         authorization = MyDjangoAuthorization() # What are you allowed to do?
         excludes = [ 'date_joined', 'password', 'is_active', 'is_staff', 'is_superuser', 'last_login' ]
         filtering = {
@@ -95,7 +94,6 @@ class MemberResource(ModelResource):
             try:
                 country = Country.objects.get(name=new_address['country'])
             except Country.DoesNotExist, e:
-                # FIXME change to badrequest?
                 raise ImmediateHttpResponse(HttpForbidden(
                         'The country "{}" does not exist.'.format(new_address['country']))
                       )
@@ -167,7 +165,7 @@ class MemberCreateResource(ModelResource):
         detail_allowed_methods = []
         default_format = "application/json"
         queryset = Member.objects.all()
-        authentication = ServiceAuthentication() # anyone
+        authentication = OAuth20Authentication() # anyone
         authorization = Authorization() # can do what they want with anything
         always_return_data = True
         excludes = [ 'date_joined', 'password', 'is_active', 'is_staff', 'is_superuser', 'last_login' ]

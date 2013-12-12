@@ -1,9 +1,10 @@
 import logging
-from tastypie.models import ApiKey
+
+from tastypie.test import ResourceTestCase
 
 from dusken.models import Address, Country, Member
-from tastypie.test import ResourceTestCase
 from dusken.utils.tests import test_fixtures_member
+from dusken.authentication import create_access_token
 
 class MemberTestBase(ResourceTestCase):
     
@@ -16,8 +17,8 @@ class MemberTestBase(ResourceTestCase):
         # Get the preloaded member, which will be used for 
         # comparison with fetched object.
         self.member = Member.objects.get(pk=2)
-        ## create credentials
-        self.creds = self.create_apikey(username=self.member.username, api_key=ApiKey.objects.get(user=self.member).key)
+        # Create a OAuth2 Authorization HTTP header
+        self.creds = create_access_token(self.member)
 
         # URIs to the member api
         self.all_members_url = '/api/v1/member/'

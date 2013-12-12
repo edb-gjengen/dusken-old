@@ -1,8 +1,9 @@
-from tastypie.models import ApiKey
-
+from dusken.authentication import create_access_token
 from dusken.models import Member
-from tastypie.test import ResourceTestCase
 from dusken.utils.tests import test_fixtures_membership, do_get_request, do_post_request
+
+from tastypie.models import ApiKey
+from tastypie.test import ResourceTestCase
 
 class MembershipTest(ResourceTestCase):
     fixtures = test_fixtures_membership()
@@ -17,9 +18,7 @@ class MembershipTest(ResourceTestCase):
     def setUp(self):
         self.member = Member.objects.get(pk=2)
 
-        self.creds = self.create_apikey(
-                username=self.member.username, 
-                api_key=ApiKey.objects.get(user=self.member).key)
+        self.creds = create_access_token(self.member)
 
         super(MembershipTest, self).setUp()
 
