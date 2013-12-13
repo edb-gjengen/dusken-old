@@ -1,3 +1,3 @@
-from member import *
-from group import *
-from membership import *
+from test_member import *
+from test_group import *
+from test_membership import *

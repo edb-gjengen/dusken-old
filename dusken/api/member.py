@@ -166,7 +166,7 @@ class MemberCreateResource(ModelResource):
         default_format = "application/json"
         queryset = Member.objects.all()
         authentication = OAuth20Authentication()  # Who are you?
-        authorization = MyDjangoAuthorization() # What are you allowed to do?
+        authorization = Authorization() # What are you allowed to do?
         always_return_data = True
         excludes = [ 'date_joined', 'password', 'is_active', 'is_staff', 'is_superuser', 'last_login' ]
         validation = CleanedDataFormValidation(form_class=MemberCreateForm)
