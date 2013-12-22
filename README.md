@@ -8,7 +8,6 @@ You can find the documentation at [dusken.readthedocs.org](http://dusken.readthe
 
 ## Installation
 
-### Manual install:
     sudo apt-get install python-virtualenv python-dev postgresql libpq-dev pgadmin3
     cd dusken
     virtualenv --distribute venv
@@ -21,17 +20,8 @@ You can find the documentation at [dusken.readthedocs.org](http://dusken.readthe
     ./manage.py syncdb --all
     ./manage.py runserver
 
-
 See [the EDB wiki](http://edb.neuf.no/wiki/index.php/DUSKEN) for more info.
-
-### TODO Vagrant install:
-
-Download latest version of Vagrant from [downloads.vagrantup.com](http://downloads.vagrantup.com/) and then do:
-
-    vagrant plugin install vagrant-salt
-    vagrant up
-    vagrant ssh
-    
+ 
 ## Development tasks
     # Reset DB
     python manage.py reset_db --router=default && python manage.py syncdb --all

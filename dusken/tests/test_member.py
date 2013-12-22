@@ -17,7 +17,7 @@ class MemberTestBase(ResourceTestCase):
         # Get the preloaded member, which will be used for 
         # comparison with fetched object.
         self.member = Member.objects.get(pk=2)
-        # Create a OAuth2 Authorization HTTP header
+        # Put OAuth2 Authorization in HTTP header
         self.creds = create_access_token(self.member)
 
         # URIs to the member api
