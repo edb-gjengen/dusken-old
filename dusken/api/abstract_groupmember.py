@@ -5,7 +5,8 @@ from tastypie.bundle import Bundle
 from tastypie.exceptions import ImmediateHttpResponse
 from tastypie.http import HttpNotFound, HttpAccepted, HttpCreated, HttpResponse, HttpBadRequest, HttpNoContent
 from tastypie.resources import Resource
-from dusken.models import Member, Group
+from dusken.models import Member
+from django.contrib.auth.models import Group
 
 import logging
 

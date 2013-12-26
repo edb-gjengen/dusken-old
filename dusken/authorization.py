@@ -3,7 +3,7 @@ from tastypie.authentication import Authentication
 from tastypie.authorization import DjangoAuthorization
 from tastypie.exceptions import Unauthorized
 
-# TODO add django-guardian for object level/row level permissions.
+# TODO add django-guardian for object level/row level permissions (apply_limit).
 # Ref: https://gist.github.com/7wonders/6557760
 # Usage example: User in group x is admin of group y 
 # Literal usage example: Runar in group KAK-styret is admin of group KAK.
@@ -74,3 +74,8 @@ class MyDjangoAuthorization(DjangoAuthorization):
             raise Unauthorized("You are not allowed to access that resource.")
 
         return True
+
+    #def apply_limit(self):
+    #    pass
+        # TODO limit objects which a user are allowed to do crud operations on with django-guardian.
+        # apply_limit is called by apply_authorization_limits

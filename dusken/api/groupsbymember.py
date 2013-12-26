@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from dusken.api.abstract_groupmember import GroupMemberObject, AbstractGroupMemberResource
-from dusken.models import Member, Group
+from dusken.models import Member
+from django.contrib.auth.models import Group
 
 import logging
 

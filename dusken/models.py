@@ -1,8 +1,10 @@
 import django
+import datetime
+
 from django.db import models
 from tastypie.models import create_api_key
 
-class BaseModel(models.Model):
+class AbstractBaseModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -28,9 +30,14 @@ class Member(django.contrib.auth.models.AbstractUser):
 
     def owner(self):
         return self
+    
+    def has_valid_membership(self):
+        # FIXME more than one membership?
+        # FIXME membership_type?
+        membership = self.membership_set.filter(end_date__gt=datetime.datetime.now())
+        return len(membership) == 1 and membership.is_valid()
 
-
-class Membership(BaseModel):
+class Membership(AbstractBaseModel):
     def __unicode__(self):
         return u"{0}: {1} - {2}".format(
             self.member,
@@ -46,10 +53,13 @@ class Membership(BaseModel):
     def expires(self):
         return self.end_date
 
+    def is_valid(self):
+        return self.payment is not None
+
     def owner(self):
         return self.member
 
-class MembershipType(BaseModel):
+class MembershipType(AbstractBaseModel):
     def __unicode__(self):
         return u"{}".format(self.name)
 
@@ -57,7 +67,7 @@ class MembershipType(BaseModel):
     is_active = models.BooleanField(default=True)
     does_not_expire = models.BooleanField(default=False)
 
-class PaymentType(models.Model):
+class PaymentType(AbstractBaseModel):
     def __unicode__(self):
         return u"{}".format(self.name)
 
@@ -65,7 +75,7 @@ class PaymentType(models.Model):
     is_active = models.BooleanField(default=True)
 
 
-class Payment(BaseModel):
+class Payment(AbstractBaseModel):
     def __unicode__(self):
         return self.payment_type #TODO
 
@@ -74,7 +84,7 @@ class Payment(BaseModel):
     value = models.IntegerField()
     transaction_id = models.IntegerField(unique=True, null=True, blank=True)
 
-class Address(BaseModel):
+class Address(AbstractBaseModel):
     class Meta:
         verbose_name_plural = "Addresses"
 
@@ -86,13 +96,13 @@ class Address(BaseModel):
             country=self.country)
 
     street_address = models.CharField(max_length=255)
-    street_address_two = models.CharField(max_length=255)
+    street_address_two = models.CharField(max_length=255, null=True, blank=True)
     postal_code = models.CharField(max_length=10)
     city = models.CharField(max_length=100)
     country = models.ForeignKey('dusken.Country', null=True, blank=True)
 
 
-class Country(BaseModel):
+class Country(AbstractBaseModel):
     class Meta:
         verbose_name_plural = "Countries"
 
@@ -103,7 +113,7 @@ class Country(BaseModel):
     code = models.CharField(max_length=3, unique=True) #ISO 3166-1 alpha 2
 
 
-class PlaceOfStudy(BaseModel):
+class PlaceOfStudy(AbstractBaseModel):
     def __unicode__(self):
         return u"{institution}, {year}".format(
             institution=self.institution,
@@ -113,30 +123,29 @@ class PlaceOfStudy(BaseModel):
     institution = models.ForeignKey('dusken.Institution')
 
 
-class Institution(BaseModel):
+class Institution(AbstractBaseModel):
     def __unicode__(self):
         return u'%s - %s' % (self.short_name, self.name)
 
     name = models.CharField(max_length=255)
     short_name = models.CharField(max_length=16)
 
-class MemberMeta(BaseModel):
+class MemberMeta(AbstractBaseModel):
     key = models.CharField(max_length=255)
     value = models.TextField(blank=True)
     member = models.ForeignKey('dusken.Member')
 
-class Group(django.contrib.auth.models.Group):
+class GroupProfile(AbstractBaseModel):
     """
     django.contrib.auth.model.Group extended with additional fields.
     """
     def __unicode__(self):
-        return u"{} ({})".format(self.name, self.posix_name)
+        return u"{}".format(self.posix_name)
 
     posix_name = models.CharField(max_length=255, unique=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    group = models.OneToOneField(django.contrib.auth.models.Group)
 
-class Division(BaseModel):
+class Division(AbstractBaseModel):
     """
     Associations, comittee or similar
     """
@@ -147,9 +156,9 @@ class Division(BaseModel):
     is_active = models.BooleanField(default=True)
     members = models.ManyToManyField('dusken.Member', null=True, blank=True)
     parent = models.ForeignKey('self', null=True, blank=True, related_name='children')
-    groups = models.ManyToManyField('dusken.Group', null=True, blank=True) # permissions
+    groups = models.ManyToManyField(django.contrib.auth.models.Group, null=True, blank=True) # permissions
 
-class ServiceHook(BaseModel):
+class ServiceHook(AbstractBaseModel):
     """
     Events with callback_urls
     """

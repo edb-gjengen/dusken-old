@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from tastypie.api import Api
 
+from dusken.api.me import MeResource
 from dusken.api.member import MemberResource, MemberCreateResource
 from dusken.api.membership import MembershipResource
 from dusken.api.group import GroupResource
@@ -10,6 +11,7 @@ from dusken.api.institution import InstitutionResource
 admin.autodiscover()
 
 v1_api = Api(api_name='v1')
+v1_api.register(MeResource())
 v1_api.register(MemberResource())
 v1_api.register(MembershipResource())
 v1_api.register(GroupResource())

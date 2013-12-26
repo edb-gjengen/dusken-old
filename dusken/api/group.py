@@ -2,7 +2,7 @@ from django.conf.urls import url
 from tastypie.authorization import Authorization
 from tastypie.resources import ModelResource, ALL
 
-from dusken.models import Group
+from django.contrib.auth.models import Group
 from dusken.api.membersbygroup import MembersByGroupResource
 
 class GroupResource(ModelResource):

@@ -8,11 +8,12 @@
     }, 
     {
         "pk": 1, 
-        "model": "dusken.group", 
+        "model": "dusken.groupprofile", 
         "fields": {
             "updated": "2013-09-18T18:31:27.377Z", 
             "created": "2013-09-18T18:14:49.159Z", 
-            "posix_name": "EDB"
+            "posix_name": "EDB",
+            "group": 1
         }
     }, 
     {
@@ -24,11 +25,12 @@
     }, 
     {
         "pk": 2, 
-        "model": "dusken.group", 
+        "model": "dusken.groupprofile", 
         "fields": {
             "updated": "2013-09-18T18:32:02.861Z", 
             "created": "2013-09-18T18:32:02.861Z", 
-            "posix_name": "KAK"
+            "posix_name": "KAK",
+            "group": 2
         }
     }
 ]
