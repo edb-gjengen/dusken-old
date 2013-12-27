@@ -35,7 +35,7 @@ class Member(django.contrib.auth.models.AbstractUser):
         # FIXME more than one membership?
         # FIXME membership_type?
         membership = self.membership_set.filter(end_date__gt=datetime.datetime.now())
-        return len(membership) == 1 and membership.is_valid()
+        return len(membership) == 1 and membership[0].is_valid()
 
 class Membership(AbstractBaseModel):
     def __unicode__(self):
@@ -67,7 +67,7 @@ class MembershipType(AbstractBaseModel):
     is_active = models.BooleanField(default=True)
     does_not_expire = models.BooleanField(default=False)
 
-class PaymentType(AbstractBaseModel):
+class PaymentType(models.Model):
     def __unicode__(self):
         return u"{}".format(self.name)
 
@@ -77,7 +77,7 @@ class PaymentType(AbstractBaseModel):
 
 class Payment(AbstractBaseModel):
     def __unicode__(self):
-        return self.payment_type #TODO
+        return "{},- via {}".format(self.value, self.payment_type.name)
 
     # Note: More like tokens?
     payment_type = models.ForeignKey('dusken.PaymentType')
@@ -156,7 +156,7 @@ class Division(AbstractBaseModel):
     is_active = models.BooleanField(default=True)
     members = models.ManyToManyField('dusken.Member', null=True, blank=True)
     parent = models.ForeignKey('self', null=True, blank=True, related_name='children')
-    groups = models.ManyToManyField(django.contrib.auth.models.Group, null=True, blank=True) # permissions
+    groups = models.ManyToManyField(django.contrib.auth.models.Group, null=True, blank=True) # permissions # TODO remove this?
 
 class ServiceHook(AbstractBaseModel):
     """
