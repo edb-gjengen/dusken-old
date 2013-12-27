@@ -11,7 +11,7 @@ class AbstractBaseModel(models.Model):
     class Meta:
         abstract = True
     
-class Member(django.contrib.auth.models.AbstractUser):
+class Member(django.contrib.auth.models.AbstractUser, AbstractBaseModel):
     def __unicode__(self):
         if len(self.first_name) + len(self.last_name) > 0:
             return u'{first} {last} ({username})'.format(
@@ -25,8 +25,6 @@ class Member(django.contrib.auth.models.AbstractUser):
     legacy_id = models.IntegerField(null=True, blank=True)
     address = models.OneToOneField('dusken.Address', null=True, blank=True)
     place_of_study = models.ManyToManyField('dusken.PlaceOfStudy', null=True, blank=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
 
     def owner(self):
         return self
