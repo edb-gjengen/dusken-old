@@ -97,12 +97,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 # Our own User class used for authentication.
 AUTH_USER_MODEL = 'dusken.Member'
 
 TASTYPIE_DEFAULT_FORMATS = ['json']
+TASTYPIE_DATETIME_FORMATTING = 'iso-8601-strict' # no microseconds
+#TASTYPIE_FULL_DEBUG = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 # Allow Ajax calls only from tuple of domain:port

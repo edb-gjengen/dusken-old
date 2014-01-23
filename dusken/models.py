@@ -99,6 +99,9 @@ class Address(AbstractBaseModel):
     city = models.CharField(max_length=100)
     country = models.ForeignKey('dusken.Country', null=True, blank=True)
 
+    @property
+    def full(self):
+        return self.__unicode__()
 
 class Country(AbstractBaseModel):
     class Meta:

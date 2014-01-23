@@ -11,3 +11,8 @@ class AddressResource(ModelResource):
         resource_name = 'address'
         authorization = MyDjangoAuthorization()
         authentication = OAuth20Authentication()
+
+    def dehydrate(self, bundle):
+        bundle.data['full'] = bundle.obj.full
+
+        return bundle
