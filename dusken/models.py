@@ -2,7 +2,6 @@ import django
 import datetime
 
 from django.db import models
-from tastypie.models import create_api_key
 
 class AbstractBaseModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -174,5 +173,4 @@ class ServiceHook(AbstractBaseModel):
 
 # SIGNALS #
 ###########
-models.signals.post_save.connect(create_api_key, sender=Member)
 
