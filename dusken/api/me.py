@@ -15,10 +15,10 @@ class MeResource(ModelResource):
     This class provides following endpoint:
       /api/v1/me/
     """
-    groups = fields.ToManyField(GroupResource, 'groups', full=True)
-    divisions = fields.ToManyField(DivisionResource, 'division_set', full=True)
-    memberships = fields.ToManyField(MembershipResource, 'membership_set', full=True)
-    address = fields.ForeignKey(AddressResource, 'address', full=True)
+    groups = fields.ToManyField(GroupResource, 'groups', full=True, null=True)
+    divisions = fields.ToManyField(DivisionResource, 'division_set', full=True, null=True)
+    memberships = fields.ToManyField(MembershipResource, 'membership_set', full=True, null=True)
+    address = fields.ForeignKey(AddressResource, 'address', full=True, null=True)
 
     class Meta:
         queryset = Member.objects.all()
