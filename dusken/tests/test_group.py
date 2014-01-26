@@ -1,8 +1,8 @@
-from tastypie.models import ApiKey
-from dusken.utils.tests import test_fixtures_group, do_get_request, do_post_request
-
 from tastypie.test import ResourceTestCase
+
+from dusken.authentication import create_access_token
 from dusken.models import Member
+from dusken.utils.tests import test_fixtures_group, do_get_request, do_post_request
 
 
 class GroupTest(ResourceTestCase):
@@ -15,9 +15,8 @@ class GroupTest(ResourceTestCase):
     def setUp(self):
         self.member = Member.objects.get(pk=2)
 
-        self.creds = self.create_apikey(
-                username=self.member.username,
-                api_key=ApiKey.objects.get(user=self.member).key)
+        # Put OAuth2 Authorization in HTTP header
+        self.creds = create_access_token(self.member)
 
         super(GroupTest, self).setUp()
 

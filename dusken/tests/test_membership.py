@@ -76,7 +76,7 @@ class MembershipTest(ResourceTestCase):
     ### JSON Responses
     def expected_memberships(self):
         return [{
-                u'created': u'2013-09-11T20:45:13.341000',
+                u'created': u'2013-09-11T20:45:13',
                 u'expires': u'2013-09-11',
                 u'id': 1,
                 u'member': 2,
@@ -84,12 +84,12 @@ class MembershipTest(ResourceTestCase):
                 u'payment': None,
                 u'resource_uri': u'/api/v1/membership/1/',
                 u'start_date': u'2013-09-11',
-                u'updated': u'2013-09-11T20:45:13.341000'
+                u'updated': u'2013-09-11T20:45:13'
             },
             {
                 u'membership_type': 1, 
-                u'updated': u'2013-09-11T20:45:30.084000', 
-                u'created': u'2013-09-11T20:45:30.084000', 
+                u'updated': u'2013-09-11T20:45:30', 
+                u'created': u'2013-09-11T20:45:30', 
                 u'expires': u'2013-09-11', 
                 u'id': 2, u'member': 2, 
                 u'start_date': u'2013-09-15', 
@@ -98,8 +98,8 @@ class MembershipTest(ResourceTestCase):
             },
             {
                 u'membership_type': 2, 
-                u'updated': u'2013-09-11T20:45:53.522000', 
-                u'created': u'2013-09-11T20:45:53.522000', 
+                u'updated': u'2013-09-11T20:45:53', 
+                u'created': u'2013-09-11T20:45:53', 
                 u'expires': u'2013-09-11', 
                 u'id': 3, 
                 u'member': 2, 
@@ -110,7 +110,7 @@ class MembershipTest(ResourceTestCase):
 
     def expected_membership(self):
         return {
-                u'created': u'2013-09-11T20:45:13.341000',
+                u'created': u'2013-09-11T20:45:13',
                 u'expires': u'2013-09-11',
                 u'id': 1,
                 u'member': 2,
@@ -118,7 +118,7 @@ class MembershipTest(ResourceTestCase):
                 u'payment': None,
                 u'resource_uri': u'/api/v1/membership/1/',
                 u'start_date': u'2013-09-11',
-                u'updated': u'2013-09-11T20:45:13.341000'
+                u'updated': u'2013-09-11T20:45:13'
             }
 
     def expected_membership_with_payment(self):
