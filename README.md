@@ -20,11 +20,13 @@ You can find the documentation at [dusken.readthedocs.org](http://dusken.readthe
     ./manage.py syncdb --all
     ./manage.py runserver
 
+If Django is running under Apache and mod_wsgi you need `WSGIPassAuthorization On` in your VirtualHost.
+
 See [the EDB wiki](http://edb.neuf.no/wiki/index.php/DUSKEN) for more info.
  
 ## Development tasks
     # Reset DB
-    python manage.py reset_db --router=default && python manage.py syncdb --all
+    python manage.py reset_db --router=default --noinput && python manage.py syncdb --all
 
     # Generate Fixtures for Test
     python manage.py dumpdata dusken.<model> -n --indent=4 > dusken/fixtures/<model>.json
